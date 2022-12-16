@@ -1,0 +1,81 @@
+import odrive
+
+odrv0 = odrive.find_any()
+
+#odrv0.config.enable_brake_resistor = True
+
+odrv0.axis0.motor.config.pole_pairs = True
+
+odrv0.config.dc_bus_overvoltage_trip_level = 40
+odrv0.config.dc_max_positive_current = 5.56
+odrv0.config.dc_max_negative_current = -1
+
+odrv0.config.brake_resistor0.resistance = 2 # resistance in Ohms
+odrv0.config.brake_resistor0.enable = True
+odrv0.save_configuration()
+
+odrv0.axis0.config.motor.motor_type = MotorType.HIGH_CURRENT
+odrv0.axis0.config.motor.pole_pairs = 7
+odrv0.axis0.config.motor.torque_constant = 8.27 / 150
+odrv0.axis0.requested_state = AxisState.MOTOR_CALIBRATION
+# [wait for end of motor beep]
+odrv0.save_configuration()
+
+# Thermistor config is not currently supported in the GUI
+set_motor_thermistor_coeffs(odrv0.axis0, Rload=1000, R_25=10000, Beta=3435, Tmin=-10, Tmax=150, thermistor_bottom=True)
+# thermistor must be connected
+odrv0.axis0.motor_thermistor.config.enabled = True
+odrv0.save_configuration()
+
+odrv0.axis0.config.motor.current_soft_max = 4.5# [A] (adapt this to your motor)
+odrv0.axis0.config.motor.current_hard_max = 5.56 # [A] (should be more than soft max)
+
+odrv0.axis0.controller.config.vel_limit = 2 # [turn/s]
+
+odrv0.axis0.motor_thermistor.config.temp_limit_lower = 100 # °C (adapt this to your motor)
+odrv0.axis0.motor_thermistor.config.temp_limit_upper = 120 # °C (adapt this to your motor)
+ 
+
+odrv0.inc_encoder0.config.cpr = 8192
+odrv0.inc_encoder0.config.enabled = True
+odrv0.axis0.config.load_encoder = EncoderId.INC_ENCODER0
+odrv0.axis0.config.commutation_encoder = EncoderId.INC_ENCODER0
+odrv0.config.gpio7_mode = GpioMode.DIGITAL
+odrv0.axis0.commutation_mapper.config.index_gpio = 7
+odrv0.axis0.commutation_mapper.config.use_index_gpio = True
+odrv0.config.gpio7_mode = GpioMode.DIGITAL
+
+# if you don't use absolute position setpoints you can skip pos_vel_mapper configuration
+odrv0.axis0.pos_vel_mapper.config.index_gpio = 7
+odrv0.axis0.pos_vel_mapper.config.use_index_gpio = True
+odrv0.axis0.pos_vel_mapper.config.index_offset = 0
+odrv0.axis0.pos_vel_mapper.config.index_offset_valid = True
+
+odrv0.save_configuration()
+# [wait for ODrive to reboot]
+odrv0.axis0.requested_state = AxisState.ENCODER_INDEX_SEARCH
+# [wait for motor to stop]
+odrv0.axis0.requested_state = AxisState.ENCODER_OFFSET_CALIBRATION
+# [wait for motor to stop]
+odrv0.save_configuration()
+# [wait for ODrive to reboot]
+odrv0.axis0.requested_state = AxisState.ENCODER_INDEX_SEARCH
+# [wait for motor to stop]
+
+odrv0.save_configuration()
+# [wait for ODrive to reboot]
+odrv0.axis0.requested_state = AxisState.ENCODER_INDEX_SEARCH
+# [wait for motor to stop]
+odrv0.axis0.requested_state = AxisState.ENCODER_OFFSET_CALIBRATION
+# [wait for motor to stop]
+odrv0.save_configuration()
+# [wait for ODrive to reboot]
+odrv0.axis0.requested_state = AxisState.ENCODER_INDEX_SEARCH
+# [wait for motor to stop]
+
+odrv0.axis0.pos_vel_mapper.pos_rel
+
+AxisState.CLOSED_LOOP_CONTROL
+
+odrv0.axis0.controller.config.circular_setpoints_range = 0.5
+
