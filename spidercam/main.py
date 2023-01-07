@@ -2,7 +2,7 @@ import math
 import argparse
 from spidercam import * 
 
-class RealSpidercamFactory():
+class OdriveFactory():
     
     def __init__(self, field_width, field_height):
         real_diameter = 0.03 # 3 cm
@@ -29,7 +29,7 @@ class RealSpidercamFactory():
         return Filesystem('.')
 
 
-class TestSpidercamFactory():
+class TestFactory():
     
     def __init__(self, field_width, field_height):
         self.field_width = field_width
@@ -59,21 +59,19 @@ def main():
     parser.add_argument("-t", "--test", help="Run test code", action="store_true")
     args = parser.parse_args()
 
-    # The factory groups all the specifics. All the remainin code
-    # should be generic.
+    # The factory encapsulates all the specifics of the hardware platform. 
     if args.test:
-        factory = TestSpidercamFactory(args.field_width, args.field_height)
+        factory = TestFactory(args.field_width, args.field_height)
     else:
-        factory = RealSpidercamFactory(args.field_width, args.field_height)
+        factory = OdriveFactory(args.field_width, args.field_height)
         
+    # From here on, all the code should be generic.
     motors = factory.get_motors()
     camera = factory.get_camera()
     filesystem = factory.get_filesystem()
+    device = SpiderCam(args.field_width, args.field_height, motors, camera, filesystem)
 
-    # Create the SpiderCam
-    device = SpiderCam(field_width, field_height, motors, camera, filesystem)
-
-    device.moveto(field_width/2, field_height/2)
+    device.moveto(args.field_width/2, args.field_height/2)
     device.grab()
     
 if __name__ == "__main__":
