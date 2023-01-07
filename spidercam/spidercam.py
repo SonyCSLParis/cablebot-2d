@@ -3,6 +3,7 @@ import os
 from abc import ABC, abstractmethod
 import numpy as np
 import cv2
+import odrive
 
 # Interfaces
 
@@ -15,6 +16,7 @@ class IMotorController(ABC):
     def get_motor(self, index):
         pass
 
+    
 class IMotor(ABC):    
     @abstractmethod
     def moveto(self, absolute_position, speed):
@@ -28,38 +30,46 @@ class IMotor(ABC):
     def get_position(self):
         pass
     
+
 class ICamera(ABC):    
     @abstractmethod
     def grab(self):
         pass
+
 
 class IFilesystem(ABC):    
     @abstractmethod
     def store(self, image):
         pass
 
+
+class ISpiderCam(ABC):    
+    def moveto(self, absolute_x, absolute_y):
+        pass
+        
+    def grab(self):
+        pass
+        
+    
 # Top level objects 
 
-class Box():    
-    def __init__(self, motor):
-        self.motor = motor
-        
-    def moveto(self, x, speed):
-        self.motor.moveto(x, speed)
-
-
-class SpiderCam():    
-    def __init__(self, width, length, motors, camera, filesystem):
+class SpiderCam(ISpiderCam):    
+    def __init__(self, width, height, motors, camera, filesystem):
         self.width = width
-        self.length = length
+        self.height = height
         self.motors = motors
         self.camera = camera
         self.filesystem = filesystem
         
     def moveto(self, x, y):
+        self._assert_position(x, y)
         positions, speeds = self._compute_positions_and_speeds(x, y)
         for i in range(4):
             self.motors[i].moveto(positions[i], speeds[i])
+            
+    def _assert_position(self, x, y):
+        if x < 0 or x > self.width or y < 0 or y > self.height:
+            raise ValueError(f'Position out of bounds: ({x},{y})')            
         
     def grab(self):
         image = self.camera.grab()
@@ -82,8 +92,8 @@ class FakeMotorController(IMotorController):
         2
 
     def get_motor(self, index):
-        if index < 0 or index > 1:
-              raise ValueError(f'Index out of bounds: {index}')
+        if index < 0 or index >= self.count_motors():
+            raise ValueError(f'Index out of bounds: {index}')
         return FakeMotor(0, self.xmax, self.vmax)
 
     
@@ -95,9 +105,9 @@ class FakeMotor(IMotor):
         
     def moveto(self, absolute_position, speed):
         if absolute_position < 0 or absolute_position > self.xmax:
-              raise ValueError(f'Position out of bounds: {absolute_position}')
+            raise ValueError(f'Position out of bounds: {absolute_position}')
         if math.fabs(speed) > self.vmax:
-              raise ValueError(f'Speed out of bounds: {speed}')
+            raise ValueError(f'Speed out of bounds: {speed}')
         self.x = absolute_position
         print(f'New position x={self.x}')
 
@@ -157,34 +167,77 @@ class Filesystem(IFilesystem):
         self.counter += 1
         return path
 
+
 # Odrive implementation
     
 class OdriveBoard(IMotorController):    
-    def __init__(self, serial_id):
-        pass
-              
+    def __init__(self, serial_id, distance_per_revolution):
+        # Connect and initialise ODrive board
+        this.odrive = odrive.find_any(serial_number=serial_id)
+        this.motors = [None, None]
+        this.motors[0] = OdriveMotor(self.odrive.axis0, distance_per_revolution) 
+        this.motors[1] = OdriveMotor(self.odrive.axis1, distance_per_revolution) 
+        raise NotImplementedError
+    
     def count_motors(self):
         2
 
     def get_motor(self, index):
-        pass
-        
+        if index < 0 or index >= self.count_motors():
+              raise ValueError(f'Index out of bounds: {index}')
+        return this.motors[index]
+
+    
 class OdriveMotor(IMotor):    
-    def __init__(self, axis):
-        self.axis = axis
+    def __init__(self, odrive_axis, distance_per_revolution):
+        self.axis = odrive_axis
+        self.distance_per_revolution = distance_per_revolution
+        # Initialise ODrive axis/motor 
+        raise NotImplementedError
               
     def moveto(self, absolute_position, speed):
-        pass
+        position = self._convert_distance_to_odrive_position(absolute_position)
+        # Send moveto command to ODrive 
+        raise NotImplementedError
 
     def move(self, relative_distance, speed):
-        pass
+        # Send move command to ODrive 
+        raise NotImplementedError
         
     def get_position(self):
-        pass
+        return self._convert_odrive_position_to_distance(self._get_odrive_position())
+        
+    def _get_odrive_position(self):
+        # Get move command to ODrive 
+        raise NotImplementedError
+        
+    def _convert_distance_to_odrive_position(self, x):
+        return x / self.distance_per_revolution
+        
+    def _convert_odrive_position_to_distance(self, x):
+        return x * self.distance_per_revolution
     
+
 # Remote implementations
 
-class RemoteCamera(ICamera):    
+class RemoteCamera(ICamera):
+    def __init__(self):
+        raise NotImplementedError
+        
     def grab(self):
-        pass
+        raise NotImplementedError
+
+    
+class RemoteMotor(IMotor):    
+    def __init__(self):
+        raise NotImplementedError
+        
+    def moveto(self, absolute_position, speed):
+        raise NotImplementedError
+
+    def move(self, relative_distance, speed):
+        raise NotImplementedError
+
+    def get_position(self):
+        raise NotImplementedError
 
