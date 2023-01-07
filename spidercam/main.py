@@ -54,8 +54,8 @@ class TestFactory():
     
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--field-width", default=30) 
-    parser.add_argument("--field-height", default=30)
+    parser.add_argument("--field-width", default=10) 
+    parser.add_argument("--field-height", default=10)
     parser.add_argument("-t", "--test", help="Run test code", action="store_true")
     args = parser.parse_args()
 
@@ -71,8 +71,11 @@ def main():
     filesystem = factory.get_filesystem()
     device = SpiderCam(args.field_width, args.field_height, motors, camera, filesystem)
 
-    device.moveto(args.field_width/2, args.field_height/2)
-    device.grab()
+    # Test move & grab
+    for x in range(args.field_width):
+        for y in range(args.field_height):
+            device.moveto(x, y)
+            device.grab()
     
 if __name__ == "__main__":
     main()
