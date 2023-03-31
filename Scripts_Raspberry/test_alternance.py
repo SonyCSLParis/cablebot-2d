@@ -69,27 +69,37 @@ try:
         print("Fin.")
     
     #odrv0.save_configuration()
-    
-
     while True:
-        odrv0.axis0.controller.config.control_mode = od.CONTROL_MODE_VELOCITY_CONTROL
-        vit = input("Quel vitesse? Tapper s pour quitter")
-        if vit == "s":
+        TEST=int(input("Quel test réaliser? \n 1= alternance couple/vitesse automatique sans raz \n 2= alterance couple/vitesse avec raz \n 3 quitter"))
+        if TEST == 3:
             break
-        else: 
-            odrv0.axis0.controller.input_vel = float(vit)
-        
-        time.sleep(2)
-        
-        odrv0.axis0.controller.config.control_mode = 1 #torque control
-        # Approximately 8.23 / Kv where Kv is in the units [rpm / V]
-        odrv0.axis0.motor.config.torque_constant = 8.23 / 150
-        couple = input("Quel couple? Tapper s pour quitter")
-        if couple == "s":
-            break
+        elif TEST == 1:
+            i=0
+            while i<20:
+                odrv0.axis0.controller.config.control_mode = od.CONTROL_MODE_VELOCITY_CONTROL
+                odrv0.axis0.controller.input_vel = 6
+                time.sleep(2)
+                odrv0.axis0.controller.config.control_mode = 1 #torque control
+                # Approximately 8.23 / Kv where Kv is in the units [rpm / V]
+                odrv0.axis0.motor.config.torque_constant = 8.23 / 150
+                odrv0.axis0.controller.input_torque = -0.02
+                time.sleep(2)
+                i+=1
+        elif TEST == 2:
+            i=0
+            while i<20:
+                odrv0.axis0.controller.config.control_mode = od.CONTROL_MODE_VELOCITY_CONTROL
+                odrv0.axis0.controller.input_vel = 6
+                time.sleep(2)
+                odrv0.axis0.controller.input_vel = 0
+                odrv0.axis0.controller.config.control_mode = 1 #torque control
+                # Approximately 8.23 / Kv where Kv is in the units [rpm / V]
+                odrv0.axis0.motor.config.torque_constant = 8.23 / 150
+                odrv0.axis0.controller.input_torque = -0.02
+                time.sleep(2)
+                odrv0.axis0.controller.input_torque = 0
+                i+=1
         else :
-            odrv0.axis0.controller.input_torque = float(couple)
-        time.sleep(2)
-            
+            print("ceci n'est pas un des choix proposés")
 except BaseException as e:  
     print("Erreur survenue : {}".format(e))
