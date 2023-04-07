@@ -162,14 +162,14 @@ class OdriveMot:
 
             # Calibration du moteur et de l'encodeur
             ax.requested_state = od.AXIS_STATE_FULL_CALIBRATION_SEQUENCE
-            print("fulle calibration")
+            print("full calibration")
             time.sleep(10)
             # Attendre que la séquence de calibration soit terminée
             while ax.current_state != od.AXIS_STATE_IDLE:
                 time.sleep(0.1)
 
             # Définir l'état actuel de l'axe
-            ax.requested_state = od.AXIS_STATE_CLOSED_LOOP_CONTROL
+            ax.requested_state = 3
             time.sleep(1)
             print("close control")
             
@@ -224,6 +224,7 @@ class OdriveMot:
                 print("Couple invalide!")
                 return -1
             #self.state=False
+            print("OUF ça tire fort")
             self.odrv.axis0.controller.input_torque = val
             time.sleep(T)
             self.odrv.axis0.controller.input_torque = 0
