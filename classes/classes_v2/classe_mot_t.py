@@ -207,7 +207,7 @@ class OdriveMot:
         if T<=0:
             print("Erreur temps invalide")
             return -1
-        elif self.mode=="V":
+        elif self.mode=="v":
             if val>self.vmax:
                 print("Consigne trop rapide")
                 return -1
@@ -218,7 +218,7 @@ class OdriveMot:
             self.odrv.axis0.controller.input_vel = float(0)
             #self.state=True
             return 0
-        elif self.mode=="T":
+        elif self.mode=="t":
             if val>self.tmax:
                 print("Couple invalide!")
                 return -1
