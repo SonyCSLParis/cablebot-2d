@@ -26,10 +26,6 @@ class AntenneT:
         print ("{} connected".format( self.address ))
         a=True
         test_mot=self.mot.get()
-        while self.mot.state==True:
-            pass
-        while self.mot.state==False:
-            pass
         if test_mot <0:
             print("erreur moteur non attaché")
             print ("Close")
