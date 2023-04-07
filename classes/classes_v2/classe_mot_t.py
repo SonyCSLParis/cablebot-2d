@@ -184,14 +184,17 @@ class OdriveMot:
      
     def switch_mode(self,mod):
         if mod==self.mode:
+            print("mode inchangé")
             return 0
         if mod=="v":    
             self.odrv.axis0.controller.config.control_mode = od.CONTROL_MODE_VELOCITY_CONTROL
             self.mode=mod
+            print("mode passé en vitesse")
             return 0
         elif mod=="t":    
             self.odrv.axis0.controller.config.control_mode = 1
             self.mode=mod
+            print("mode passé en couple")
             return 0
         else:
             print("Ceci n'est pas un mode valide")

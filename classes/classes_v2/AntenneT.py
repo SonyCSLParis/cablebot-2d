@@ -37,8 +37,7 @@ class AntenneT:
                 mes=str(mes)
                 if mes != "b''":
                     test=self.mot.run_m(mes)
-                    while self.mot.state==False:
-                        pause(0.05)
+                    print("test: ", test)
                     if test==False:
                         print("fermeture de serveur")
                         self.socket.settimeout(1)
