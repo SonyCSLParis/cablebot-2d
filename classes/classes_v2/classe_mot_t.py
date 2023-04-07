@@ -136,7 +136,7 @@ class OdriveMot:
         self.odrv=None
         self.vmax=vmax
         self.cmax=cmax
-        self.mode=None
+        self.mode='v'
         self.tmax=tmax
         self.state=True
     
@@ -170,6 +170,9 @@ class OdriveMot:
             # Définir l'état actuel de l'axe
             ax.requested_state = od.AXIS_STATE_CLOSED_LOOP_CONTROL
             
+            #initaliser le mode de contrôle
+            self.odrv.axis0.controller.config.control_mode = od.CONTROL_MODE_VELOCITY_CONTROL
+            
             
             print("Initialisation du moteur terminée.")
             self.state=True
@@ -180,6 +183,8 @@ class OdriveMot:
             return -1
      
     def switch_mode(self,mod):
+        if mod==self.mode:
+            return 0
         if mod=="v":    
             self.odrv.axis0.controller.config.control_mode = od.CONTROL_MODE_VELOCITY_CONTROL
             self.mode=mod
