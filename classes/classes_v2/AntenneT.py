@@ -26,9 +26,9 @@ class AntenneT:
         print ("{} connected".format( self.address ))
         a=True
         self.mot.get()
-        while self.mot.state==False:
-            pass
         while self.mot.state==True:
+            pass
+        while self.mot.state==False:
             pass
         while a==True:
                 mes = self.client.recv(255)
