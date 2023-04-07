@@ -25,11 +25,17 @@ class AntenneT:
     def run(self):
         print ("{} connected".format( self.address ))
         a=True
-        self.mot.get()
+        test_mot=self.mot.get()
         while self.mot.state==True:
             pass
         while self.mot.state==False:
             pass
+        if test_mot <0:
+            print("erreur moteur non attaché")
+            print ("Close")
+            self.client.close()
+            self.socket.close()
+            return
         while a==True:
                 mes = self.client.recv(255)
                 mes=str(mes)

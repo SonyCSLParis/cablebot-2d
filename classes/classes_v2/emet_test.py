@@ -19,6 +19,7 @@ port1 = 15555
 emet=ant.EmmeteurT(hoste, port1)
 
 emet.connect()
+time.sleep(10)
 Pos=t.pos_lig()
 Tour=[0,8]
 for i in range(len(Pos)):
