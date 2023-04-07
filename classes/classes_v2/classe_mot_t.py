@@ -180,11 +180,11 @@ class OdriveMot:
             return -1
      
     def switch_mode(self,mod):
-        if mod=="V":    
+        if mod=="v":    
             self.odrv.axis0.controller.config.control_mode = od.CONTROL_MODE_VELOCITY_CONTROL
             self.mode=mod
             return 0
-        elif mod=="T":    
+        elif mod=="t":    
             self.odrv.axis0.controller.config.control_mode = 1
             self.mode=mod
             return 0
