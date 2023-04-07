@@ -145,35 +145,36 @@ class OdriveMot:
             # Recherche d'un ODrive connecté
             #self.state=False
             self.odrv = odrive.find_any()
-            ax=self.odrv.axis0
-            # Configuration du moteur
-            ax.motor.config.current_lim = self.cmax # Limite de courant (A)
-            ax.motor.config.calibration_current = 5.0 # Courant de calibration (A)
-            ax.motor.config.pole_pairs = 7 # Nombre de paires de pôles
-            ax.motor.config.motor_type = od.MOTOR_TYPE_HIGH_CURRENT # Type de moteur
-            ax.encoder.config.mode = od.ENCODER_MODE_HALL # Mode d'encodeur
-            ax.controller.config.vel_limit = self.vmax # Limite de vitesse (tr/min)
-            ax.motor.config.torque_constant = 8.23 / 150
-
+            odrv0=self.odrv
             # Configuration de l'encodeur
-            ax.encoder.config.cpr = 42 # Résolution de l'encodeur (impulsions/tour)
+            print("2. Configuration de l'encodeur")
+            odrv0.axis0.encoder.config.cpr = 8192 # Resolution de l'encodeur (impulsions/tour)
+            odrv0.axis0.encoder.config.mode = od.ENCODER_MODE_INCREMENTAL
+        
+            # Configuration du moteur
+            print("3. Configuration du moteur")
+            odrv0.axis0.motor.config.current_lim = 15.0 # Limite de courant (A)
+            odrv0.axis0.motor.config.calibration_current = 5.0 # Courant de calibration (A)
+            odrv0.axis0.motor.config.pole_pairs = 7 # Nombre de paires de poles
+            odrv0.axis0.motor.config.motor_type = od.MOTOR_TYPE_HIGH_CURRENT # Type de moteur
+            odrv0.axis0.controller.config.vel_limit = 100 # Limite de vitesse (tr/min)
 
             # Calibration du moteur et de l'encodeur
-            ax.requested_state = od.AXIS_STATE_FULL_CALIBRATION_SEQUENCE
-            print("full calibration")
-            time.sleep(10)
-            # Attendre que la séquence de calibration soit terminée
-            while ax.current_state != od.AXIS_STATE_IDLE:
+            print("4. AXIS_STATE_FULL_CALIBRATION_SEQUENCE")
+            odrv0.axis0.requested_state = od.AXIS_STATE_FULL_CALIBRATION_SEQUENCE
+
+            # Attendre que la sequence de calibration soit terminee
+            print("5. while not AXIS_STATE_IDLE")
+            while odrv0.axis0.current_state != od.AXIS_STATE_IDLE:
                 time.sleep(0.1)
 
             # Définir l'état actuel de l'axe
-            ax.requested_state = od.AXIS_STATE_CLOSED_LOOP_CONTROL
-            time.sleep(1)
-            print("close control")
+            print("6. AXIS_STATE_CLOSED_LOOP_CONTROL")
+            odrv0.axis0.requested_state = od.AXIS_STATE_CLOSED_LOOP_CONTROL
             
-            #initaliser le mode de contrôle
+            #initialisation mode de contrôle
+            print("passage en mode velocity")
             self.odrv.axis0.controller.config.control_mode = od.CONTROL_MODE_VELOCITY_CONTROL
-            
             
             print("Initialisation du moteur terminée.")
             #self.state=True
