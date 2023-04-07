@@ -28,7 +28,7 @@ class AntenneT:
         while a==True:
                 mes = self.client.recv(255)
                 mes=str(mes)
-                if mes != b'':
+                if mes != "b''":
                     test=self.mot.run_m(mes)
                     while self.mot.state==False:
                         pause(0.05)
@@ -36,6 +36,8 @@ class AntenneT:
                         print("fermeture de serveur")
                         self.socket.settimeout(1)
                         a=False
+                else:
+                    a=False
         print ("Close")
         self.client.close()
         self.socket.close()
@@ -65,7 +67,7 @@ class EmmeteurT:
         self.socket.send(mes.encode())
         mes="G "+str(val)+" "+str(T)
         self.socket.send(mes.encode())
-        time.sleep(0.2)
+        time.sleep(0.5)
         return
     
     def resume(self):

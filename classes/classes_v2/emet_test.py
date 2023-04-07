@@ -19,26 +19,29 @@ port1 = 15555
 emet=ant.EmmeteurT(hoste, port1)
 
 emet.connect()
-Pos=t.pis_lig()
+Pos=t.pos_lig()
 Tour=[0,8]
 for i in range(len(Pos)):
     L=t.calcul_pos_mot_ligne(Pos)
     Mot=t.calc_tour_ligne(L,Tour)
     
-
-for i in range (len(Pos)):
-    if (Mot[i][0]<0):
+print("len MOT: ",len(Mot))
+for i in range (len(Mot)):
+    print("Mot: ",Mot[i][0])
+    if (Mot[i][0]<=0):
         mode='t'
         val=0.2
+        T=0
     else:
         mode='v'
         T=t.calc_t(Mot[i][0])
-        print(T)
+        #print(T)
         val=t.calc_vit(T,Mot[i][0])
     
     emet.pilote(val, T, mode)
-    time.sleep(0.5)
+    time.sleep(T)
 
+emet.resume()
 time.sleep(2)
 emet.end()
 

@@ -110,14 +110,16 @@ class FakeMotorT:
         return
     
     def resume(self):
+        print(self.X)
         plt.figure(1)
-        plt.title("graph resume des consignes du moteur "+self.name)
+        plt.title("graph resume des consignes de vitesse "+self.name)
         plt.plot(self.X,self.V,c="blue",ls="-",marker="+")
         pause(0.5)
+        plt.figure(2)
+        plt.title("graph resume des consignes de couple "+self.name)
         plt.plot(self.X,self.T,c="red",ls="-",marker="+")
         plt.xlabel("position")
         plt.ylabel("Valeur")
-        plt.legend("Vitesse","Torque")
         plt.show(block=False)
 
 

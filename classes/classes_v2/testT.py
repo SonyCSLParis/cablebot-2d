@@ -107,10 +107,9 @@ def pos_lig():
 def calcul_pos_mot_ligne(Cons):
     
     L=[]
-    for i in range (len(Mot)):
-        point=Cons[i]
-        x=point[0]
-        y=point[1]
+    for i in Cons:
+        x=i[0]
+        y=i[1]
         l1=mp.sqrt(x**2+y**2)
         l2=mp.sqrt((5-x)**2+y**2)
         l=(l1,l2)
@@ -137,6 +136,8 @@ def calc_t(C):
     return T
 
 def calc_vit(T,C):
+    if T==0:
+        return 0
     return C/T
 
 def calc_torque(angle, l):
