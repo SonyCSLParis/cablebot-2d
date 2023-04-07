@@ -147,8 +147,6 @@ class OdriveMot:
             self.odrv = odrive.find_any()
             ax=self.odrv.axis0
             # Configuration du moteur
-            # Définir le mode de contrôle
-            ax.controller.config.control_mode = od.CONTROL_MODE_VELOCITY_CONTROL
             ax.motor.config.current_lim = self.cmax # Limite de courant (A)
             ax.motor.config.calibration_current = 5.0 # Courant de calibration (A)
             ax.motor.config.pole_pairs = 7 # Nombre de paires de pôles
