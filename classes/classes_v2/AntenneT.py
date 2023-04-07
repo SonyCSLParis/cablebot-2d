@@ -71,6 +71,7 @@ class EmmeteurT:
     def pilote(self, val, T, mode):
         mes="S "+mode
         self.socket.send(mes.encode())
+        time.sleep(1)
         mes="G "+str(val)+" "+str(T)
         self.socket.send(mes.encode())
         time.sleep(0.5)

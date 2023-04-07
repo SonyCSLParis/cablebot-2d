@@ -40,7 +40,7 @@ for i in range (len(Mot)):
         val=t.calc_vit(T,Mot[i][0])
     
     emet.pilote(val, T, mode)
-    time.sleep(10)
+    time.sleep(T+1)
 
 #emet.resume()
 time.sleep(2)

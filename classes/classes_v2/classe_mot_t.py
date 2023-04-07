@@ -213,9 +213,9 @@ class OdriveMot:
                 return -1
             #self.state=False
             print("vroum vroum ça tourne")
-            self.odrv.axis0.controller.input_vel = val
+            self.odrv.axis0.controller.input_vel = float(val)
             time.sleep(T)
-            self.odrv.axis0.controller.input_vel = 0
+            self.odrv.axis0.controller.input_vel = float(0)
             #self.state=True
             return 0
         elif self.mode=="T":
@@ -224,9 +224,9 @@ class OdriveMot:
                 return -1
             #self.state=False
             print("OUF ça tire fort")
-            self.odrv.axis0.controller.input_torque = val
+            self.odrv.axis0.controller.input_torque = float(val)
             time.sleep(T)
-            self.odrv.axis0.controller.input_torque = 0
+            self.odrv.axis0.controller.input_torque = float(0)
             #self.state=True
             return 0
         
@@ -237,6 +237,7 @@ class OdriveMot:
     def run_m(self,mess):
         mode=mess[2]
         print(mess)
+        print("mode: ",mode)
         """
         Cas END
         """
@@ -259,6 +260,7 @@ class OdriveMot:
         Cas Go
         """
         if (mode=="G"):
+            print("go mode activate")
             i=4
             test=mess[i]
             val=[]
