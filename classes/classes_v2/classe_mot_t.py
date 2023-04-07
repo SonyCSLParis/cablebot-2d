@@ -26,6 +26,9 @@ class FakeMotorT:
         self.T=[0]
         self.state=True
     
+    def get(self):
+        print("connection")
+        
     def run_m(self, mess):
         mode=mess[2]
         print(mess)
@@ -73,7 +76,8 @@ class FakeMotorT:
         Cas Resume
         """
         if (mode=="R"):
-            self.resume()
+            #self.resume()
+            print("resume")
     
     def switch_mode(self, m):
         if m=='v':
@@ -122,7 +126,7 @@ class FakeMotorT:
         plt.xlabel("position")
         plt.ylabel("Valeur")
         plt.show(block=False)
-"""
+    """
 
 
 class OdriveMot:
@@ -132,10 +136,12 @@ class OdriveMot:
         self.cmax=cmax
         self.mode=None
         self.tmax=tmax
+        self.state=False
     
     def get(self):
         try:
             # Recherche d'un ODrive connecté
+            self.state=True
             self.odrv = odrive.find_any()
             ax=self.odrv.axis0
             # Configuration du moteur
@@ -164,6 +170,7 @@ class OdriveMot:
             
             
             print("Initialisation du moteur terminée.")
+            self.state=False
             return 0
 
         except Exception as e:
@@ -192,17 +199,21 @@ class OdriveMot:
             if val>self.vmax:
                 print("Consigne trop rapide")
                 return -1
+            self.state=True
             self.odrv.axis0.controller.input_vel = val
             time.sleep(T)
             self.odrv.axis0.controller.input_vel = 0
+            self.state=False
             return 0
         elif self.mode=="T":
             if val>self.tmax:
                 print("Couple invalide!")
                 return -1
+            self.state=True
             self.odrv.axis0.controller.input_torque = val
             time.sleep(T)
             self.odrv.axis0.controller.input_torque = 0
+            self.state=False
             return 0
         
     def end(self):

@@ -30,8 +30,8 @@ for i in range (len(Mot)):
     print("Mot: ",Mot[i][0])
     if (Mot[i][0]<=0):
         mode='t'
-        val=0.2
-        T=0
+        val=0.08
+        T=2
     else:
         mode='v'
         T=t.calc_t(Mot[i][0])

@@ -137,13 +137,13 @@ def calc_t(C):
 
 def calc_vit(T,C):
     if T==0:
-        return 0
+        return 2
     return C/T
 
 def calc_torque(angle, l):
     #P=1/4;
     #return P*mp.sin(angle)*l
-    return 0.2
+    return 0.08
 
 
 if __name__=="__main__":
