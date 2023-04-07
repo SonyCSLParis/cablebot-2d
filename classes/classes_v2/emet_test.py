@@ -41,7 +41,7 @@ for i in range (len(Mot)):
     emet.pilote(val, T, mode)
     time.sleep(T)
 
-emet.resume()
+#emet.resume()
 time.sleep(2)
 emet.end()
 

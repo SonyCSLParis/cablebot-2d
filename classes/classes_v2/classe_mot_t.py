@@ -109,6 +109,7 @@ class FakeMotorT:
             #print("Stop")
         return
     
+    """
     def resume(self):
         print(self.X)
         plt.figure(1)
@@ -121,7 +122,7 @@ class FakeMotorT:
         plt.xlabel("position")
         plt.ylabel("Valeur")
         plt.show(block=False)
-
+"""
 
 
 class OdriveMot:
