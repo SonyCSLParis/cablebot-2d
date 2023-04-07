@@ -169,7 +169,7 @@ class OdriveMot:
                 time.sleep(0.1)
 
             # Définir l'état actuel de l'axe
-            ax.requested_state = 8
+            ax.requested_state = od.AXIS_STATE_CLOSE_LOOP_CONTROL
             time.sleep(1)
             print("close control")
             
