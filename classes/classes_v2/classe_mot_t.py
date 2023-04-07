@@ -138,12 +138,12 @@ class OdriveMot:
         self.cmax=cmax
         self.mode='v'
         self.tmax=tmax
-        self.state=True
+        #self.state=True
     
     def get(self):
         try:
             # Recherche d'un ODrive connecté
-            self.state=False
+            #self.state=False
             self.odrv = odrive.find_any()
             ax=self.odrv.axis0
             # Configuration du moteur
@@ -162,20 +162,23 @@ class OdriveMot:
 
             # Calibration du moteur et de l'encodeur
             ax.requested_state = od.AXIS_STATE_FULL_CALIBRATION_SEQUENCE
-
+            print("fulle calibration")
+            time.sleep(10)
             # Attendre que la séquence de calibration soit terminée
             while ax.current_state != od.AXIS_STATE_IDLE:
                 time.sleep(0.1)
 
             # Définir l'état actuel de l'axe
             ax.requested_state = od.AXIS_STATE_CLOSED_LOOP_CONTROL
+            time.sleep(1)
+            print("close control")
             
             #initaliser le mode de contrôle
             self.odrv.axis0.controller.config.control_mode = od.CONTROL_MODE_VELOCITY_CONTROL
             
             
             print("Initialisation du moteur terminée.")
-            self.state=True
+            #self.state=True
             return 0
 
         except Exception as e:
@@ -209,21 +212,22 @@ class OdriveMot:
             if val>self.vmax:
                 print("Consigne trop rapide")
                 return -1
-            self.state=False
+            #self.state=False
+            print("vroum vroum ça tourne")
             self.odrv.axis0.controller.input_vel = val
             time.sleep(T)
             self.odrv.axis0.controller.input_vel = 0
-            self.state=True
+            #self.state=True
             return 0
         elif self.mode=="T":
             if val>self.tmax:
                 print("Couple invalide!")
                 return -1
-            self.state=False
+            #self.state=False
             self.odrv.axis0.controller.input_torque = val
             time.sleep(T)
             self.odrv.axis0.controller.input_torque = 0
-            self.state=True
+            #self.state=True
             return 0
         
     def end(self):
