@@ -248,7 +248,7 @@ class OdriveMot:
             test=self.switch_mode(switch)
             if test==-1:
                 return False
-            return 0
+            return True
         
         
         """
@@ -278,6 +278,6 @@ class OdriveMot:
             test=self.go(val,T)
             if test==-1:
                 return False
-            return 0
+            return True
        
         
