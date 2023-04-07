@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+1# -*- coding: utf-8 -*-
 """
 Created on Fri Mar 17 17:37:31 2023
 
@@ -13,34 +13,32 @@ test=int(input("Continuer? \n 1- Oui \n 0- Non \n"))
 if test==0:
     exit()
 
-hoste = "localhost"
+hoste = input("quelle est l'adresse ip? \n")
 port1 = 15555
 
 emet=ant.EmmeteurT(hoste, port1)
 
 emet.connect()
-Pos=t.calcul_pos(5,5,1)
-Tour=[0,25,25,35]
-Cons=[]
-Tor=[]
+Pos=t.pis_lig()
+Tour=[0,8]
 for i in range(len(Pos)):
-    cons, Tour, tor =t.calcul_pos_mot(Pos[i],5,5, Tour)
-    Cons.append(cons[0])
-    Tor.append(tor[0])
+    L=t.calcul_pos_mot_ligne(Pos)
+    Mot=t.calc_tour_ligne(L,Tour)
+    
 
 for i in range (len(Pos)):
-    if (Cons[i]<0):
+    if (Mot[i][0]<0):
         mode='t'
-        val=Tor[i]
+        val=0.2
     else:
         mode='v'
-        T=t.calc_t(Cons[i])
+        T=t.calc_t(Mot[i][0])
         print(T)
-        val=t.calc_vit(T,Cons[i])
+        val=t.calc_vit(T,Mot[i][0])
     
     emet.pilote(val, T, mode)
+    time.sleep(0.5)
 
-emet.resume()
 time.sleep(2)
 emet.end()
 

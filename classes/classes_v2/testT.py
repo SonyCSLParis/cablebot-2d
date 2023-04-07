@@ -100,9 +100,39 @@ def calcul_pos_mot(L, lon, lar, Tour): #à adapter au test en cours en fonction 
     Tor=[tor1,tor2,tor3,tor4]
     return Cons, Tour, Tor
 
+def pos_lig():
+    Cons=[(0,0),(1,0),(3,0),(2,0),(1,0),(2,0),(4,0),(1,0)]
+    return Cons
+
+def calcul_pos_mot_ligne(Cons):
+    
+    L=[]
+    for i in range (len(Mot)):
+        point=Cons[i]
+        x=point[0]
+        y=point[1]
+        l1=mp.sqrt(x**2+y**2)
+        l2=mp.sqrt((5-x)**2+y**2)
+        l=(l1,l2)
+        L.append(l)
+    return L
+
+def calc_tour_ligne(L,T):
+    t1=T[0]
+    t2=T[1]
+    conv=0.25
+    Mot=[]
+    for i in L:
+        m1=(i[0]/conv)-t1
+        m2=(i[1]/conv)-t2
+        t1=m1
+        t2=m2
+        m=(m1,m2)
+        Mot.append(m)
+    return Mot
 
 def calc_t(C):
-    vmax=8; #vitesse max en tour.sec-1
+    vmax=2; #vitesse max en tour.sec-1
     T=C/vmax;
     return T
 
@@ -110,8 +140,9 @@ def calc_vit(T,C):
     return C/T
 
 def calc_torque(angle, l):
-    P=1/4;
-    return 50*P*mp.sin(angle)*l
+    #P=1/4;
+    #return P*mp.sin(angle)*l
+    return 0.2
 
 
 if __name__=="__main__":
