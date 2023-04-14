@@ -1,9 +1,10 @@
-1# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
-Created on Fri Mar 17 17:37:31 2023
+Created on Fri Apr 14 10:58:14 2023
 
 @author: angab
 """
+
 import AntenneT as ant
 #import testT as t
 import time
@@ -14,22 +15,35 @@ if test==0:
     exit()
 
 #192.168.1.166
-hoste = input("quelle est l'adresse ip? \n")
+hoste1 = input("quelle est l'adresse ip de la première antenne? \n")
 port1 = 15555
 
-emet1=ant.EmmeteurT(hoste, port1)
+hoste2 = input("quelle est l'adresse ip de la deuxième antenne? \n")
+port2 = 15556
 
-emet1.connect()
+#Création des éméteurs
+emet1=ant.EmmeteurT(hoste1, port1)
+emet2=ant.EmmeteurT(hoste2, port2)
+
+EMET=[emet1,emet2]
+ #Connexion aux moteurs
+for i in EMET:
+    i.connect()
 time.sleep(20)
 
 mode='v'
 T=5
-emet1.pilote(3, T, mode)
+
+#Pilotage automatique
+for i in EMET:
+    i.pilote(3,T,mode)
 time.sleep(T)
-emet1.pilote(-3,T,mode)
+for i in EMET:
+    i.pilote(-3,T,mode)
 time.sleep(T)
-emet1.pilote(0,T,mode)
-    
+for i in EMET:
+    i.pilote(0,T,mode)
+time.sleep(T)
 """
 Pos=t.pos_lig()
 Tour=[0,8]
@@ -55,17 +69,26 @@ for i in range (len(Mot)):
 """
 nxt=int(input("Voulez vous passer à la phase manuelle? \n 0-Non \n 1-Oui \n"))
 
+#On s'assure d'être en mode vitesse
+for i in EMET:
+    i.switch(mode)
+
 while nxt==1:
-    emet1.switch(mode)
-    val=float(input("Quelle vitesse? \n"))
+    #choix des vitesses
+    val1=float(input("Quelle vitesse moteur 1? \n"))
+    val2=float(input("Quelle vitesse moteur 2? \n"))
     T=float(input("Pendant quelle durée?\n"))
-    emet1.pilote(val,T,mode)
+    
+    #Pilotage
+    emet1.pilote(val1,T,mode)
+    emet2.pilote(val2,T,mode)
     time.sleep(T)
     
+    #Condition de sortie
     nxt=input("Nouvelle consigne? \n 1 - Oui \n 0- Non \n")
 
 #emet.resume()
+
+#Fin de programme
 time.sleep(2)
 emet1.end()
-
-
