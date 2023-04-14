@@ -148,13 +148,8 @@ class Cablebot:
         size=len(self.Emet)
         Cons,self.Tour=te.calcul_pos_mot(Point,self.long,self.larg,self.Tour)
         for j in range(size):
-            if Cons[j]<=0:
-                mode='t'
-                self.Emet[j].switch(mode)
-                Cons[j]=0.1
-            else:
-                mode='v'
-                self.Emet[j].switch(mode)
+            mode='v'
+            self.Emet[j].switch(mode)
             time.sleep(1)
             
         Time=[]
@@ -168,8 +163,7 @@ class Cablebot:
         
         for k in range(size):
             val=Cons[k]
-            if val!=0.1:
-                val=te.calc_vit(T, val)
+            val=te.calc_vit(T, val)
             self.Emet[k].pilote(val,T)
         time.sleep(1)
         
@@ -192,13 +186,8 @@ class Cablebot:
         Mot=te.calc_tour_ligne(L,T)
         for i in range (len(Mot)):
             for j in range(2):
-                if (Mot[i][j]<=0):
-                    mode='t'
-                    self.Emet[j].switch(mode)
-                    Mot[i][j]=0.1
-                else:
-                    mode='v'
-                    self.Emet[j].switch(mode)
+                mode='v'
+                self.Emet[j].switch(mode)
                 time.sleep(1)
             
             t1=te.calc_t(Mot[i][0])
@@ -209,8 +198,7 @@ class Cablebot:
             
             for j in range(2):
                 val=Mot[i][j]
-                if val!=0.1:
-                    val=te.calc_vit(T, val)
+                val=te.calc_vit(T, val)
                 self.Emet[j].pilote(val,T)
             time.sleep(1)
             
