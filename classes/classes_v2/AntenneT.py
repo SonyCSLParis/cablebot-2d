@@ -77,6 +77,11 @@ class EmmeteurT:
         time.sleep(0.5)
         return
     
+    def switch(self, mode):
+        mes="S "+mode
+        self.socket.send(mes.encode())
+        return
+
     def resume(self):
         mes="R"
         self.socket.send(mes.encode())

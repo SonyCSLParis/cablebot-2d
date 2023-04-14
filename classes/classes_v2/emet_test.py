@@ -20,6 +20,14 @@ emet=ant.EmmeteurT(hoste, port1)
 
 emet.connect()
 time.sleep(20)
+
+mode='v'
+val_c=8
+for i in range (10):
+    u=i%2
+    emet.pilote(val_c*u,3,mode)
+    time.sleep(3)
+    
 """
 Pos=t.pos_lig()
 Tour=[0,8]
@@ -43,9 +51,14 @@ for i in range (len(Mot)):
     emet.pilote(val, T, mode)
     time.sleep(T+1)
 """
+nxt=int(input("Voulez vous passer à la phase manuelle? \n 0-Non \n 1-Oui"))
+if nxt==1:
+    a=True
+else:
+    a=False
 
-while True:
-    mode='v'
+while a==True:
+    emet.switch(mode)
     val=float(input("Quelle vitesse? \n"))
     T=float(input("Pendant quelle durée?\n"))
     emet.pilote(val,T,mode)
@@ -53,7 +66,7 @@ while True:
     
     sortie=input("Nouvelle consigne? \n 1 - Oui \n 0- Non")
     if sortie==0:
-        break
+        a=False
 
 
 #emet.resume()
