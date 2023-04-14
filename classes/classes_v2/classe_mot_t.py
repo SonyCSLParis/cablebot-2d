@@ -146,7 +146,7 @@ class OdriveMot:
             #self.state=False
             self.odrv = odrive.find_any()
             time.sleep(5)
-            print(self.odrv)
+            #print(self.odrv)
             if self.odrv==None:
                 print("EROR Motor Not Found!")
                 return -1
@@ -179,7 +179,7 @@ class OdriveMot:
             
             #initialisation mode de contrôle
             print("passage en mode velocity")
-            self.ax.controller.config.control_mode = od.CONTROL_MODE_VELOCITY_CONTROL
+            ax.controller.config.control_mode = od.CONTROL_MODE_VELOCITY_CONTROL
             
             print("Initialisation du moteur terminée.")
             #self.state=True
