@@ -79,6 +79,7 @@ class EmmeteurT:
         mes="S "+mode
         self.socket.sendall(mes.encode())
         return
+    
     def get_turn(self):
         return self.tour
 
@@ -119,10 +120,12 @@ class Cablebot:
                 if Cons[j]<=0:
                     mode='t'
                     self.Emet[j].switch(mode)
-                    Cons[j]=0.2
+                    Cons[j]=0.1
                 else:
                     mode='v'
                     self.Emet[j].switch(mode)
+                time.sleep(1)
+            
             Time=[]
             for k in Cons:
                 t=te.calc_t(k)
@@ -134,7 +137,10 @@ class Cablebot:
             
             for k in range(size):
                 val=Cons[k]
+                if val!=0.1:
+                    val=te.calc_vit(T, val)
                 self.Emet[k].pilote(val,T)
+            time.sleep(1)
         return 0
     
     def goto(self, x, y):
@@ -145,10 +151,12 @@ class Cablebot:
             if Cons[j]<=0:
                 mode='t'
                 self.Emet[j].switch(mode)
-                Cons[j]=0.2
+                Cons[j]=0.1
             else:
                 mode='v'
                 self.Emet[j].switch(mode)
+            time.sleep(1)
+            
         Time=[]
         for k in Cons:
             t=te.calc_t(k)
@@ -160,7 +168,11 @@ class Cablebot:
         
         for k in range(size):
             val=Cons[k]
+            if val!=0.1:
+                val=te.calc_vit(T, val)
             self.Emet[k].pilote(val,T)
+        time.sleep(1)
+        
         return 0
     
     
@@ -183,10 +195,11 @@ class Cablebot:
                 if (Mot[i][j]<=0):
                     mode='t'
                     self.Emet[j].switch(mode)
-                    Mot[i][j]=0.2
+                    Mot[i][j]=0.1
                 else:
                     mode='v'
                     self.Emet[j].switch(mode)
+                time.sleep(1)
             
             t1=te.calc_t(Mot[i][0])
             t2=te.calc_t(Mot[i][1])
@@ -196,16 +209,24 @@ class Cablebot:
             
             for j in range(2):
                 val=Mot[i][j]
+                if val!=0.1:
+                    val=te.calc_vit(T, val)
                 self.Emet[j].pilote(val,T)
+            time.sleep(1)
+            
         return 0
     
     def speed(self, V, T):
         mode='v'
         for i in self.Emet:
             i.switch(mode)
+        time.sleep(1)
+        
         for i in range(len(self.Emet)):
             val=V[i]
             self.Emet[i].pilote(val,T)
+        time.sleep(1)
+        
         return 0
 
 

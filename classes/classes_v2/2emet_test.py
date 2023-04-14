@@ -7,7 +7,7 @@ Created on Fri Apr 14 10:58:14 2023
 
 import AntenneT as ant
 #import testT as t
-import time
+#import time
 
 print("Programme de test des classes du cable bot, pensez à lancer les simulations de moteur en premier!")
 test=int(input("Continuer? \n 1- Oui \n 0- Non \n"))
@@ -41,6 +41,7 @@ while a==1:
     val2=float(input("Quelle vitesse moteur 2? \n"))
     T=float(input("Pendant quelle durée?\n"))
     V=[val1,val2]
+    
     cable.speed(V,T)
     a=int(input("Encore? \n 0-Non \n 1-Oui \n"))
 
