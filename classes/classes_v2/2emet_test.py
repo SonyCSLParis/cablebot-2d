@@ -14,7 +14,7 @@ test=int(input("Continuer? \n 1- Oui \n 0- Non \n"))
 if test==0:
     exit()
 
-#192.168.1.102
+#192.168.1.166
 hoste1 = input("quelle est l'adresse ip de la première antenne? \n")
 port1 = 15555
 

@@ -7,7 +7,7 @@ Created on Fri Mar 17 14:38:31 2023
 
 
 import socket
-import testT.py as te
+import testT as te
 import time
 
 
@@ -34,9 +34,6 @@ class AntenneT:
         while a==True:
                 mes = self.client.recv(255)
                 mes=str(mes)
-                if mes=="b'ping'":
-                    ret="bien recu"
-                    self.socket.send(ret.encode())
                 if mes != "b''":
                     test=self.mot.run_m(mes)
                     print("test: ", test)
@@ -122,7 +119,7 @@ class Cablebot:
                 if Cons[j]<=0:
                     mode='t'
                     self.Emet[j].switch(mode)
-                    Cons[j]=0.08
+                    Cons[j]=0.2
                 else:
                     mode='v'
                     self.Emet[j].switch(mode)
@@ -148,7 +145,7 @@ class Cablebot:
             if Cons[j]<=0:
                 mode='t'
                 self.Emet[j].switch(mode)
-                Cons[j]=0.08
+                Cons[j]=0.2
             else:
                 mode='v'
                 self.Emet[j].switch(mode)
@@ -186,7 +183,7 @@ class Cablebot:
                 if (Mot[i][j]<=0):
                     mode='t'
                     self.Emet[j].switch(mode)
-                    Mot[i][j]=0.08
+                    Mot[i][j]=0.2
                 else:
                     mode='v'
                     self.Emet[j].switch(mode)
@@ -208,7 +205,7 @@ class Cablebot:
             i.switch(mode)
         for i in range(len(self.Emet)):
             val=V[i]
-            self.Emet[i].pilotage(val,T)
+            self.Emet[i].pilote(val,T)
         return 0
 
 
