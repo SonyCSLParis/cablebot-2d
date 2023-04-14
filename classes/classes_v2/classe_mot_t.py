@@ -39,6 +39,7 @@ class FakeMotorT:
         """
         if (mode=="E"):
             return False
+        return 0
         
         """
         Cas Switch
@@ -46,6 +47,7 @@ class FakeMotorT:
         if (mode=="S"):
             switch=mess[4]
             self.switch_mode(switch)
+        return 0
         
         
         """
@@ -73,6 +75,7 @@ class FakeMotorT:
             T=float("".join(T))
             print("T :",T)
             self.go(val,T)
+        return 0
         
         """
         Cas Resume
@@ -80,6 +83,8 @@ class FakeMotorT:
         if (mode=="R"):
             #self.resume()
             print("resume")
+            return 0
+    
     
     def switch_mode(self, m):
         if m=='v':

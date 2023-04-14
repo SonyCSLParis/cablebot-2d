@@ -35,6 +35,9 @@ class AntenneT:
         while a==True:
                 mes = self.client.recv(255)
                 mes=str(mes)
+                if mes=="b'ping'":
+                    ret="bien recu"
+                    self.socket.send(ret.encode())
                 if mes != "b''":
                     test=self.mot.run_m(mes)
                     print("test: ", test)
@@ -64,27 +67,26 @@ class EmmeteurT:
     def end(self):
         print ("Close")
         mes="END"
-        self.socket.send(mes.encode())
+        self.socket.sendall(mes.encode())
         self.socket.close()
         return
         
-    def pilote(self, val, T, mode):
-        mes="S "+mode
-        self.socket.send(mes.encode())
-        time.sleep(1)
+    def pilote(self, val, T):
         mes="G "+str(val)+" "+str(T)
-        self.socket.send(mes.encode())
-        time.sleep(0.5)
+        self.socket.sendall(mes.encode())
         return
     
     def switch(self, mode):
         mes="S "+mode
-        self.socket.send(mes.encode())
+        self.socket.sendall(mes.encode())
         return
-
+    
+    
+    """
     def resume(self):
         mes="R"
-        self.socket.send(mes.encode())
+        self.socket.sendall(mes.encode())
         time.sleep(0.2)
         return
+    """
         

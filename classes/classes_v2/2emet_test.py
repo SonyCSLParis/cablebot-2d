@@ -14,18 +14,21 @@ test=int(input("Continuer? \n 1- Oui \n 0- Non \n"))
 if test==0:
     exit()
 
-#192.168.1.166
+#192.168.1.102
 hoste1 = input("quelle est l'adresse ip de la première antenne? \n")
 port1 = 15555
 
+#192.168.1.141
 hoste2 = input("quelle est l'adresse ip de la deuxième antenne? \n")
 port2 = 15556
+
 
 #Création des éméteurs
 emet1=ant.EmmeteurT(hoste1, port1)
 emet2=ant.EmmeteurT(hoste2, port2)
-
 EMET=[emet1,emet2]
+
+
  #Connexion aux moteurs
 for i in EMET:
     i.connect()
@@ -36,14 +39,22 @@ T=5
 
 #Pilotage automatique
 for i in EMET:
-    i.pilote(3,T,mode)
-time.sleep(T)
+    i.switch(mode)
+time.sleep(1)
+
 for i in EMET:
-    i.pilote(-3,T,mode)
+    i.pilote(3,T)
 time.sleep(T)
+
 for i in EMET:
-    i.pilote(0,T,mode)
+    i.pilote(-3,T)
 time.sleep(T)
+
+for i in EMET:
+    i.pilote(0,0)
+
+
+
 """
 Pos=t.pos_lig()
 Tour=[0,8]
@@ -80,8 +91,8 @@ while nxt==1:
     T=float(input("Pendant quelle durée?\n"))
     
     #Pilotage
-    emet1.pilote(val1,T,mode)
-    emet2.pilote(val2,T,mode)
+    emet1.pilote(val1,T)
+    emet2.pilote(val2,T)
     time.sleep(T)
     
     #Condition de sortie
