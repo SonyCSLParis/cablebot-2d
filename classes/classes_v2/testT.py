@@ -55,41 +55,33 @@ def calcul_pos_mot(L, lon, lar, Tour): #à adapter au test en cours en fonction 
     #k4=Tour[3]
     y=L[0]
     x=L[1]
-    d=0.5
+    d=0.06283 #Périmètre de notre bobine
     Conv=0.25 #à definir avant
     #print(x,y)
     l1=mp.sqrt(x**2+y**2)
     #print("l1: ",l1)
     l1=mp.sqrt(l1**2+d**2)
-    angle1=mp.atan(d/l1)
     #print("angle1 : ", angle1)
-    tor1=calc_torque(angle1, l1)
     #plt.plot(1,l1,color='red',marker='x')
     
     l2=mp.sqrt((lon-x)**2+y**2)
     #print("l2", l2)
     l2=mp.sqrt(l2**2+d**2)
-    angle2=mp.atan(d/l2)
     #print("angle2 : ", angle2)
-    tor2=calc_torque(angle2, l2)
     #plt.plot(1,l2,color='green',marker='x')
    
     l3=mp.sqrt(x**2+(lar-y)**2)
     l3=mp.sqrt(l3**2+d**2)
-    angle3=mp.atan(d/l3)
-    tor3=calc_torque(angle3, l3)
     #plt.plot(1,l3,color='blue',marker='x')
     
     l4=mp.sqrt((lon-x)**2+(lar-y)**2)
     l4=mp.sqrt(l4**2+d**2)
-    angle4=mp.atan(d/l4)
-    tor4=calc_torque(angle4, l4)
     #plt.plot(1,l4,color='yellow',marker='x')
     #0,5 à changer car juste le rapport de m.tour-1
-    t1=(l1/Conv)
-    t2=(l2/Conv)
-    t3=(l3/Conv)
-    t4=(l4/Conv)
+    t1=int((l1/Conv))
+    t2=int((l2/Conv))
+    t3=int((l3/Conv))
+    t4=int((l4/Conv))
     c1=t1-C1
     c2=t2-C2
     c3=t3-C3
@@ -97,8 +89,7 @@ def calcul_pos_mot(L, lon, lar, Tour): #à adapter au test en cours en fonction 
     
     Cons=[c1,c2,c3,c4]
     Tour=[t1,t2,t3,t4]
-    Tor=[tor1,tor2,tor3,tor4]
-    return Cons, Tour, Tor
+    return Cons, Tour
 
 def pos_lig():
     Cons=[(0,0),(1,0),(3,0),(2,0),(1,0),(2,0),(4,0),(1,0)]
@@ -141,11 +132,6 @@ def calc_vit(T,C):
     if C==0:
         return 2
     return C/T
-
-def calc_torque(angle, l):
-    #P=1/4;
-    #return P*mp.sin(angle)*l
-    return 0.08
 
 
 if __name__=="__main__":

@@ -24,16 +24,46 @@ port2 = 15556
 
 
 #Création des éméteurs
-emet1=ant.EmmeteurT(hoste1, port1)
-emet2=ant.EmmeteurT(hoste2, port2)
+emet1=ant.EmmeteurT(hoste1, port1,0)
+emet2=ant.EmmeteurT(hoste2, port2,0)
 EMET=[emet1,emet2]
 
+#Création de la cable bot
+cable=ant.Cablebot(EMET, 5, 5, 1)
 
+#démarage du robot
+cable.start()
+
+#test contrôle manuelle
+a=1
+while a==1:
+    val1=float(input("Quelle vitesse moteur 1? \n"))
+    val2=float(input("Quelle vitesse moteur 2? \n"))
+    T=float(input("Pendant quelle durée?\n"))
+    V=[val1,val2]
+    cable.speed(V,T)
+    a=int(input("Encore? \n 0-Non \n 1-Oui \n"))
+
+
+#test autonome de la ligne
+ligne=int(input("Voulez-vous tester la ligne seul maintenant? \n 0-Non \n 1-Oui \n"))
+if ligne==1:
+    cable.line_test()
+
+cable.end()
+
+
+
+
+
+"""
+Programme sans le cable bot, fonctionnel et qui pilote deux moteurs à distance simultanément
+"""
+"""
  #Connexion aux moteurs
 for i in EMET:
     i.connect()
 time.sleep(20)
-
 mode='v'
 T=5
 
@@ -53,31 +83,6 @@ time.sleep(T)
 for i in EMET:
     i.pilote(0,0)
 
-
-
-"""
-Pos=t.pos_lig()
-Tour=[0,8]
-for i in range(len(Pos)):
-    L=t.calcul_pos_mot_ligne(Pos)
-    Mot=t.calc_tour_ligne(L,Tour)
-    
-print("len MOT: ",len(Mot))
-for i in range (len(Mot)):
-    print("Mot: ",Mot[i][0])
-    if (Mot[i][0]<=-100):
-        mode='t'
-        val=0.08
-        T=2
-    else:
-        mode='v'
-        T=t.calc_t(Mot[i][0])
-        print("T=",T)
-        val=t.calc_vit(T,Mot[i][0])
-    
-    emet.pilote(val, T, mode)
-    time.sleep(T+1)
-"""
 nxt=int(input("Voulez vous passer à la phase manuelle? \n 0-Non \n 1-Oui \n"))
 
 #On s'assure d'être en mode vitesse
@@ -96,10 +101,13 @@ while nxt==1:
     time.sleep(T)
     
     #Condition de sortie
-    nxt=input("Nouvelle consigne? \n 1 - Oui \n 0- Non \n")
+    nxt=int(input("Nouvelle consigne? \n 1 - Oui \n 0- Non \n"))
 
 #emet.resume()
 
 #Fin de programme
 time.sleep(2)
 emet1.end()
+emet2.end()
+"""
+
