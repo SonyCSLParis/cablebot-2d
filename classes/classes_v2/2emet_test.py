@@ -22,41 +22,43 @@ port1 = 15555
 hoste2 = input("quelle est l'adresse ip de la deuxième antenne? \n")
 port2 = 15556
 
-
-#Création des éméteurs
-emet1=ant.EmmeteurT(hoste1, port1,0)
-emet2=ant.EmmeteurT(hoste2, port2,0)
-EMET=[emet1,emet2]
-
-#Création de la cable bot
-cable=ant.Cablebot(EMET, 5, 5, 1)
-
-#démarage du robot
-cable.start()
-
-#test contrôle manuelle
-a=1
-while a==1:
-    val1=float(input("Quelle vitesse moteur 1? \n"))
-    val2=float(input("Quelle vitesse moteur 2? \n"))
-    T=float(input("Pendant quelle durée?\n"))
-    V=[val1,val2]
+try:
+    #Création des éméteurs
+    emet1=ant.EmmeteurT(hoste1, port1,0)
+    emet2=ant.EmmeteurT(hoste2, port2,0)
+    EMET=[emet1,emet2]
     
-    cable.speed(V,T)
-    a=int(input("Encore? \n 0-Non \n 1-Oui \n"))
-
-
-#test autonome de la ligne
-ligne=int(input("Voulez-vous tester la ligne seul maintenant? \n 0-Non \n 1-Oui \n"))
-if ligne==1:
-    cable.line_test()
-
-cable.end()
-
-
-
-
-
+    #Création de la cable bot
+    cable=ant.Cablebot(EMET, 5, 5, 1)
+    
+    #démarage du robot
+    cable.start()
+    
+    #test contrôle manuelle
+    a=1
+    while a==1:
+        val1=float(input("Quelle vitesse moteur 1? \n"))
+        val2=float(input("Quelle vitesse moteur 2? \n"))
+        T=float(input("Pendant quelle durée?\n"))
+        V=[val1,val2]
+        
+        cable.speed(V,T)
+        a=int(input("Encore? \n 0-Non \n 1-Oui \n"))
+        
+        
+        #test autonome de la ligne
+        ligne=int(input("Voulez-vous tester la ligne seul maintenant? \n 0-Non \n 1-Oui \n"))
+        if ligne==1:
+            cable.line_test()
+            
+            cable.end()
+            
+except BaseException as e:
+    cable.end()
+    print("Erreur :", e)
+            
+                
+            
 """
 Programme sans le cable bot, fonctionnel et qui pilote deux moteurs à distance simultanément
 """

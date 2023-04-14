@@ -135,12 +135,13 @@ class Cablebot:
                 if Time[i]>T:
                     T=Time[i]
             
-            for k in range(size):
-                val=Cons[k]
-                if val!=0.1:
-                    val=te.calc_vit(T, val)
-                self.Emet[k].pilote(val,T)
-            time.sleep(1)
+            val1=Cons[0]
+            val1=te.calc_vit(T, val1)
+            val2=Cons[1]
+            val2=te.calc_vit(T, val2)*-1
+            self.Emet[k].pilote(val1,T)
+            self.Emet[k].pilote(val2,T)
+            time.sleep(T)
         return 0
     
     def goto(self, x, y):
@@ -161,11 +162,14 @@ class Cablebot:
             if Time[i]>T:
                 T=Time[i]
         
-        for k in range(size):
-            val=Cons[k]
-            val=te.calc_vit(T, val)
-            self.Emet[k].pilote(val,T)
-        time.sleep(1)
+        
+        val1=Cons[0]
+        val1=te.calc_vit(T, val1)
+        val2=Cons[1]
+        val2=te.calc_vit(T, val2)*-1
+        self.Emet[k].pilote(val1,T)
+        self.Emet[k].pilote(val2,T)
+        time.sleep(T)
         
         return 0
     
@@ -196,11 +200,14 @@ class Cablebot:
             if t2>t1:
                 T=t2
             
-            for j in range(2):
-                val=Mot[i][j]
-                val=te.calc_vit(T, val)
-                self.Emet[j].pilote(val,T)
-            time.sleep(1)
+            val1=Mot[i][0]
+            val1=te.calc_vit(T, val1)
+            
+            val2=Mot[i][1]
+            val2=te.calc_vit(T, val2)*-1
+            self.Emet[0].pilote(val1,T)
+            self.Emet[1].pilote(val1,T)
+            time.sleep(T)
             
         return 0
     
