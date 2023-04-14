@@ -5,7 +5,7 @@ Created on Fri Mar 17 17:37:31 2023
 @author: angab
 """
 import AntenneT as ant
-import testT as t
+#import testT as t
 import time
 
 print("Programme de test des classes du cable bot, pensez à lancer les simulations de moteur en premier!")
@@ -13,6 +13,7 @@ test=int(input("Continuer? \n 1- Oui \n 0- Non \n"))
 if test==0:
     exit()
 
+#192.168.1.166
 hoste = input("quelle est l'adresse ip? \n")
 port1 = 15555
 
