@@ -20,6 +20,7 @@ emet=ant.EmmeteurT(hoste, port1)
 
 emet.connect()
 time.sleep(20)
+"""
 Pos=t.pos_lig()
 Tour=[0,8]
 for i in range(len(Pos)):
@@ -29,7 +30,7 @@ for i in range(len(Pos)):
 print("len MOT: ",len(Mot))
 for i in range (len(Mot)):
     print("Mot: ",Mot[i][0])
-    if (Mot[i][0]<=0):
+    if (Mot[i][0]<=-100):
         mode='t'
         val=0.08
         T=2
@@ -41,6 +42,19 @@ for i in range (len(Mot)):
     
     emet.pilote(val, T, mode)
     time.sleep(T+1)
+"""
+
+while True:
+    mode='v'
+    val=float(input("Quelle vitesse? \n"))
+    T=float(input("Pendant quelle durée?\n"))
+    emet.pilote(val,T,mode)
+    time.sleep(T)
+    
+    sortie=input("Nouvelle consigne? \n 1 - Oui \n 0- Non")
+    if sortie==0:
+        break
+
 
 #emet.resume()
 time.sleep(2)

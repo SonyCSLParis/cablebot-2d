@@ -133,10 +133,12 @@ def calc_tour_ligne(L,T):
 def calc_t(C):
     vmax=2; #vitesse max en tour.sec-1
     T=C/vmax;
-    return T
+    return abs(T)
 
 def calc_vit(T,C):
     if T==0:
+        return 2
+    if C==0:
         return 2
     return C/T
 
