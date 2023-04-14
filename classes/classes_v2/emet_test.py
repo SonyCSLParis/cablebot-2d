@@ -23,11 +23,12 @@ emet.connect()
 time.sleep(20)
 
 mode='v'
-val_c=8
-for i in range (10):
-    u=i%2
-    emet.pilote(val_c*u,3,mode)
-    time.sleep(3)
+T=5
+emet.pilote(3, T, mode)
+time.sleep(T)
+emet.pilote(-3,T,mode)
+time.sleep(T)
+emet.pilote(0,T,mode)
     
 """
 Pos=t.pos_lig()

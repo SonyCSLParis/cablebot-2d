@@ -209,11 +209,14 @@ class OdriveMot:
         
     
     def go(self,val,T):
-        if T<=0:
+        if T<0:
             print("Erreur temps invalide")
             return -1
+        if T==0:
+            self.odrv.axis0.controller.input_vel = float(0)
+            print("On reste à l'arrêt")
         elif self.mode=="v":
-            if val>self.vmax:
+            if abs(val)>abs(self.vmax):
                 print("Consigne trop rapide")
                 return -1
             #self.state=False
