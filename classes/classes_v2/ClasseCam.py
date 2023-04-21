@@ -7,7 +7,6 @@ Created on Fri Mar 17 14:38:31 2023
 
 import os
 import socket
-import testT as te
 import time
 from time import sleep
 from picamera import PiCamera
