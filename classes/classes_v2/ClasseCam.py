@@ -70,6 +70,8 @@ class AntenneCam:
         sleep(0.5)
         camera.capture(file_path)
         print("prise de photo")
+        camera.stop_preview()
+        sleep(0.5)
         return
     
     def uploadFile(self, path, name):
