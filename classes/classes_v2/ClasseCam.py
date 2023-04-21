@@ -54,11 +54,6 @@ class AntenneCam:
                             self.uploadFile(path, current_time)
                         case 2:
                             self.prendrePhoto(count)
-
-                    if test==False:
-                        print("fermeture de serveur")
-                        self.socket.settimeout(1)
-                        a=False
                 else:
                     a=False
         print ("Close")
