@@ -45,12 +45,13 @@ class AntenneCam:
                     valeur = mes[2]
                     print(valeur)
                     if (valeur == 1):
+                        print("doit envoyer")
                         path = '/home/pi/photopicam/'
                         #today = date.today() version finale avec la date, version test avec heure
                         now = datetime.now()
                         current_time = now.strftime("%H:%M:%S")
                         self.uploadFile(path, current_time)
-                    else:
+                    if (valeur == 2):
                         self.prendrePhoto(count)
                 else:
                     a=False
