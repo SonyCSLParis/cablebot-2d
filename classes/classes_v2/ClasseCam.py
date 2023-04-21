@@ -7,6 +7,7 @@ Created on Fri Mar 17 14:38:31 2023
 
 import os
 import socket
+import testT as te
 import time
 from time import sleep
 from picamera import PiCamera
@@ -22,7 +23,8 @@ from datetime import datetime
 
 
 class AntenneCam:
-    def __init__(self,port):
+    def __init__(self,cam,port):
+        self.cam=cam
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.bind(('', port))
         #on attribue un port à notre serveur
@@ -39,19 +41,17 @@ class AntenneCam:
                 
                 mes = self.client.recv(255)
                 mes=str(mes)
-                print(mes)
                 if mes != "b''":
                     
                     valeur = mes[2]
-                    print(valeur)
-                    if (valeur == '1'):
-                        print("doit envoyer")
+
+                    if (valeur == 1):
                         path = '/home/pi/photopicam/'
                         #today = date.today() version finale avec la date, version test avec heure
                         now = datetime.now()
                         current_time = now.strftime("%H:%M:%S")
                         self.uploadFile(path, current_time)
-                    if (valeur == '2'):
+                    else:
                         self.prendrePhoto(count)
                 else:
                     a=False
@@ -64,20 +64,16 @@ class AntenneCam:
         # Ce programme prend une photo avec la picamera, les enregistre dans le path indique dans le programme.
         # Le detail du nom doit etre precise en argv1 de sorte a ce que une nouvelle photo soit cree au lieu de modifier celle d'avant
 
-        file_path = '/home/pi/photopicam/photo_picamera' + str(a) + '.png'
+        file_path = '/home/pi/photopicam/photo_picamera' + a + '.png'
         camera = PiCamera()
         camera.resolution = (1024, 768)
         camera.start_preview()
         # Camera warm-up time
         sleep(0.5)
         camera.capture(file_path)
-        print("prise de photo")
-        camera.stop_preview()
-        sleep(0.5)
-        camera.close() 
         return
     
-    def uploadFile(self, path, name):
+    def uploadFile(path, name):
         #//!!!\\
         #EN ARGV(ARGUMENT QUAND ON EXECUTE LE PROGRAMME)
         #1: PATH VERS LE DOSSIER DE L'ORDI CONTENANT LES PHOTOS

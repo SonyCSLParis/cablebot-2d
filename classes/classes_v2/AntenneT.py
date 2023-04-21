@@ -164,7 +164,6 @@ class Cablebot:
             time.sleep(T)
             
             self.pic()
-            time.sleep(5)
         
         self.endrun()
         return 0
@@ -284,6 +283,7 @@ class EmmetCam:
     def takepic(self):
         mes='2'
         self.socket.sendall(mes.encode())
+        time.sleep(5)
         return
     
     def finparc(self):
