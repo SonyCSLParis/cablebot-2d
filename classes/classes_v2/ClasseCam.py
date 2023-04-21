@@ -7,7 +7,6 @@ Created on Fri Mar 17 14:38:31 2023
 
 import os
 import socket
-import testT as te
 import time
 from time import sleep
 from picamera import PiCamera
@@ -23,7 +22,7 @@ from datetime import datetime
 
 
 class AntenneCam:
-    def __init__(self,cam,port):
+    def __init__(self,port):
         self.cam=cam
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.bind(('', port))
@@ -73,7 +72,7 @@ class AntenneCam:
         camera.capture(file_path)
         return
     
-    def uploadFile(path, name):
+    def uploadFile(self, path, name):
         #//!!!\\
         #EN ARGV(ARGUMENT QUAND ON EXECUTE LE PROGRAMME)
         #1: PATH VERS LE DOSSIER DE L'ORDI CONTENANT LES PHOTOS
