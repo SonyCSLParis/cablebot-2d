@@ -16,6 +16,9 @@ import sys
 from googleapiclient.http import MediaFileUpload
 from Google import Create_Service
 from datetime import date
+from datetime import datetime
+
+
 
 
 
@@ -40,13 +43,15 @@ class AntenneCam:
                 mes=str(mes)
                 if mes != "b''":
                     
-                    valeur = 0
+                    valeur = mes[2]
 
                     match valeur:
                         case 1:
                             path = '/home/pi/photopicam/'
-                            today = date.today()
-                            self.uploadFile(path, today)
+                            #today = date.today() version finale avec la date, version test avec heure
+                            now = datetime.now()
+                            current_time = now.strftime("%H:%M:%S")
+                            self.uploadFile(path, current_time)
                         case 2:
                             self.prendrePhoto(count)
 
