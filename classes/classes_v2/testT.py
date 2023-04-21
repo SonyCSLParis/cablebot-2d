@@ -56,7 +56,7 @@ def calcul_pos_mot(L, lon, lar, Tour): #à adapter au test en cours en fonction 
     y=L[0]
     x=L[1]
     d=0.06283 #Périmètre de notre bobine
-    Conv=0.25 #à definir avant
+    Conv=0.2 #à definir avant
     #print(x,y)
     l1=mp.sqrt(x**2+y**2)
     #print("l1: ",l1)
@@ -110,13 +110,13 @@ def calcul_pos_mot_ligne(Cons):
 def calc_tour_ligne(L,T):
     t1=T[0]
     t2=T[1]
-    conv=0.06
+    conv=0.2
     Mot=[]
     for i in L:
         m1=(i[0]/conv)-t1
         m2=(i[1]/conv)-t2
-        t1=m1
-        t2=m2
+        t1=m1+t1
+        t2=m2+t2
         m=[m1,m2]
         Mot.append(m)
     return Mot
@@ -135,6 +135,7 @@ def calc_vit(T,C):
 
 
 if __name__=="__main__":
+    """
     Pos = calcul_pos(5,5,1)
     Tour=[0,25,25,35]
     mot1=mot.FakeMotorT(2,2,0,'mot 1')
@@ -169,4 +170,53 @@ if __name__=="__main__":
     print("resume des consgines du moteur")
     for i in range(4):
         Mot[i].resume()
+    """
+    
+    Pos = pos_ligne()
+    T=[12,12]
+    L=calcul_pos_mot_ligne(Pos)
+    Mot=calc_tour_ligne(L, T)
+    X=[]
+    Py=[]
+    L1=[]
+    L2=[]
+    M1=[]
+    M2=[]
+    for i in range(len(Pos)):
+        X.append(i)
+        
+        #Pos
+        Py.append(Pos[i][0])
+        
+        #L
+        L1.append(L[i][0])
+        L2.append(L[i][1])
+        
+        #Mot
+        M1.append(Mot[i][0])
+        M2.append(Mot[i][1])
+    
+    plt.figure(1)
+    plt.title("Positions de la ligne")
+    plt.plot(X,Py,c="blue",ls="-",marker="+")
+    plt.show(block=False)
+    
+    plt.figure(2)
+    plt.title("Longueur des câbles")
+    plt.plot(X,L1,c="red",marker="+")
+    plt.plot(X,L2,c="blue",marker="+")
+    plt.show(block=False)
+    
+    plt.figure(3)
+    plt.title("Consignes tours moteur 1")
+    plt.plot(X,M1,c="green",marker="+")
+    plt.show(block=False)
+    
+    plt.figure(4)
+    plt.title("Consigne tours moteur 2")
+    plt.plot(X,M2,c="purple",marker="+")
+    plt.show(block=False)
 
+    #print(L1)
+    #print(L2)
+    

@@ -17,18 +17,19 @@ if test==0:
 hoste = input("quelle est l'adresse ip? \n")
 port1 = 15555
 
-emet1=ant.EmmeteurT(hoste, port1)
+emet1=ant.EmmeteurT(hoste, port1,0)
 
 emet1.connect()
 time.sleep(20)
 
 mode='v'
 T=5
-emet1.pilote(3, T, mode)
+emet1.switch(mode)
+emet1.pilote(3, T)
 time.sleep(T)
-emet1.pilote(-3,T,mode)
+emet1.pilote(-3,T)
 time.sleep(T)
-emet1.pilote(0,T,mode)
+emet1.pilote(0,T)
     
 """
 Pos=t.pos_lig()
@@ -59,10 +60,10 @@ while nxt==1:
     emet1.switch(mode)
     val=float(input("Quelle vitesse? \n"))
     T=float(input("Pendant quelle durée?\n"))
-    emet1.pilote(val,T,mode)
+    emet1.pilote(val,T)
     time.sleep(T)
     
-    nxt=input("Nouvelle consigne? \n 1 - Oui \n 0- Non \n")
+    nxt=int(input("Nouvelle consigne? \n 1 - Oui \n 0- Non \n"))
 
 #emet.resume()
 time.sleep(2)
