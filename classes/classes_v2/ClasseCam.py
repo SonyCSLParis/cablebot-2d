@@ -44,7 +44,7 @@ class AntenneCam:
 
                     match valeur:
                         case 1:
-                            path = '/home/leonard/Documents/Projet indus/récupération_image/'
+                            path = '/home/pi/photopicam/'
                             today = date.today()
                             self.uploadFile(path, today)
                         case 2:
@@ -65,7 +65,7 @@ class AntenneCam:
         # Ce programme prend une photo avec la picamera, les enregistre dans le path indique dans le programme.
         # Le detail du nom doit etre precise en argv1 de sorte a ce que une nouvelle photo soit cree au lieu de modifier celle d'avant
 
-        file_path = '/home/leonard/Documents/Projet indus/récupération_image/photo_picamera' + a + '.png'
+        file_path = '/home/pi/photopicam/photo_picamera' + a + '.png'
         camera = PiCamera()
         camera.resolution = (1024, 768)
         camera.start_preview()
@@ -85,7 +85,7 @@ class AntenneCam:
         # puis supprime les photos du dossier de l'ordinateur.
 
 
-        CLIENT_SECRET_FILE = '/home/leonard/Documents/Projet indus/classes/cablebot-2d/classes/classes_v2/client_secret_cablecam.json'
+        CLIENT_SECRET_FILE = '/home/pi/cablebot/classes/classes_v2/client_secret_cablecam.json'
         API_NAME = 'drive'
         API_VERSION = 'v3'
         SCOPES = ['https://www.googleapis.com/auth/drive']
