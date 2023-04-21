@@ -69,6 +69,7 @@ class AntenneCam:
         # Camera warm-up time
         sleep(0.5)
         camera.capture(file_path)
+        print("prise de photo")
         return
     
     def uploadFile(self, path, name):
