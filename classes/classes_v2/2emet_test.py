@@ -22,14 +22,20 @@ port1 = 15555
 hoste2 = input("quelle est l'adresse ip de la deuxième antenne? \n")
 port2 = 15556
 
+hostcam = 'remplacer par ip de camera'
+portcam = 15557
+
 try:
     #Création des éméteurs
     emet1=ant.EmmeteurT(hoste1, port1,12)
     emet2=ant.EmmeteurT(hoste2, port2,12)
     EMET=[emet1,emet2]
     
+    #Création de la caméra
+    cam = ant.EmmetCam(hostcam, portcam)
+    
     #Création de la cable bot
-    cable=ant.Cablebot(EMET, 5, 5, 1)
+    cable=ant.Cablebot(cam,EMET, 5, 5, 1)
     
     #démarage du robot
     cable.start()

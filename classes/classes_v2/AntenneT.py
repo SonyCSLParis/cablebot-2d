@@ -84,8 +84,16 @@ class EmmeteurT:
     def get_turn(self):
         return self.tour
 
+
+
+"""
+CLASSE MAJEUR DU PROJET
+"""
+
+
 class Cablebot:
-    def __init__(self, Emet, long, larg, focus):
+    def __init__(self, Cam, Emet, long, larg, focus):
+        self.Cam=Cam
         self.Emet=Emet
         self.long=long
         self.larg=larg
@@ -111,6 +119,15 @@ class Cablebot:
         else:
             self.Emet.append(emet)
             return 0
+    
+    def pic(self):
+        self.Cam.takepic()
+        return
+    
+    def endrun(self):
+        self.Cam.finparc()
+        return
+    
     
     def quotidien(self):
         size=len(self.Emet)
@@ -145,6 +162,11 @@ class Cablebot:
             self.Emet[k].pilote(val1,T)
             self.Emet[k].pilote(val2,T)
             time.sleep(T)
+            
+            self.pic()
+            time.sleep(5)
+        
+        self.endrun()
         return 0
     
     def goto(self, x, y):
@@ -247,4 +269,32 @@ class Cablebot:
         
         return 0
                 
+
+class EmmetCam:
+    def __init__(self, host, port):
+        self.h=host
+        self.p=port
+        self.socket=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        
+    def connect(self):
+        self.socket.connect((self.h, self.p))
+        print ("Connection on {}".format(self.p))
+        return        
+    
+    def takepic(self):
+        mes='2'
+        self.socket.sendall(mes.encode())
+        return
+    
+    def finparc(self):
+        mes='1'
+        self.socket.sendall(mes.encode())
+        return
+    
+    def end(self):
+        self.socket.close()
+        print("Caméra déconnectée")
+        return
+        
+        
         

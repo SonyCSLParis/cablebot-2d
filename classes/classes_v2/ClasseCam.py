@@ -7,6 +7,7 @@ Created on Fri Mar 17 14:38:31 2023
 
 import os
 import socket
+import testT as te
 import time
 from time import sleep
 from picamera import PiCamera
@@ -72,7 +73,7 @@ class AntenneCam:
         camera.capture(file_path)
         return
     
-    def uploadFile(self, path, name):
+    def uploadFile(path, name):
         #//!!!\\
         #EN ARGV(ARGUMENT QUAND ON EXECUTE LE PROGRAMME)
         #1: PATH VERS LE DOSSIER DE L'ORDI CONTENANT LES PHOTOS
