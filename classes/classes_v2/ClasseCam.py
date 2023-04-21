@@ -39,10 +39,11 @@ class AntenneCam:
                 
                 mes = self.client.recv(255)
                 mes=str(mes)
+                print(mes)
                 if mes != "b''":
                     
                     valeur = mes[2]
-
+                    print(valeur)
                     if (valeur == 1):
                         path = '/home/pi/photopicam/'
                         #today = date.today() version finale avec la date, version test avec heure
