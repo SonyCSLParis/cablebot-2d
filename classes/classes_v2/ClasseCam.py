@@ -45,15 +45,14 @@ class AntenneCam:
                     
                     valeur = mes[2]
 
-                    match valeur:
-                        case 1:
-                            path = '/home/pi/photopicam/'
-                            #today = date.today() version finale avec la date, version test avec heure
-                            now = datetime.now()
-                            current_time = now.strftime("%H:%M:%S")
-                            self.uploadFile(path, current_time)
-                        case 2:
-                            self.prendrePhoto(count)
+                    if (valeur == 1):
+                        path = '/home/pi/photopicam/'
+                        #today = date.today() version finale avec la date, version test avec heure
+                        now = datetime.now()
+                        current_time = now.strftime("%H:%M:%S")
+                        self.uploadFile(path, current_time)
+                    else:
+                        self.prendrePhoto(count)
                 else:
                     a=False
         print ("Close")
