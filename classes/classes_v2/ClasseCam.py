@@ -73,7 +73,7 @@ class AntenneCam:
         camera.capture(file_path)
         return
     
-    def uploadFile(path, name):
+    def uploadFile(self, path, name):
         #//!!!\\
         #EN ARGV(ARGUMENT QUAND ON EXECUTE LE PROGRAMME)
         #1: PATH VERS LE DOSSIER DE L'ORDI CONTENANT LES PHOTOS
