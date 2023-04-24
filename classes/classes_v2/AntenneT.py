@@ -254,13 +254,17 @@ class Cablebot:
         Mot=te.calc_tour_ligne(L,T)
         for i in range (len(Mot)):
             for j in range(2):
+                """
+                POUR QUAND TORQUE OK
                 if (Mot[i][j]<=0):#Passage en torque
                     mode='t'
                     self.Emet[j].switch(mode)
-                    Mot[i][j]=0.18
+                    Mot[i][j]= -0.18
                 else:
-                    mode='v'
-                    self.Emet[j].switch(mode)
+                """
+                mode='v'
+                self.Emet[j].switch(mode)
+                print(j,": mode ",mode)
             time.sleep(1)
             
             t1=te.calc_t(Mot[i][0])
@@ -270,15 +274,16 @@ class Cablebot:
                 T=t2
             
             val1=Mot[i][0]
-            if val1 != 0.18:
-                val1=te.calc_vit(T, val1)
+            #if val1 != -0.18:
+            val1=te.calc_vit(T, val1)
             
             val2=Mot[i][1]
-            if val2 != 0.18:
-                val2=te.calc_vit(T, val2)
+            #if val2 != -0.18:
+            val2=te.calc_vit(T, val2)
             
+            print("val1: ",val1, " et val2: ",val2,"\n")
             self.Emet[0].pilote(val1,T)
-            self.Emet[1].pilote(val1,T)
+            self.Emet[1].pilote(val2,T)
             time.sleep(T)
             
         return 0

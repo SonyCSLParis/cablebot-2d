@@ -98,7 +98,7 @@ def calcul_pos_mot(L, lon, lar, Tour): #à adapter au test en cours en fonction 
     return Cons, Tour
 
 def pos_ligne():
-    Cons=[(0,0),(1,0),(3,0),(2,0),(1,0),(2,0),(4,0),(1,0)]
+    Cons=[(0,0),(1,0),(2,0),(1,0),(0,0),(2,0),(1,0),(2,0)]
     return Cons
 
 def calcul_pos_mot_ligne(Cons):
@@ -128,7 +128,7 @@ def calc_tour_ligne(L,T):
     return Mot
 
 def calc_t(C):
-    vmax=5; #vitesse max en tour.sec-1
+    vmax=3; #vitesse max en tour.sec-1
     T=C/vmax;
     return abs(T)
 
