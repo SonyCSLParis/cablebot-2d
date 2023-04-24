@@ -16,30 +16,27 @@ def pause(t):
 
 
 class FakeMotorT:
-    def __init__(self, vmax, cmax, pos,name):
+    def __init__(self, vmax, cmax,tmax):
         self.vmax = vmax #vitesse max
-        self.pos=pos#nombre de tour que le moteur a efféctué
         self.mode=None
-        self.name=name
-        self.X=[0]
-        self.V=[0]
-        self.T=[0]
-        self.state=True
+        self.tmax=tmax
     
     def get(self):
-        self.state=False
-        print("connection")
-        self.state=True
-        
+        print("connection Moteur")
+        return 0
+    
+    def end(self):
+        print("Deconnexion moteur")
+        return 
+    
     def run_m(self, mess):
         mode=mess[2]
-        print(mess)
+        print("message recu: ",mess,"\n")
         """
         Cas END
         """
         if (mode=="E"):
             return False
-        return 0
         
         """
         Cas Switch
@@ -47,7 +44,7 @@ class FakeMotorT:
         if (mode=="S"):
             switch=mess[4]
             self.switch_mode(switch)
-        return 0
+            return True
         
         
         """
@@ -75,49 +72,31 @@ class FakeMotorT:
             T=float("".join(T))
             print("T :",T)
             self.go(val,T)
-        return 0
-        
-        """
-        Cas Resume
-        """
-        if (mode=="R"):
-            #self.resume()
-            print("resume")
-            return 0
+            return True
     
     
     def switch_mode(self, m):
         if m=='v':
-            #print("passage en mode vitesse")
+            print("passage en mode vitesse \n")
             self.mode="v"
         elif m=='t':
-            #print("passage en mode torque")
+            print("passage en mode torque \n")
             self.mode='t'
         
         else:
-            print("erreur ceci n'est pas un mode")
+            print("erreur ceci n'est pas un mode \n")
         return
     
     def go(self, val, T):
-        t=self.X[-1]
         if self.mode=='v':
-            self.state=False
-            self.V.append(val)
-            self.T.append(0)
-            self.X.append(t+1)
-            #print("vroum vroum, le moteur tourne à la vitesse : ",val)
+            print("vroum vroum, le moteur tourne à la vitesse : ",val,"\n")
             pause(T)
             self.state=True
-            #print("Stop")
+            print("Stop \n")
         else:
-            self.state=False
-            self.T.append(val)
-            self.V.append(0)
-            self.X.append(t+1)
-            #print("le moteur applique le couple: ",val)
+            print("le moteur applique le couple: ",val,"\n")
             pause(T)
-            self.state=True
-            #print("Stop")
+            print("Stop \n")
         return
     
     """

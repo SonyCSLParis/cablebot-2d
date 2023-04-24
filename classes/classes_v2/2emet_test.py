@@ -7,22 +7,22 @@ Created on Fri Apr 14 10:58:14 2023
 
 import AntenneT as ant
 #import testT as t
-#import time
+import time
 
 print("Programme de test des classes du cable bot, pensez à lancer les simulations de moteur en premier!")
-test=int(input("Continuer? \n 1- Oui \n 0- Non \n"))
-if test==0:
-    exit()
+input("Continuer?")
 
 #192.168.1.166
-hoste1 = input("quelle est l'adresse ip de la première antenne? \n")
+#hoste1 = input("quelle est l'adresse ip de la première antenne? \n")
+hoste1 = '192.168.1.166'
 port1 = 15555
 
 #192.168.1.141
-hoste2 = input("quelle est l'adresse ip de la deuxième antenne? \n")
+#hoste2 = input("quelle est l'adresse ip de la deuxième antenne? \n")
+hoste2 = '192.168.1.141'
 port2 = 15556
 
-hostcam = 'remplacer par ip de camera'
+hostcam = '192.168.1.184'
 portcam = 15557
 
 try:
@@ -75,9 +75,11 @@ try:
     ligne=int(input("Voulez-vous tester la ligne seul maintenant? \n 0-Non \n 1-Oui \n"))
     if ligne==1:
         cable.line_test()
+        time.sleep(2)
         cable.end()
             
 except BaseException as e:
+    time.sleep(2)
     cable.end()
     print("Erreur :", e)
             

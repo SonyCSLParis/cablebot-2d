@@ -7,9 +7,9 @@ Created on Fri Apr 21 15:10:08 2023
 
 import AntenneT as ant
 from IPython import get_ipython
-get_ipython().magic('reset -sf')
+get_ipython().magic('reset -f')
 
-hostcam = '192.168.1.184'
+hostcam = '192.168.1.141'
 portcam = 15555
 
 input("pause")

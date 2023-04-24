@@ -7,11 +7,11 @@ This is a temporary script file.
 
 import math as mp
 import matplotlib.pyplot as plt
-import classe_mot_t as mot
 
 
 
 def calcul_pos(lon, lar, focus):
+    #print('début calcul pos')
     xsize=int(lon//focus)
     ysize=int(lar//focus)
     size=xsize*ysize
@@ -78,10 +78,16 @@ def calcul_pos_mot(L, lon, lar, Tour): #à adapter au test en cours en fonction 
     l4=mp.sqrt(l4**2+d**2)
     #plt.plot(1,l4,color='yellow',marker='x')
     #0,5 à changer car juste le rapport de m.tour-1
-    t1=int((l1/Conv))
-    t2=int((l2/Conv))
-    t3=int((l3/Conv))
-    t4=int((l4/Conv))
+    #print('calcul des tours')
+    t1=float((l1/Conv))
+    t2=float((l2/Conv))
+    t3=float((l3/Conv))
+    t4=float((l4/Conv))
+    #print('calcul des consignes')
+    #print('C1: ',C1)
+    #print('C2: ',C2)
+    #print('C3: ',C3)
+    #print('C4: ',C4)
     c1=t1-C1
     c2=t2-C2
     c3=t3-C3
