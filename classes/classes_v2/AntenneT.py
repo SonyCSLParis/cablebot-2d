@@ -55,7 +55,7 @@ class EmmeteurT:
         self.p=port
         self.socket=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.tour=turn
-        print("Attention, vérifiés bien qu'un couple positif enroule le câble")
+        print("Attention, vérifiés bien qu'un couple positif déroule le câble")
         
     def connect(self):
         self.socket.connect((self.h, self.p))
@@ -82,6 +82,10 @@ class EmmeteurT:
         self.socket.sendall(mes.encode())
         return
     
+    def set_tor(self,tor):
+        mes="T "+str(tor)
+        self.socket.sendall(mes.encode())
+        
     def get_turn(self):
         return float(self.tour)
 
@@ -257,7 +261,7 @@ class Cablebot:
                 if (Mot[i][j]<=0):#Passage en torque
                     mode='t'
                     self.Emet[j].switch(mode)
-                    Mot[i][j]= -0.18
+                    Mot[i][j]= -0.1
                 else:
                     mode='v'
                     self.Emet[j].switch(mode)
@@ -271,11 +275,11 @@ class Cablebot:
                 T=t2
             
             val1=Mot[i][0]
-            if val1 != -0.18:
+            if val1 != -0.1:
                 val1=te.calc_vit(T, val1)
             
             val2=Mot[i][1]
-            if val2 != -0.18:
+            if val2 != -0.1:
                 val2=te.calc_vit(T, val2)
             
             print("val1: ",val1, " et val2: ",val2,"\n")

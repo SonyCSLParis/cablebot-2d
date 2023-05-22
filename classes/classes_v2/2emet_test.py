@@ -28,7 +28,7 @@ try:
     emet2=ant.EmmeteurT(hoste2, port2,12)
     EMET=[emet1,emet2]
     
-    #Création de la caméra
+    #Création de la caméra 
     #cam = ant.EmmetCam(hostcam, portcam)
     
     #Création de la cable bot
