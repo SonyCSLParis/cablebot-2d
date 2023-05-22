@@ -147,7 +147,7 @@ class OdriveMot:
             ax.motor.config.pole_pairs = 7 # Nombre de paires de poles
             ax.motor.config.motor_type = od.MOTOR_TYPE_HIGH_CURRENT # Type de moteur
             ax.controller.config.vel_limit = 100 # Limite de vitesse (tr/min)
-            ax.controller.config.vel_rampe_rate = 2 #accéleration
+            ax.controller.config.vel_ramp_rate = 2 #accéleration
 
             # Calibration du moteur et de l'encodeur
             print("4. AXIS_STATE_FULL_CALIBRATION_SEQUENCE")
