@@ -141,7 +141,7 @@ class OdriveMot:
         
             # Configuration du moteur
             print("3. Configuration du moteur")
-            ax.motor.config.current_lim = 15.0 # Limite de courant (A)
+            ax.motor.config.current_lim = 30.0 # Limite de courant (A)
             ax.motor.config.calibration_current = 5.0 # Courant de calibration (A)
             ax.motor.config.pole_pairs = 7 # Nombre de paires de poles
             ax.motor.config.motor_type = od.MOTOR_TYPE_HIGH_CURRENT # Type de moteur
@@ -176,17 +176,17 @@ class OdriveMot:
         if mod==self.mode:
             print("mode inchangé")
             return 0
-        elif mod=="v":  
+        elif mod=="v" or mod=="V":  
             self.odrv.axis0.controller.input_torque = 0.0
             self.odrv.axis0.controller.config.control_mode = od.CONTROL_MODE_VELOCITY_CONTROL
             self.mode=mod
             print("mode passé en vitesse")
             return 0
-        elif mod=="t":    
+        elif mod=="t" or mod=="T":    
             self.odrv.axis0.controller.config.control_mode = 1
             self.mode=mod
             print("mode passé en couple")
-            self.odrv.axis0.controller.input_torque = 0.13
+            self.odrv.axis0.controller.input_torque = 0.12
             return 0
         else:
             print("Ceci n'est pas un mode valide")
