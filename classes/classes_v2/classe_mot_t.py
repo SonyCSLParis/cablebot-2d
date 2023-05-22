@@ -121,7 +121,6 @@ class OdriveMot:
         self.cmax=cmax
         self.mode='v'
         self.tmax=tmax
-        self.tor= -0.1
         #self.state=True
     
     def get(self):
@@ -146,8 +145,9 @@ class OdriveMot:
             ax.motor.config.calibration_current = 5.0 # Courant de calibration (A)
             ax.motor.config.pole_pairs = 7 # Nombre de paires de poles
             ax.motor.config.motor_type = od.MOTOR_TYPE_HIGH_CURRENT # Type de moteur
+            ax.motor.config.torque_constant = 8.23 / 150 # fixer la constante de couple
             ax.controller.config.vel_limit = 100 # Limite de vitesse (tr/min)
-            ax.controller.config.vel_ramp_rate = 2 #accéleration
+            ax.controller.config.vel_ramp_rate = 0.5 #accéleration
 
             # Calibration du moteur et de l'encodeur
             print("4. AXIS_STATE_FULL_CALIBRATION_SEQUENCE")
@@ -188,7 +188,7 @@ class OdriveMot:
             self.odrv.axis0.controller.config.control_mode = 1
             self.mode=mod
             print("mode passé en couple")
-            self.odrv.axis0.controller.input_torque = self.tor
+            self.odrv.axis0.controller.input_torque = -0.1
             return 0
         else:
             print("Ceci n'est pas un mode valide")

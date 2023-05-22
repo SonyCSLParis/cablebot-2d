@@ -276,11 +276,11 @@ class Cablebot:
             
             val1=Mot[i][0]
             if val1 != -0.1:
-                val1=te.calc_vit(T, val1)
+                val1=(-1)*te.calc_vit(T, val1)
             
             val2=Mot[i][1]
             if val2 != -0.1:
-                val2=te.calc_vit(T, val2)
+                val2=(-1)*te.calc_vit(T, val2)
             
             print("val1: ",val1, " et val2: ",val2,"\n")
             self.Emet[0].pilote(val1,T)
