@@ -152,6 +152,8 @@ class OdriveMot:
             self.odrv.config.enable_brake_resistor = True
             #ax.save_configuration()
 
+
+
             # Calibration du moteur et de l'encodeur
             print("4. AXIS_STATE_FULL_CALIBRATION_SEQUENCE")
             ax.requested_state = od.AXIS_STATE_FULL_CALIBRATION_SEQUENCE
@@ -191,7 +193,7 @@ class OdriveMot:
             self.odrv.axis0.controller.config.control_mode = 1
             self.mode=mod
             print("mode passé en couple")
-            self.odrv.axis0.controller.input_torque = -0.1
+            self.odrv.axis0.controller.input_torque = -0.08
             return 0
         else:
             print("Ceci n'est pas un mode valide")
