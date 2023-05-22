@@ -148,6 +148,9 @@ class OdriveMot:
             ax.motor.config.torque_constant = 8.23 / 150 # fixer la constante de couple
             ax.controller.config.vel_limit = 100 # Limite de vitesse (tr/min)
             ax.controller.config.vel_ramp_rate = 0.5 #accéleration
+            ax.config.enable_brake_resistor = True
+            ax.config.brake_resistance  = 2
+            ax.save_configuration()
 
             # Calibration du moteur et de l'encodeur
             print("4. AXIS_STATE_FULL_CALIBRATION_SEQUENCE")
