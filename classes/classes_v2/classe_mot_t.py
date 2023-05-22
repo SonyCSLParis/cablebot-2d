@@ -193,7 +193,7 @@ class OdriveMot:
             self.odrv.axis0.controller.config.control_mode = 1
             self.mode=mod
             print("mode passé en couple")
-            self.odrv.axis0.controller.input_torque = -0.05
+            self.odrv.axis0.controller.input_torque = -0.1
             return 0
         else:
             print("Ceci n'est pas un mode valide")

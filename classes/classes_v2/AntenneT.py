@@ -235,9 +235,36 @@ class Cablebot:
         return 0
     
     def switch(self, Mode):
-        for i in range(len(self.Emet)):
+        l=len(self.Emet)
+        T=[]
+        V=[]
+        for i in range(l):
+            T.append('0')
+            V.append('0')
+        print("T: ",T)
+        print("V: ",V)
+        for i in range(l):
             mod=Mode[i]
-            self.Emet[i].switch(mod)
+            if mod=='t' or mod=='T':
+                T[i]=mod
+            else:
+                V[i]=mod
+        print("T': ",T)
+        print("V': ",V)
+        for i in range(l):
+            modt=T[i]
+            print("modt: ",modt)
+            if modt!='0':    
+                self.Emet[i].switch(modt)
+            else:
+                pass
+        for i in range(l):
+            modv=V[i]
+            print('modv: ',modv)
+            if modv!='0':    
+                self.Emet[i].switch(modv)
+            else:
+                pass
         return 0
     
     
