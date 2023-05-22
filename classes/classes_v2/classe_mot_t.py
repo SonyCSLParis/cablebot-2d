@@ -141,8 +141,8 @@ class OdriveMot:
         
             # Configuration du moteur
             print("3. Configuration du moteur")
-            ax.motor.config.current_lim = 3.0 # Limite de courant (A)
-            ax.motor.config.calibration_current = 1.0 # Courant de calibration (A)
+            ax.motor.config.current_lim = 30.0 # Limite de courant (A)
+            ax.motor.config.calibration_current = 5.0 # Courant de calibration (A)
             ax.motor.config.pole_pairs = 7 # Nombre de paires de poles
             ax.motor.config.motor_type = od.MOTOR_TYPE_HIGH_CURRENT # Type de moteur
             ax.motor.config.torque_constant = 8.23 / 150 # fixer la constante de couple
