@@ -43,6 +43,16 @@ try:
         #Choix des modes
         b=True
         while b==True:
+            
+            #Au cas où on trouve les couples trop ou pas assez elevez on peut les mettre à jours
+            change=input("Mettre à jour les couples des moteurs? \n o- oui \n n- non \n")
+            if change=='o':
+                tor1=float(input("Couple du moteur 1?\n"))
+                tor2=float(input("Couple du moteur 2?\n"))
+                TOR=[tor1,tor2]
+                cable.set_torques(TOR)
+            
+            #choix du mode de pilotage des moteurs
             mod1=input("Quel mode moteur 1? \n t = torque \n v = vitesse \n")
             mod2=input("Quel mode moteur 2? \n t = torque \n v = vitesse \n")
             if mod1=='t' and mod2=='t':

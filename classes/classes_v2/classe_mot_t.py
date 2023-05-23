@@ -121,6 +121,7 @@ class OdriveMot:
         self.cmax=cmax
         self.mode='v'
         self.tmax=tmax
+        self.tor=-0.1
         #self.state=True
     
     def get(self):
@@ -193,7 +194,7 @@ class OdriveMot:
             self.odrv.axis0.controller.config.control_mode = 1
             self.mode=mod
             print("mode passé en couple")
-            self.odrv.axis0.controller.input_torque = -0.1
+            self.odrv.axis0.controller.input_torque = self.tor
             return 0
         else:
             print("Ceci n'est pas un mode valide")
@@ -281,8 +282,19 @@ class OdriveMot:
       
         """
         Cas Torque
-        
+        """
         if (mode=="T"):
            print("changement du couple")
-        """ 
+           i=4
+           test=mess[i]
+           val=[]
+           while (test!="'"):
+               #print(test)
+               i=i+1
+               val.append(test)
+               test=mess[i]
+           val=float("".join(val))
+           print("New torque :",val)
+           self.tor=val
+        
         

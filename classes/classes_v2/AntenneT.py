@@ -134,6 +134,11 @@ class Cablebot:
         self.Cam.finparc()
         return
     
+    def set_torques(self,TOR):
+        l=len(self.Emet)
+        for i in range(l):
+            self.Emet[i].set_tor(TOR[i])
+        return
     
     def quotidien(self):
         size=len(self.Emet)
