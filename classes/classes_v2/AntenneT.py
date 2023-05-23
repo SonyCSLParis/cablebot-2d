@@ -55,7 +55,7 @@ class EmmeteurT:
         self.p=port
         self.socket=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.tour=turn
-        print("Attention, vérifiés bien qu'un couple positif déroule le câble")
+        print("Attention, vérifiés bien qu'un couple positif enroule le câble")
         
     def connect(self):
         self.socket.connect((self.h, self.p))
@@ -147,13 +147,15 @@ class Cablebot:
             Point=self.Pos[i]
             Cons,self.Tour=te.calcul_pos_mot(Point, self.long, self.larg, self.Tour)
             for j in range(size):
+                """
                 if Cons[j]<=0:
                     mode='t'
                     self.Emet[j].switch(mode)
                     Cons[j]=0.1
                 else:
-                    mode='v'
-                    self.Emet[j].switch(mode)
+                """
+                mode='v'
+                self.Emet[j].switch(mode)
                 time.sleep(1)
             
             Time=[]
@@ -166,20 +168,20 @@ class Cablebot:
                     T=Time[i]
             
             val1=Cons[0]
-            if val1 !=0.1:
-                val1=te.calc_vit(T, val1)
+            #if val1 !=0.1:
+            val1=te.calc_vit(T, val1)
                 
             val2=Cons[1]
-            if val2 != 0.1:
-                val2=te.calc_vit(T, val2)
+            #if val2 != 0.1:
+            val2=te.calc_vit(T, val2)
                 
             val3=Cons[2]
-            if val3 != 0.1:
-                val3=te.calc_vit(T, val3)
+            #if val3 != 0.1:
+            val3=te.calc_vit(T, val3)
                 
             val4=Cons[3]
-            if val4 != 0.1:
-                val4=te.calc_vit(T, val4)
+            #if val4 != 0.1:
+            val4=te.calc_vit(T, val4)
                 
             VAL=[val1,val2,val3,val4]
             for k in range(size):
@@ -196,13 +198,15 @@ class Cablebot:
         size=len(self.Emet)
         Cons,self.Tour=te.calcul_pos_mot(Point,self.long,self.larg,self.Tour)
         for i in range(size):
+            """
             if Cons[i]<=0:
                 mode='t'
                 self.Emet[i].switch(mode)
                 Cons[i]=0.1
             else:
-                mode='v'
-                self.Emet[i].switch(mode)
+            """
+            mode='v'
+            self.Emet[i].switch(mode)
             
         Time=[]
         for k in Cons:
@@ -215,20 +219,20 @@ class Cablebot:
         
         
         val1=Cons[0]
-        if val1 !=0.1:
-            val1=te.calc_vit(T, val1)
+        #if val1 !=0.1:
+        val1=te.calc_vit(T, val1)
            
         val2=Cons[1]
-        if val2 != 0.1:
-            val2=te.calc_vit(T, val2)
+        #if val2 != 0.1:
+        val2=te.calc_vit(T, val2)
            
         val3=Cons[2]
-        if val3 != 0.1:
-            val3=te.calc_vit(T, val3)
+        #if val3 != 0.1:
+        val3=te.calc_vit(T, val3)
            
         val4=Cons[3]
-        if val4 != 0.1:
-            val4=te.calc_vit(T, val4)
+        #if val4 != 0.1:
+        val4=te.calc_vit(T, val4)
            
         VAL=[val1,val2,val3,val4]
         for k in range(size):
@@ -290,13 +294,15 @@ class Cablebot:
         Mot=te.calc_tour_ligne(L,T)
         for i in range (len(Mot)):
             for j in range(2):
+                """
                 if (Mot[i][j]<=0):#Passage en torque
                     mode='t'
                     self.Emet[j].switch(mode)
                     Mot[i][j]= -0.1
                 else:
-                    mode='v'
-                    self.Emet[j].switch(mode)
+                """
+                mode='v'
+                self.Emet[j].switch(mode)
                 print(j,": mode ",mode)
             time.sleep(1)
             
@@ -307,12 +313,12 @@ class Cablebot:
                 T=t2
             
             val1=Mot[i][0]
-            if val1 != -0.1:
-                val1=(-1)*te.calc_vit(T, val1)
+            #if val1 != -0.1:
+            val1=te.calc_vit(T, val1)
             
             val2=Mot[i][1]
-            if val2 != -0.1:
-                val2=(-1)*te.calc_vit(T, val2)
+            #if val2 != -0.1:
+            val2=te.calc_vit(T, val2)
             
             print("val1: ",val1, " et val2: ",val2,"\n")
             self.Emet[0].pilote(val1,T)

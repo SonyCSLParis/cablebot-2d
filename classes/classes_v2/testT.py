@@ -109,7 +109,7 @@ def calcul_pos_mot_ligne(Cons):
         x=i[0]
         y=i[1]
         l1=mp.sqrt(x**2+y**2)
-        l2=mp.sqrt((5-x)**2+y**2)
+        l2=mp.sqrt((4,2-x)**2+y**2)
         l=[l1,l2]
         L.append(l)
     return L
@@ -117,7 +117,7 @@ def calcul_pos_mot_ligne(Cons):
 def calc_tour_ligne(L,T):
     t1=T[0]
     t2=T[1]
-    conv=0.2
+    conv=0.5
     Mot=[]
     for i in L:
         m1=(i[0]/conv)-t1
