@@ -109,7 +109,7 @@ def calcul_pos_mot_ligne(Cons):
         x=i[0]
         y=i[1]
         l1=mp.sqrt(x**2+y**2)
-        l2=mp.sqrt((4,2-x)**2+y**2)
+        l2=mp.sqrt((4.2-x)**2+y**2)
         l=[l1,l2]
         L.append(l)
     return L

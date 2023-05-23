@@ -20,7 +20,13 @@ class AntenneT:
         self.socket.listen(5)
         #5 connexions pendantes
         self.client, self.address = self.socket.accept()
-        
+    
+    def start(self):
+        test=self.mot.init()
+        if test==-1:
+            print("ERREUR")
+        return
+    
     def run(self):
         print ("{} connected".format( self.address ))
         a=True

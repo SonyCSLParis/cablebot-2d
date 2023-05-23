@@ -124,7 +124,7 @@ class OdriveMot:
         self.tor=-0.15
         #self.state=True
     
-    def get(self):
+    def init(self):
         try:
             # Recherche d'un ODrive connecté
             #self.state=False
@@ -176,12 +176,30 @@ class OdriveMot:
             
             print("Initialisation du moteur terminée.")
             #self.state=True
+            ax.save_configuration()
             return 0
 
         except BaseException as e:
             print("Une erreur est survenue:", e)
             return -1
-     
+    
+    def get(self):
+        try:
+            # Recherche d'un ODrive connecté
+            #self.state=False
+            self.odrv = odrive.find_any()
+            time.sleep(5)
+            #print(self.odrv)
+            if self.odrv==None:
+                print("EROR Motor Not Found!")
+                return -1
+            else:
+                return 1
+            
+        except BaseException as e:
+            print("Une erreur est survenue:", e)
+            return -1
+            
     def switch_mode(self,mod):
         if mod==self.mode:
             print("mode inchangé")
