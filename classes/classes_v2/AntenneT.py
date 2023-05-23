@@ -21,8 +21,8 @@ class AntenneT:
         #5 connexions pendantes
         self.client, self.address = self.socket.accept()
     
-    def start(self):
-        test=self.mot.init()
+    def init(self):
+        test=self.mot.set_config()
         if test==-1:
             print("ERREUR")
         return
@@ -30,14 +30,14 @@ class AntenneT:
     def run(self):
         print ("{} connected".format( self.address ))
         a=True
-        test_mot=self.mot.get()
-        print(self.mot.ordv)
-        if test_mot < 0:
+        self.mot.get()
+        print(self.mot.odrv)
+        """ if test_mot < 0:
             print("erreur moteur non attaché")
             print ("Close")
             self.client.close()
             self.socket.close()
-            return
+            return"""
         
         while a==True:
                 mes = self.client.recv(255)

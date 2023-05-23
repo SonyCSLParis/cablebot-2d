@@ -14,5 +14,5 @@ if __name__=="__main__":
     antenne=ant.AntenneT(moteur,15555)
     init=input("Initialiser les moteurs? \n o - oui \n")
     if init=='o':
-        antenne.satrt()
+        antenne.init()
     antenne.run()

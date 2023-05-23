@@ -124,7 +124,7 @@ class OdriveMot:
         self.tor=-0.15
         #self.state=True
     
-    def init(self):
+    def set_config(self):
         try:
             # Recherche d'un ODrive connecté
             #self.state=False
