@@ -189,7 +189,7 @@ class OdriveMot:
             #self.state=False
             self.odrv = odrive.find_any()
             time.sleep(5)
-            #print(self.odrv)
+            print("odrv: ",self.odrv)
             if self.odrv==None:
                 print("EROR Motor Not Found!")
                 return -1

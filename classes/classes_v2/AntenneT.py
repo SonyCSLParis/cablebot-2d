@@ -31,12 +31,14 @@ class AntenneT:
         print ("{} connected".format( self.address ))
         a=True
         test_mot=self.mot.get()
+        print(self.mot.ordv)
         if test_mot < 0:
             print("erreur moteur non attaché")
             print ("Close")
             self.client.close()
             self.socket.close()
             return
+        
         while a==True:
                 mes = self.client.recv(255)
                 mes=str(mes)
