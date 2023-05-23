@@ -6,7 +6,7 @@ This is a temporary script file.
 """
 
 import math as mp
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 
 
@@ -31,7 +31,7 @@ def calcul_pos(lon, lar, focus):
                 Pos[c]=[carre+i*focus, u*carre+(xsize-j)*focus]
                 c=c+1
             u=-u
-        
+    """    
     X=[]
     Y=[]
     for i in range (len(Pos)):
@@ -42,6 +42,7 @@ def calcul_pos(lon, lar, focus):
     plt.figure(1)
     plt.plot(X,Y,c="blue",ls="-",marker="+")
     plt.show(block=False)
+    """
     return Pos
 
 def calcul_pos_mot(L, lon, lar, Tour): #à adapter au test en cours en fonction du nombre de moteur utilisés
@@ -139,9 +140,10 @@ def calc_vit(T,C):
         return 2
     return C/T
 
-
+"""
 if __name__=="__main__":
-    """
+"""
+"""
     Pos = calcul_pos(5,5,1)
     Tour=[0,25,25,35]
     mot1=mot.FakeMotorT(2,2,0,'mot 1')
@@ -177,7 +179,7 @@ if __name__=="__main__":
     for i in range(4):
         Mot[i].resume()
     """
-    
+"""   
     Pos = pos_ligne()
     T=[12,12]
     L=calcul_pos_mot_ligne(Pos)
@@ -225,4 +227,4 @@ if __name__=="__main__":
 
     #print(L1)
     #print(L2)
-    
+"""   

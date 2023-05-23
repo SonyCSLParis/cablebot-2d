@@ -157,6 +157,8 @@ class OdriveMot:
 
             # Calibration du moteur et de l'encodeur
             print("4. AXIS_STATE_FULL_CALIBRATION_SEQUENCE")
+            ax.encoder.config.cpr = 8192 # Resolution de l'encodeur (impulsions/tour)
+            ax.encoder.config.mode = od.ENCODER_MODE_INCREMENTAL
             ax.requested_state = od.AXIS_STATE_FULL_CALIBRATION_SEQUENCE
 
             # Attendre que la sequence de calibration soit terminee
