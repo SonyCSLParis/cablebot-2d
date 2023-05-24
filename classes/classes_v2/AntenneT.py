@@ -334,12 +334,7 @@ class Cablebot:
             
         return 0
     
-    def speed(self, V, T):
-        mode='v'
-        for i in self.Emet:
-            i.switch(mode)
-        time.sleep(1)
-        
+    def pilote(self, V, T):
         for i in range(len(self.Emet)):
             val=V[i]
             self.Emet[i].pilote(val,T)

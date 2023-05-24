@@ -75,7 +75,7 @@ try:
             T=float(input("Pendant quelle durée?\n"))
             V=[val1,val2]
         
-            cable.speed(V,T)
+            cable.pilote(V,T)
             a=int(input("Encore? \n 0-Non \n 1-Oui \n"))
         
         
