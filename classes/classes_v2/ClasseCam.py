@@ -23,8 +23,8 @@ from datetime import datetime
 
 
 class AntenneCam:
-    def __init__(self,cam,port):
-        self.cam=cam
+    def __init__(self,port):
+        #self.cam=cam
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.bind(('', port))
         #on attribue un port à notre serveur
