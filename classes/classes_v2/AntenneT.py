@@ -283,8 +283,10 @@ class Cablebot:
     def takepic(self):
         for i in self.Emet:
             i.switch('t')
+            time.sleep(1)
         for i in self.Emet:
             i.switch('v')
+            time.sleep(1)
         time.sleep(1)
         print("prise de photo")
         print("\n")
