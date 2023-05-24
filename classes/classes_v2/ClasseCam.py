@@ -49,7 +49,9 @@ class AntenneCam:
                         path = '/home/pi/photopicam/'
                         #today = date.today() version finale avec la date, version test avec heure
                         now = datetime.now()
+                        print("now: ",now)
                         current_time = now.strftime("%H:%M:%S")
+                        print("current_time", current_time)
                         self.uploadFile(path, current_time)
                     else:
                         self.prendrePhoto(count)
@@ -72,6 +74,7 @@ class AntenneCam:
         sleep(0.5)
         camera.capture(file_path)
         print('photo prise \n')
+        camera.close()
         return
     
     def uploadFile(path, name):
@@ -84,7 +87,7 @@ class AntenneCam:
         # y envoie les photo dans le dossier dont le path est argv1, 
         # puis supprime les photos du dossier de l'ordinateur.
 
-
+        print("Début d'envoi")
         CLIENT_SECRET_FILE = '/home/pi/cablebot/classes/classes_v2/client_secret_cablecam.json'
         API_NAME = 'drive'
         API_VERSION = 'v3'
@@ -95,11 +98,11 @@ class AntenneCam:
         ##folder_id = ['1j-ux1P75c6CYFBj0zi2YptP63YcQTA3l'] au cas ou on voudrait toujours envoyer au même dossier
 
         file_names = os.listdir(path) #nom du fichier à upload, peut etre une liste
-        k=0 
+        #k=0 
         mime_types = []
         for i in file_names:
             mime_types.append('image/png') #donner le mimetype pour chaque fichier dans le dossier (ici il n'y a que des png !!!!!)
-
+            print("nametype de",i)
         file_metadata = {
                 'name': name,
                 'mimeType' : 'application/vnd.google-apps.folder',
@@ -110,7 +113,9 @@ class AntenneCam:
                                                                                                 #et récupération du folder ID pour 
         print(folder_id)                                                                        #ensuite envoyer les photos dans ce dossier
         for file_name, mime_type in zip(file_names, mime_types):
+            print("file name")
             print(file_name)
+            print("\n")
             file_metadata = {
                 'name' : file_name,
                 'parents' : folder_id
@@ -126,7 +131,7 @@ class AntenneCam:
             ).execute() #envoi des photos
 
 
-
+        
         try:
             # Supprimer les fichiers du dossiers
             for i in file_names:
@@ -134,4 +139,7 @@ class AntenneCam:
                 print(f'Le fichier {i} a été supprimé avec succès.')
         except OSError as e:
             print(f'Erreur lors de la suppression du fichier {file_names}: {e}')
+        
+        print("fin d'envoi")
+        return
     
