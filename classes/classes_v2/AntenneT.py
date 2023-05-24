@@ -296,9 +296,9 @@ class Cablebot:
     def line_test(self):
         Cons=te.pos_ligne()
         L=te.calcul_pos_mot_ligne(Cons)
-        t1=self.Emet[0].get_turn()
-        t2=self.Emet[1].get_turn()
-        T=[t1,t2]
+        #t1=self.Emet[0].get_turn()
+        #t2=self.Emet[1].get_turn()
+        T=[8,8]
         Mot=te.calc_tour_ligne(L,T)
         for i in range (len(Mot)):
             for j in range(2):
@@ -324,9 +324,8 @@ class Cablebot:
             #if val1 != -0.1:
             val1=te.calc_vit(T, val1)
             
-            val2=Mot[i][1]
+            val2=-val1
             #if val2 != -0.1:
-            val2=te.calc_vit(T, val2)
             
             print("val1: ",val1, " et val2: ",val2,"\n")
             self.Emet[0].pilote(val1,T)

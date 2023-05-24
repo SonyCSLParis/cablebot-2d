@@ -24,8 +24,8 @@ port2 = 15556
 
 try:
     #Création des éméteurs
-    emet1=ant.EmmeteurT(hoste1, port1,4)
-    emet2=ant.EmmeteurT(hoste2, port2,4)
+    emet1=ant.EmmeteurT(hoste1, port1,8)
+    emet2=ant.EmmeteurT(hoste2, port2,8)
     EMET=[emet1,emet2]
     
     #Création de la caméra 
@@ -36,55 +36,56 @@ try:
     
     #démarage du robot
     cable.start()
-    
+    x=1
+    while x==1:
     #test contrôle manuelle
-    a=1
-    while a==1:
-        #Choix des modes
-        b=True
-        while b==True:
+        a=1
+        while a==1:
+            #Choix des modes
+            b=True
+            while b==True:
             
-            #Au cas où on trouve les couples trop ou pas assez elevez on peut les mettre à jours
-            change=input("Mettre à jour les couples des moteurs? \n o- oui \n n- non \n")
-            if change=='o':
-                tor1=float(input("Couple du moteur 1?\n"))
-                tor2=float(input("Couple du moteur 2?\n"))
-                TOR=[tor1,tor2]
-                cable.set_torques(TOR)
+                #Au cas où on trouve les couples trop ou pas assez elevez on peut les mettre à jours
+                change=input("Mettre à jour les couples des moteurs? \n o- oui \n n- non \n")
+                if change=='o':
+                    tor1=float(input("Couple du moteur 1?\n"))
+                    tor2=float(input("Couple du moteur 2?\n"))
+                    TOR=[tor1,tor2]
+                    cable.set_torques(TOR)
             
-            #choix du mode de pilotage des moteurs
-            mod1=input("Quel mode moteur 1? \n t = torque \n v = vitesse \n")
-            mod2=input("Quel mode moteur 2? \n t = torque \n v = vitesse \n")
-            if mod1=='t' and mod2=='t':
-                print ('impossible de mettre les deux moteurs en couple')
+                #choix du mode de pilotage des moteurs
+                mod1=input("Quel mode moteur 1? \n t = torque \n v = vitesse \n")
+                mod2=input("Quel mode moteur 2? \n t = torque \n v = vitesse \n")
+                if mod1=='t' and mod2=='t':
+                    print ('impossible de mettre les deux moteurs en couple')
+                else:
+                    b=False
+        
+            cable.switch([mod1,mod2])
+        
+            #Choix des valeurs
+            if mod1=='t':
+                val1=0.1
             else:
-                b=False
+                val1=float(input("Quelle vitesse moteur 1? \n"))
+            if mod2=='t':
+                val2=0.1
+            else:
+                val2=float(input("Quelle vitesse moteur 2? \n"))
+            T=float(input("Pendant quelle durée?\n"))
+            V=[val1,val2]
         
-        cable.switch([mod1,mod2])
-        
-        #Choix des valeurs
-        if mod1=='t':
-            val1=0.1
-        else:
-            val1=float(input("Quelle vitesse moteur 1? \n"))
-        if mod2=='t':
-            val2=0.1
-        else:
-            val2=float(input("Quelle vitesse moteur 2? \n"))
-        T=float(input("Pendant quelle durée?\n"))
-        V=[val1,val2]
-        
-        cable.speed(V,T)
-        a=int(input("Encore? \n 0-Non \n 1-Oui \n"))
+            cable.speed(V,T)
+            a=int(input("Encore? \n 0-Non \n 1-Oui \n"))
         
         
-    #test autonome de la ligne
-    ligne=int(input("Voulez-vous tester la ligne seul maintenant? \n 0-Non \n 1-Oui \n"))
-    if ligne==1:
-        cable.line_test()
-        time.sleep(2)
-        cable.end()
-    
+        #test autonome de la ligne
+        ligne=int(input("Voulez-vous tester la ligne seul maintenant? \n 0-Non \n 1-Oui \n"))
+        while ligne==1:
+            cable.line_test()
+            time.sleep(2)
+            ligne=int(input("Encore? \n 1-oui \n 0-non \n"))
+        x=int(input("Repasser en mode manuel ou terminer? \n 1- mode manuel \n 2- fin \n"))
     cable.end()
 except BaseException as e:
     time.sleep(2)

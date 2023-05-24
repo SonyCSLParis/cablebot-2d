@@ -188,12 +188,20 @@ class OdriveMot:
             # Recherche d'un ODrive connecté
             #self.state=False
             self.odrv = odrive.find_any()
+            ax=self.odrv.axis0
             time.sleep(5)
             print("odrv: ",self.odrv)
             if self.odrv==None:
                 print("EROR Motor Not Found!")
                 return -1
             else:
+                # Définir l'état actuel de l'axe
+                print("6. AXIS_STATE_CLOSED_LOOP_CONTROL")
+                ax.requested_state = od.AXIS_STATE_CLOSED_LOOP_CONTROL
+                
+                #initialisation mode de contrôle
+                print("passage en mode velocity")
+                ax.controller.config.control_mode = od.CONTROL_MODE_VELOCITY_CONTROL
                 return 1
             
         except BaseException as e:
