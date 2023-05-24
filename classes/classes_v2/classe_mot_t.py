@@ -121,7 +121,7 @@ class OdriveMot:
         self.cmax=cmax
         self.mode='v'
         self.tmax=tmax
-        self.tor=-0.15
+        self.tor=-0.18
         #self.state=True
     
     def set_config(self):

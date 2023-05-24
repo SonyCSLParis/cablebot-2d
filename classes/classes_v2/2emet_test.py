@@ -37,6 +37,8 @@ try:
     #démarage du robot
     cable.start()
     x=1
+    tor1=-0.18
+    tor2=-0.18
     while x==1:
     #test contrôle manuelle
         a=1
@@ -65,11 +67,11 @@ try:
         
             #Choix des valeurs
             if mod1=='t':
-                val1=0.1
+                val1=tor1
             else:
                 val1=float(input("Quelle vitesse moteur 1? \n"))
             if mod2=='t':
-                val2=0.1
+                val2=tor2
             else:
                 val2=float(input("Quelle vitesse moteur 2? \n"))
             T=float(input("Pendant quelle durée?\n"))
