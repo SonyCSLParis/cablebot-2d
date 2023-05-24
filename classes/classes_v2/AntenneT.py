@@ -110,7 +110,7 @@ CLASSE MAJEUR DU PROJET
 
 class Cablebot:
     def __init__(self,Cam , Emet, long, larg, focus):#Rajouter la cam quand OK
-        #self.Cam=Cam
+        self.Cam=Cam
         self.Emet=Emet
         self.long=long
         self.larg=larg
@@ -120,7 +120,7 @@ class Cablebot:
         self.conv=0.2
     
     def start(self):
-        #self.Cam.connect()
+        self.Cam.connect()
         for i in self.Emet:
             i.connect()
         time.sleep(20)
@@ -304,6 +304,7 @@ class Cablebot:
         #self.Cam.end()
         for i in self.Emet:
             i.end()
+        self.Cam.end()
     
     def reset_mot(self,L):
         for i in range(len(self.Emet)):
@@ -391,12 +392,13 @@ class EmmetCam:
     def takepic(self):
         mes='2'
         self.socket.sendall(mes.encode())
-        time.sleep(5)
+        time.sleep(10)
         return
     
     def finparc(self):
         mes='1'
         self.socket.sendall(mes.encode())
+        time.sleep(10)
         return
     
     def end(self):

@@ -64,13 +64,14 @@ class AntenneCam:
         # Ce programme prend une photo avec la picamera, les enregistre dans le path indique dans le programme.
         # Le detail du nom doit etre precise en argv1 de sorte a ce que une nouvelle photo soit cree au lieu de modifier celle d'avant
 
-        file_path = '/home/pi/photopicam/photo_picamera' + a + '.png'
+        file_path = '/home/pi/photopicam/photo_picamera' + str(a) + '.png'
         camera = PiCamera()
         camera.resolution = (1024, 768)
         camera.start_preview()
         # Camera warm-up time
         sleep(0.5)
         camera.capture(file_path)
+        print('photo prise \n')
         return
     
     def uploadFile(path, name):
