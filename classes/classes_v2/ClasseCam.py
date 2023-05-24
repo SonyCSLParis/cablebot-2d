@@ -50,7 +50,7 @@ class AntenneCam:
                         #today = date.today() version finale avec la date, version test avec heure
                         now = datetime.now()
                         print("now: ",now)
-                        current_time = now.strftime("%H:%M:%S")
+                        current_time = str(now.strftime("%H:%M:%S"))
                         print("current_time", current_time)
                         self.uploadFile(path, current_time)
                     else:
@@ -77,7 +77,7 @@ class AntenneCam:
         camera.close()
         return
     
-    def uploadFile(path, name):
+    def uploadFile(self,path, name):
         #//!!!\\
         #EN ARGV(ARGUMENT QUAND ON EXECUTE LE PROGRAMME)
         #1: PATH VERS LE DOSSIER DE L'ORDI CONTENANT LES PHOTOS
