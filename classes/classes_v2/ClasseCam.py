@@ -45,7 +45,7 @@ class AntenneCam:
                     
                     valeur = mes[2]
 
-                    if (valeur == 1):
+                    if (valeur == '1'):
                         path = '/home/pi/photopicam/'
                         #today = date.today() version finale avec la date, version test avec heure
                         now = datetime.now()

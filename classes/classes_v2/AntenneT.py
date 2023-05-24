@@ -397,6 +397,7 @@ class EmmetCam:
     
     def finparc(self):
         mes='1'
+        print('Fin de parcours')
         self.socket.sendall(mes.encode())
         time.sleep(10)
         return
