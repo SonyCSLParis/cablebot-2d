@@ -307,7 +307,7 @@ class Cablebot:
     
     def reset_mot(self,L):
         for i in range(len(self.Emet)):
-            turn=L[i]/self.conv
+            turn=L[0][i]/self.conv
             self.Emet[i].set_turn(turn)
     
     """
@@ -358,6 +358,7 @@ class Cablebot:
             if val2 != -0.1:
                 val2=te.calc_vit(T, val2)
             print("val1: ",val1, " et val2: ",val2,"\n")
+            print("T=",T)
             self.Emet[0].pilote(val1,T)
             self.Emet[1].pilote(val2,T)
             time.sleep(T)
