@@ -109,7 +109,7 @@ CLASSE MAJEUR DU PROJET
 
 
 class Cablebot:
-    def __init__(self, Emet, long, larg, focus):#Rajouter la cam quand OK
+    def __init__(self,Cam , Emet, long, larg, focus):#Rajouter la cam quand OK
         #self.Cam=Cam
         self.Emet=Emet
         self.long=long
@@ -117,7 +117,7 @@ class Cablebot:
         self.focus=focus
         self.Pos=None
         self.Tour=None
-        self.conv=0.3
+        self.conv=0.2
     
     def start(self):
         #self.Cam.connect()
@@ -161,7 +161,7 @@ class Cablebot:
             Cons,self.Tour=te.calcul_pos_mot(Point, self.long, self.larg, self.Tour)
             Mod=[]
             for j in range(size):
-                if Cons[j]<=0:
+                if Cons[j]>=0:
                     mode='t'
                     Cons[j]=-0.1
                 else:
@@ -211,9 +211,9 @@ class Cablebot:
         Cons,self.Tour=te.calcul_pos_mot(Point,self.long,self.larg,self.Tour)
         Mod=[]
         for i in range(size):
-            if Cons[i]<=0:
+            if Cons[i]>=0:
                 mode='t'
-                Cons[i]=0.1
+                Cons[i]=-0.1
             else:
                 mode='v'
             Mod.append(mode)  
@@ -234,7 +234,7 @@ class Cablebot:
             val1=te.calc_vit(T, val1)
            
         val2=Cons[1]
-        if val2 !=- 0.1:
+        if val2 !=-0.1:
             val2=te.calc_vit(T, val2)
            
         val3=Cons[2]
@@ -261,26 +261,26 @@ class Cablebot:
         for i in range(l):
             T.append('0')
             V.append('0')
-        print("T: ",T)
-        print("V: ",V)
+        #print("T: ",T)
+        #print("V: ",V)
         for i in range(l):
             mod=Mode[i]
             if mod=='t' or mod=='T':
                 T[i]=mod
             else:
                 V[i]=mod
-        print("T': ",T)
-        print("V': ",V)
+        #print("T': ",T)
+        #print("V': ",V)
         for i in range(l):
             modt=T[i]
-            print("modt: ",modt)
+            #print("modt: ",modt)
             if modt!='0':    
                 self.Emet[i].switch(modt)
             else:
                 pass
         for i in range(l):
             modv=V[i]
-            print('modv: ',modv)
+            #print('modv: ',modv)
             if modv!='0':    
                 self.Emet[i].switch(modv)
             else:
@@ -297,7 +297,7 @@ class Cablebot:
         time.sleep(1)
         print("prise de photo")
         print("\n")
-        #self.Cam.takepic()
+        self.Cam.takepic()
         return 
         
     def end(self):
@@ -332,9 +332,10 @@ class Cablebot:
         Mot=te.calc_tour_ligne(L,[t1,t2],self.conv)
         for i in range (len(Mot)):
             Mod=[]
+            print("Consigne ",i,"en cours: ",Mot[i],"\n")
             for j in range(2):
                 
-                if (Mot[i][j]<=0):#Passage en torque
+                if (Mot[i][j]>=0):#Passage en torque
                     mode='t'
                     Mot[i][j]=-0.1
                 else:
@@ -363,6 +364,7 @@ class Cablebot:
             self.Emet[1].pilote(val2,T)
             time.sleep(T)
             self.takepic()
+        self.Cam.finparc()
             
         return 0
     

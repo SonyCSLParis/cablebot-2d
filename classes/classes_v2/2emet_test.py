@@ -22,6 +22,9 @@ port1 = 15555
 hoste2 = '192.168.1.141'
 port2 = 15556
 
+hostcam='192.168.1.184'
+portcam = 15557
+
 try:
     #Création des éméteurs
     emet1=ant.EmmeteurT(hoste1, port1,5)
@@ -29,10 +32,10 @@ try:
     EMET=[emet1,emet2]
     
     #Création de la caméra 
-    #cam = ant.EmmetCam(hostcam, portcam)
+    cam = ant.EmmetCam(hostcam, portcam)
     
     #Création de la cable bot
-    cable=ant.Cablebot(EMET, 5, 5, 1)
+    cable=ant.Cablebot(cam,EMET, 5, 5, 1)
     
     #démarage du robot
     cable.start()
