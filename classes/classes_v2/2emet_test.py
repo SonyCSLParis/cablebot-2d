@@ -24,8 +24,8 @@ port2 = 15556
 
 try:
     #Création des éméteurs
-    emet1=ant.EmmeteurT(hoste1, port1,8)
-    emet2=ant.EmmeteurT(hoste2, port2,8)
+    emet1=ant.EmmeteurT(hoste1, port1,5)
+    emet2=ant.EmmeteurT(hoste2, port2,5)
     EMET=[emet1,emet2]
     
     #Création de la caméra 

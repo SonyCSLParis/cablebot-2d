@@ -99,7 +99,7 @@ def calcul_pos_mot(L, lon, lar, Tour): #à adapter au test en cours en fonction 
     return Cons, Tour
 
 def pos_ligne():
-    Cons=[(0,0),(3,0),(2,0),(0,0),(3,0),(2,0),(1,0),(2,0),(3,0),(2,0)]
+    Cons=[(0,0),(3,0),(2,0),(1,0),(3,0),(-2,0),(1,0),(2,0),(3,0),(2,0)]
     return Cons
 
 def calcul_pos_mot_ligne(Cons):
@@ -109,18 +109,18 @@ def calcul_pos_mot_ligne(Cons):
         x=i[0]
         y=i[1]
         l1=mp.sqrt(x**2+y**2)
-        l2=mp.sqrt((4-x)**2+y**2)
+        l2=mp.sqrt((3-x)**2+y**2)
         l=[l1,l2]
         L.append(l)
     print("L= ",L)
     return L
 
-def calc_tour_ligne(L,T):
+def calc_tour_ligne(L,T,conv):
     t1=T[0]
     print('t1: ',t1)
     t2=T[1]
     print('t2: ',t2)
-    conv=0.2
+    
     Mot=[]
     for i in L:
         m1=(i[0]/conv)-t1
