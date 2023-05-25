@@ -153,10 +153,30 @@ class Cablebot:
             self.Emet[i].set_tor(TOR[i])
         return
     
+    def set_tour(self):
+        Tour=[]
+        for i in self.Emet:
+            Tour.append(i.get_turn())
+        self.Tour=Tour
+        return 
+    
     def quotidien(self):
         size=len(self.Emet)
+        x=float(input("Quel x de départ? \n"))
+        y=float(input("Quel y de départ? \n"))
+        ORIGINE=te.calcul_pos_mot([(x,y)])
+        
+        #Definir le tour initial de chaque moteur 
+        self.reset_mot(ORIGINE)
+        
         for i in range(len(self.Pos)):
-            #print('tour ',i,'du parcours')
+            
+            #debugage
+            print('tour ',i,'du parcours')
+            print("\n")
+            
+            
+            #on recupere le point de l'étape
             Point=self.Pos[i]
             Cons,self.Tour=te.calcul_pos_mot(Point, self.long, self.larg, self.Tour)
             Mod=[]
@@ -167,6 +187,8 @@ class Cablebot:
                 else:
                     mode='v'
                 Mod.append(mode)
+            
+            #MàJ des modes de chaque moteur
             self.switch(Mod)
             time.sleep(1)
             
@@ -200,14 +222,23 @@ class Cablebot:
                 self.Emet[k].pilote(VAL[k],T)
             time.sleep(T)
             
-            #self.pic()
+            self.pic()
         
-        #self.endrun()
+        self.endrun()
         return 0
     
     def goto(self, x, y):
         Point=[x,y]
         size=len(self.Emet)
+        
+        #definir la position d'origine
+        x=float(input("Quel x de départ? \n"))
+        y=float(input("Quel y de départ? \n"))
+        ORIGINE=te.calcul_pos_mot([(x,y)])
+        
+        #Definir le tour initial de chaque moteur 
+        self.reset_mot(ORIGINE)
+        
         Cons,self.Tour=te.calcul_pos_mot(Point,self.long,self.larg,self.Tour)
         Mod=[]
         for i in range(size):
@@ -301,15 +332,15 @@ class Cablebot:
         return 
         
     def end(self):
-        #self.Cam.end()
+        self.Cam.end()
         for i in self.Emet:
             i.end()
-        self.Cam.end()
     
     def reset_mot(self,L):
         for i in range(len(self.Emet)):
             turn=L[0][i]/self.conv
             self.Emet[i].set_turn(turn)
+            self.set_tour()
     
     """
     fonction temporaire pour tester la 2D

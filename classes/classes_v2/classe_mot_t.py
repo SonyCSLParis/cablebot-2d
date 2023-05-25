@@ -36,6 +36,7 @@ class FakeMotorT:
         Cas END
         """
         if (mode=="E"):
+            
             return False
         
         """
@@ -260,28 +261,15 @@ class OdriveMot:
         mode=mess[2]
         print(mess)
         print("mode: ",mode)
-        """
-        Cas END
-        """
-        if (mode=="E"):
-            self.end()
-            return False
         
-        """
-        Cas Switch
-        """
-        if (mode=="S"):
+        if (mode=="S"):#cas switch
             switch=mess[4]
             test=self.switch_mode(switch)
             if test==-1:
                 return False
-            return True
         
         
-        """
-        Cas Go
-        """
-        if (mode=="G"):
+        elif mode=='G': #cas go
             print("go mode activate")
             i=4
             test=mess[i]
@@ -306,12 +294,8 @@ class OdriveMot:
             test=self.go(val,T)
             if test==-1:
                 return False
-            return True
       
-        """
-        Cas Torque
-        """
-        if (mode=="T"):
+        elif (mode=="T"):#cas torque
            print("changement du couple")
            i=4
            test=mess[i]
@@ -324,5 +308,9 @@ class OdriveMot:
            val=float("".join(val))
            print("New torque :",val)
            self.tor=val
+        
+        else:#cas end
+            self.end()
+            return False
         
         
