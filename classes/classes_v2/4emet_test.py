@@ -52,66 +52,72 @@ try:
     tor2=-0.18
     tor3=-0.18
     tor4=-0.18
-    while x==1:
     #test contrôle manuelle
-        a=1
-        while a==1:
             #Choix des modes
-            b=True
-            while b==True:
+    b=True
+    while b==True:
             
-                #Au cas où on trouve les couples trop ou pas assez elevez on peut les mettre à jours
-                change=input("Mettre à jour les couples des moteurs? \n o- oui \n n- non \n")
-                if change=='o':
-                    tor1=float(input("Couple du moteur Nord?\n"))
-                    tor2=float(input("Couple du moteur Ouest?\n"))
-                    tor3=float(input("Couple du moteur Sud?\n"))
-                    tor4=float(input("Couple du moteur Est?\n"))
-                    TOR=[tor1,tor2]
-                    cable.set_torques(TOR)
+        #Au cas où on trouve les couples trop ou pas assez elevez on peut les mettre à jours
+        change=input("Mettre à jour les couples des moteurs? \n o- oui \n n- non \n")
+        if change=='o':
+            tor1=float(input("Couple du moteur Nord?\n"))
+            tor2=float(input("Couple du moteur Ouest?\n"))
+            tor3=float(input("Couple du moteur Sud?\n"))
+            tor4=float(input("Couple du moteur Est?\n"))
+            TOR=[tor1,tor2,tor3,tor4]
+            cable.set_torques(TOR)
             
-                #choix du mode de pilotage des moteurs
-                mod1=input("Quel mode moteur Nord? \n t = torque \n v = vitesse \n")
-                mod2=input("Quel mode moteur Ouest? \n t = torque \n v = vitesse \n")
-                mod3=input("Quel mode moteur Sud? \n t = torque \n v = vitesse \n")
-                mod4=input("Quel mode moteur Est? \n t = torque \n v = vitesse \n")
-                if mod1=='t' and mod2=='t':
-                    print ('impossible de mettre les deux moteurs en couple')
-                else:
-                    b=False
+            #choix du mode de pilotage des moteurs
+        mod1=input("Quel mode moteur Nord? \n t = torque \n v = vitesse \n")
+        mod2=input("Quel mode moteur Ouest? \n t = torque \n v = vitesse \n")
+        mod3=input("Quel mode moteur Sud? \n t = torque \n v = vitesse \n")
+        mod4=input("Quel mode moteur Est? \n t = torque \n v = vitesse \n")
+        if mod1=='t' and mod3=='t':
+            print ('impossible')
+        elif mod2=='t' and mod4=='t':
+            print('impossible')
+        else:
+            b=False
         
-            cable.switch([mod1,mod2,mod3,mod4])
+        cable.switch([mod1,mod2,mod3,mod4])
         
-            #Choix des valeurs
-            if mod1=='t':
-                val1=tor1
-            else:
-                val1=float(input("Quelle vitesse moteur Nord? \n"))
+        #Choix des valeurs
+        if mod1=='t':
+            val1=tor1
+        else:
+            val1=float(input("Quelle vitesse moteur Nord? \n"))
            
-            if mod2=='t':
-                val2=tor2
-            else:
-                val2=float(input("Quelle vitesse moteur Ouest? \n"))
+        if mod2=='t':
+            val2=tor2
+        else:
+            val2=float(input("Quelle vitesse moteur Ouest? \n"))
             
             
-            if mod1=='t':
-                val3=tor3
-            else:
-                val3=float(input("Quelle vitesse moteur Sud? \n"))
+        if mod3=='t':
+            val3=tor3
+        else:
+            val3=float(input("Quelle vitesse moteur Sud? \n"))
                 
-            if mod1=='t':
-                val4=tor4
-            else:
-                val4=float(input("Quelle vitesse moteur Est? \n"))
-            V=[val1,val2,val3,val4]
+        if mod4=='t':
+            val4=tor4
+        else:
+            val4=float(input("Quelle vitesse moteur Est? \n"))
+        V=[val1,val2,val3,val4]
             
-            #choix de la durée d'action
-            T=float(input("Pendant quelle durée?\n"))
+        #choix de la durée d'action
+        T=float(input("Pendant quelle durée?\n"))
             
             
-            cable.pilote(V,T)
-            a=int(input("Encore? \n 0-Non \n 1-Oui \n"))
-            
+        cable.pilote(V,T)
+        pic=int(input("Photo? \n 1-oui \n 0-Non"))
+        if pic==1:
+            cable.takepic()
+        b=int(input("Encore? \n 0-Non \n 1-Oui \n"))
+    
+    parc=int(input("Parcours?\n 0-Non \n 1-Oui"))
+    if parc==1:
+        cable.quotidien()
+    cable.endrun()       
     cable.end()
 except BaseException as e:
     time.sleep(2)
