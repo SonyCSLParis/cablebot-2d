@@ -294,14 +294,16 @@ class Cablebot:
             V.append('0')
         #print("T: ",T)
         #print("V: ",V)
+        #print("\n")
         for i in range(l):
             mod=Mode[i]
             if mod=='t' or mod=='T':
                 T[i]=mod
             else:
                 V[i]=mod
-        #print("T': ",T)
-        #print("V': ",V)
+        print("T': ",T)
+        print("V': ",V)
+        print("\n")
         for i in range(l):
             modt=T[i]
             #print("modt: ",modt)
@@ -312,6 +314,7 @@ class Cablebot:
         for i in range(l):
             modv=V[i]
             #print('modv: ',modv)
+            #print("\n")
             if modv!='0':    
                 self.Emet[i].switch(modv)
             else:

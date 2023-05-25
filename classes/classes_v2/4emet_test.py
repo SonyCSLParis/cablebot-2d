@@ -80,7 +80,7 @@ try:
                 else:
                     b=False
         
-            cable.switch([mod1,mod2])
+            cable.switch([mod1,mod2,mod3,mod4])
         
             #Choix des valeurs
             if mod1=='t':
