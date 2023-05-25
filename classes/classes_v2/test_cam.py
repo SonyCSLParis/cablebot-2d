@@ -9,15 +9,15 @@ import AntenneT as ant
 from IPython import get_ipython
 get_ipython().magic('reset -f')
 
-hostcam = '192.168.1.141'
-portcam = 15555
+hostcam = '192.168.1.184'
+portcam = 15557
 
 input("pause")
 
 try:
     cam = ant.EmmetCam(hostcam, portcam)
     cam.connect()
-    for i in range(5):
+    for i in range(2):
         cam.takepic()
     cam.finparc()
     cam.end()
