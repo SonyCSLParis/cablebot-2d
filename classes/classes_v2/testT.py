@@ -6,7 +6,7 @@ This is a temporary script file.
 """
 
 import math as mp
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 
 
@@ -32,16 +32,16 @@ def calcul_pos(lon, lar, focus):
                 c=c+1
             u=-u
        
-    X=[]
-    Y=[]
-    for i in range (len(Pos)):
-        X.append(Pos[i][0])
-        Y.append(Pos[i][1])
+    #X=[]
+    #Y=[]
+    #for i in range (len(Pos)):
+    #    X.append(Pos[i][0])
+    #    Y.append(Pos[i][1])
     
-    print("Voici les positions de la matrice de votre champs")
-    plt.figure(1)
-    plt.plot(X,Y,c="blue",ls="-",marker="+")
-    plt.show(block=False)
+    #print("Voici les positions de la matrice de votre champs")
+    #plt.figure(1)
+    #plt.plot(X,Y,c="blue",ls="-",marker="+")
+    #plt.show(block=False)
     
     return Pos
 def calcul_long_mot(L,lon, lar):

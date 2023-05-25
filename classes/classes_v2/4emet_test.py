@@ -44,8 +44,8 @@ try:
     EMET=[emet1,emet2,emet3,emet4]
     
     #Création de la caméra 
-    cam = ant.EmmetCam(hostcam, portcam)
-    #cam = None
+    #cam = ant.EmmetCam(hostcam, portcam)
+    cam = None
     #Création de la cable bot
     cable=ant.Cablebot(cam,EMET, 3, 3, 1)
     

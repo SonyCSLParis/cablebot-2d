@@ -341,7 +341,8 @@ class Cablebot:
         return 
         
     def end(self):
-        self.Cam.end()
+        if self.Cam != None:
+            self.Cam.end()
         for i in self.Emet:
             i.end()
     
