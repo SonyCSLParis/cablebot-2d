@@ -31,7 +31,7 @@ class AntenneT:
         print ("{} connected".format( self.address ))
         a=True
         self.mot.get()
-        print(self.mot.odrv)
+        #print(self.mot.odrv)
         """ if test_mot < 0:
             print("erreur moteur non attaché")
             print ("Close")
@@ -120,7 +120,8 @@ class Cablebot:
         self.conv=0.2
     
     def start(self):
-        self.Cam.connect()
+        if self.Cam != None:
+            self.Cam.connect()
         for i in self.Emet:
             i.connect()
         time.sleep(20)
@@ -164,7 +165,7 @@ class Cablebot:
         size=len(self.Emet)
         x=float(input("Quel x de départ? \n"))
         y=float(input("Quel y de départ? \n"))
-        ORIGINE=te.calcul_pos_mot([(x,y)])
+        ORIGINE=te.calcul_long_mot([x,y],self.long,self.larg)
         
         #Definir le tour initial de chaque moteur 
         self.reset_mot(ORIGINE)
@@ -172,6 +173,7 @@ class Cablebot:
         for i in range(len(self.Pos)):
             
             #debugage
+            print("\n")
             print('tour ',i,'du parcours')
             print("\n")
             
@@ -179,6 +181,8 @@ class Cablebot:
             #on recupere le point de l'étape
             Point=self.Pos[i]
             Cons,self.Tour=te.calcul_pos_mot(Point, self.long, self.larg, self.Tour)
+            print("Cons: ",Cons)
+            print("\n")
             Mod=[]
             for j in range(size):
                 if Cons[j]>=0:
@@ -187,7 +191,7 @@ class Cablebot:
                 else:
                     mode='v'
                 Mod.append(mode)
-            
+            print("Mod: ",Mod,"\n")
             #MàJ des modes de chaque moteur
             self.switch(Mod)
             time.sleep(1)
@@ -222,9 +226,9 @@ class Cablebot:
                 self.Emet[k].pilote(VAL[k],T)
             time.sleep(T)
             
-            self.pic()
+            #self.takepic()
         
-        self.endrun()
+        #self.endrun()
         return 0
     
     def goto(self, x, y):
@@ -234,7 +238,7 @@ class Cablebot:
         #definir la position d'origine
         x=float(input("Quel x de départ? \n"))
         y=float(input("Quel y de départ? \n"))
-        ORIGINE=te.calcul_pos_mot([(x,y)])
+        ORIGINE=te.calcul_long_mot([x,y],self.long,self.larg)
         
         #Definir le tour initial de chaque moteur 
         self.reset_mot(ORIGINE)
@@ -304,6 +308,8 @@ class Cablebot:
         print("T': ",T)
         print("V': ",V)
         print("\n")
+        
+            
         for i in range(l):
             modt=T[i]
             #print("modt: ",modt)
@@ -341,7 +347,7 @@ class Cablebot:
     
     def reset_mot(self,L):
         for i in range(len(self.Emet)):
-            turn=L[0][i]/self.conv
+            turn=L[i]/self.conv
             self.Emet[i].set_turn(turn)
             self.set_tour()
     

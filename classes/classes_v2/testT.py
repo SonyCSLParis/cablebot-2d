@@ -6,7 +6,7 @@ This is a temporary script file.
 """
 
 import math as mp
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 
 
@@ -31,7 +31,7 @@ def calcul_pos(lon, lar, focus):
                 Pos[c]=[carre+i*focus, u*carre+(xsize-j)*focus]
                 c=c+1
             u=-u
-    """    
+       
     X=[]
     Y=[]
     for i in range (len(Pos)):
@@ -42,8 +42,30 @@ def calcul_pos(lon, lar, focus):
     plt.figure(1)
     plt.plot(X,Y,c="blue",ls="-",marker="+")
     plt.show(block=False)
-    """
+    
     return Pos
+def calcul_long_mot(L,lon, lar):
+    y=L[0]
+    x=L[1]
+    l1=mp.sqrt(x**2+y**2)
+    #print("l1: ",l1)
+    #l1=mp.sqrt(l1**2+d**2)
+    #print("angle1 : ", angle1)
+    #plt.plot(1,l1,color='red',marker='x')
+    
+    l2=mp.sqrt((lon-x)**2+y**2)
+    #print("l2", l2)
+    #l2=mp.sqrt(l2**2+d**2)
+    #print("angle2 : ", angle2)
+    #plt.plot(1,l2,color='green',marker='x')
+   
+    l3=mp.sqrt(x**2+(lar-y)**2)
+    #l3=mp.sqrt(l3**2+d**2)
+    #plt.plot(1,l3,color='blue',marker='x')
+    
+    l4=mp.sqrt((lon-x)**2+(lar-y)**2)
+    
+    return [l1,l2,l3,l4]
 
 def calcul_pos_mot(L, lon, lar, Tour): #à adapter au test en cours en fonction du nombre de moteur utilisés
     C1=Tour[0]
@@ -56,27 +78,27 @@ def calcul_pos_mot(L, lon, lar, Tour): #à adapter au test en cours en fonction 
     #k4=Tour[3]
     y=L[0]
     x=L[1]
-    d=0.06283 #Périmètre de notre bobine
-    Conv=0.2 #à definir avant
+    #d=0.5 #battement
+    Conv=0.3 #à definir avant
     #print(x,y)
     l1=mp.sqrt(x**2+y**2)
     #print("l1: ",l1)
-    l1=mp.sqrt(l1**2+d**2)
+    #l1=mp.sqrt(l1**2+d**2)
     #print("angle1 : ", angle1)
     #plt.plot(1,l1,color='red',marker='x')
     
     l2=mp.sqrt((lon-x)**2+y**2)
     #print("l2", l2)
-    l2=mp.sqrt(l2**2+d**2)
+    #l2=mp.sqrt(l2**2+d**2)
     #print("angle2 : ", angle2)
     #plt.plot(1,l2,color='green',marker='x')
    
     l3=mp.sqrt(x**2+(lar-y)**2)
-    l3=mp.sqrt(l3**2+d**2)
+    #l3=mp.sqrt(l3**2+d**2)
     #plt.plot(1,l3,color='blue',marker='x')
     
     l4=mp.sqrt((lon-x)**2+(lar-y)**2)
-    l4=mp.sqrt(l4**2+d**2)
+    #l4=mp.sqrt(l4**2+d**2)
     #plt.plot(1,l4,color='yellow',marker='x')
     #0,5 à changer car juste le rapport de m.tour-1
     #print('calcul des tours')

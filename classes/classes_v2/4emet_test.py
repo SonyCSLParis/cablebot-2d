@@ -9,24 +9,28 @@ import AntenneT as ant
 #import testT as t
 import time
 
-print("Programme de test des classes du cable bot, pensez à lancer les simulations de moteur en premier!")
+print("Programme de test des classes du cable bot, pensez à lancer les simulations de moteur en premier! \n ordre: Nord, Ouest, Est, Sud")
 input("Continuer?")
 
 #192.168.1.166
 #hoste1 = input("quelle est l'adresse ip de la première antenne? \n")
-hostenord = '192.168.1.130'
+#hostenord = '192.168.1.130'
+hostenord = 'localhost'
 portnord = 15555
 
 #192.168.1.141
 #hoste2 = input("quelle est l'adresse ip de la deuxième antenne? \n")
 hosteouest = '192.168.1.141'
+#hosteouest = 'localhost'
 portouest = 15556
 
-hostesud = '192.168.1.150'
-portsud = 15557
+#hosteest = '192.168.1.102'
+hosteest = 'localhost'
+portest = 15557
 
-hosteest = '192.168.1.102'
-portest = 15558
+hostesud = '192.168.1.150'
+#hostesud = 'localhost'
+portsud = 15558
 
 hostcam='192.168.1.184'
 portcam = 15559
@@ -41,17 +45,17 @@ try:
     
     #Création de la caméra 
     cam = ant.EmmetCam(hostcam, portcam)
-    
+    #cam = None
     #Création de la cable bot
-    cable=ant.Cablebot(cam,EMET, 5, 5, 1)
+    cable=ant.Cablebot(cam,EMET, 3, 3, 1)
     
     #démarage du robot
     cable.start()
     x=1
-    tor1=-0.18
-    tor2=-0.18
-    tor3=-0.18
-    tor4=-0.18
+    tor1=-0.1
+    tor2=-0.1
+    tor3=-0.1
+    tor4=-0.1
     #test contrôle manuelle
             #Choix des modes
     b=True
@@ -72,9 +76,9 @@ try:
         mod2=input("Quel mode moteur Ouest? \n t = torque \n v = vitesse \n")
         mod3=input("Quel mode moteur Sud? \n t = torque \n v = vitesse \n")
         mod4=input("Quel mode moteur Est? \n t = torque \n v = vitesse \n")
-        if mod1=='t' and mod3=='t':
+        if mod1=='v' and mod3=='v':
             print ('impossible')
-        elif mod2=='t' and mod4=='t':
+        elif mod2=='v' and mod4=='v':
             print('impossible')
         else:
             b=False
