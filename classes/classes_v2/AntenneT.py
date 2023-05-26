@@ -9,6 +9,7 @@ Created on Fri Mar 17 14:38:31 2023
 import socket
 import testT as te
 import time
+import math
 
 
 class AntenneT:
@@ -123,6 +124,13 @@ class Cablebot:
         self.Pos=None
         self.Tour=None
         self.conv=0.2
+        
+        #DATA
+        self.kNord = [0, 0]
+        self.kOuest = [3, 0]
+        self.kEst = [0, 3]
+        self.kSud = [3, 3]
+        self.kDistancePerTurn = 0.075
     
     def start(self):
         if self.Cam != None:
@@ -371,7 +379,70 @@ class Cablebot:
         time.sleep(1)
         
         return 0
+    
+    
 
+    def distance(self,a, b):
+         dx = a[0] - b[0]
+         dy = a[1] - b[1]
+         return math.sqrt(dx * dx + dy * dy)
+
+    def unwind(self,reference, position, target):
+         distance_start = self.distance(reference, position)
+         distance_end = self.distance(reference, target)
+         return distance_end - distance_start
+
+    def compute_unwind(self,position, target):
+         nord = self.unwind(self.kNord, position, target)
+         ouest = self.unwind(self.kOuest, position, target)
+         est = self.unwind(self.kEst, position, target)
+         sud = self.unwind(self.kSud, position, target)
+         return [nord, ouest, est, sud]
+
+    def compute_turns(self,distances):
+         return [distance / self.kDistancePerTurn for distance in distances]
+
+    def compute_speeds(self,turns, dt):
+         return [turn / dt for turn in turns]
+
+    def compute_speeds_from_positions(self,position, target, dt):
+         distances = self.compute_unwind(position, target)
+         turns = self.compute_turns(distances)
+         speeds = self.compute_speeds(turns, dt)
+         return speeds
+
+    def estimate_new_position(self,position, dx):
+         return [position[0] + dx[0], position[1] + dx[1]]
+
+    def sleep(self,dt):
+         time.sleep(dt)
+
+
+    def stop(self):
+         self.pilote([0, 0, 0, 0], 1.0)
+
+    def compute_travel(self,position, target, duration, dt):
+         dx = dt * (target[0] - position[0]) / duration
+         dy = dt * (target[1] - position[1]) / duration
+         return [dx, dy]
+
+    def travel(self,position, target, duration):
+         speeds = self.compute_speeds_from_positions(position, target, duration)
+         delta_t = 0.5 # seconds
+         delta_x = self.compute_travel(position, target, duration, delta_t)
+         while duration > 0:
+             self.pilote(speeds, delta_t)
+             self.sleep(delta_t)
+             duration = duration - delta_t
+             if duration > 0:
+                 next_position = self.estimate_new_position(position, delta_x)
+                 distances = self.compute_unwind(position, next_position)
+                 turns = self.compute_turns(distances)
+                 speeds = self.compute_speeds(turns, delta_t)
+                 position = next_position
+                 print(f'--\nPosition {position}\nDistances{distances}\nTurns {turns}\nSpeeds {speeds}')
+             else:
+                 self.stop()
     """
     fonction temporaire pour tester la 2D
     """

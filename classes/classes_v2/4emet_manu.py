@@ -25,13 +25,14 @@ hosteouest = '192.168.1.141'
 #hosteouest = 'localhost'
 portouest = 15556
 
-hostesud = '192.168.1.150'
-#hostesud = 'localhost'
-portsud = 15557
-
 hosteest = '192.168.1.102'
 #hosteest = 'localhost'
-portest = 15558
+portest = 15557
+
+hostesud = '192.168.1.150'
+#hostesud = 'localhost'
+portsud = 15558
+
 
 
 hostcam='192.168.1.184'
@@ -62,7 +63,7 @@ try:
         Mod=['v','v','v','v']
         Mod[i]='t'
         cable.switch(Mod)
-        time.sleep(1)
+        time.sleep(5)
     
     input("next?")
     
@@ -71,21 +72,26 @@ try:
     mod=['t','t','t','t']
     cable.switch(mod)
     
-    #Position de départ
-    xs=int(input("Quel x de départ? \n"))
-    ys=int(input("Quel y de départ? \n"))
+    a=1
+    while a==1:
+        #Position de départ
+        xs=int(input("Quel x de départ? \n"))
+        ys=int(input("Quel y de départ? \n"))
     
-    #Position d'arrivée
-    xg=int(input("Quel x d'arrivé? \n"))
-    yg=int(input("Quel y d'arrivé? \n"))
+        #Position d'arrivée
+        xg=int(input("Quel x d'arrivé? \n"))
+        yg=int(input("Quel y d'arrivé? \n"))
     
-    S=[xs,ys]
-    G=[xg,yg]
+        S=[xs,ys]
+        G=[xg,yg]
     
-    #Temps de trajet
-    T=int(input("Quelle durée? \n"))
+        #Temps de trajet
+        T=int(input("Quelle durée? \n"))
     
-    travel.travel(S,G,T)
+        cable.travel.travel(S,G,T)
+        a=int(input("Point suivant? \n 1-Oui \n 0-Non"))
+    
+    cable.end()
    
     
 except BaseException as e:
