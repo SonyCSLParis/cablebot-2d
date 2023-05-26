@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Fri Mar 17 14:38:31 2023
+##
+#@ClassCamera 
+#
+#
+#
 
-@author: angab
-"""
-
+#Imports
 import os
 import socket
 import testT as te
@@ -23,8 +24,10 @@ from datetime import datetime
 
 
 class AntenneCam:
+
     def __init__(self,port):
-        #self.cam=cam
+        """! initialisation de la caméra pour la connection
+        @param port  port sur lequel se connecter"""
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.bind(('', port))
         #on attribue un port à notre serveur
@@ -33,6 +36,7 @@ class AntenneCam:
         self.client, self.address = self.socket.accept()
         
     def run(self):
+        """! Attend un message de la raspberry mere puis en fonction message utilise la fonction prendrePhoto ou uploadFile"""
         print ("{} connected".format( self.address ))
         a=True
         count = 0
@@ -63,10 +67,12 @@ class AntenneCam:
         return
     
     def prendrePhoto(self, a):
-        # Ce programme prend une photo avec la picamera, les enregistre dans le path indique dans le programme.
-        # Le detail du nom doit etre precise en argv1 de sorte a ce que une nouvelle photo soit cree au lieu de modifier celle d'avant
 
-        file_path = '/home/pi/photopicam/photo_picamera' + str(a) + '.png'
+        """! Ce programme prend une photo avec la picamera puis l'enregistre dans le dossier /home/pi/photopicam/ 
+        @param a  est converti en str puis ajoute au nom de l'image enregistree
+        
+        """
+        file_path = '/home/pi/photopicam/photo_picamera' + a + '.png'
         camera = PiCamera()
         camera.resolution = (1024, 768)
         camera.start_preview()
@@ -77,15 +83,15 @@ class AntenneCam:
         camera.close()
         return
     
-    def uploadFile(self,path, name):
-        #//!!!\\
-        #EN ARGV(ARGUMENT QUAND ON EXECUTE LE PROGRAMME)
-        #1: PATH VERS LE DOSSIER DE L'ORDI CONTENANT LES PHOTOS
-        #2: NOM DU DOSSIER A CREER DANS GOOGLE DRIVE QUI CONTIENDRA LES PHOTOS
+    def uploadFile(path, name):
 
-        # le Programme Crée un dossier dans google drive dont le nom est précisé en argv2,
-        # y envoie les photo dans le dossier dont le path est argv1, 
-        # puis supprime les photos du dossier de l'ordinateur.
+        """!
+        @param path duquel sont extraites les images puis envoyee sur google drive
+        @param name 
+        le Programme Crée un dossier dans google drive dont le nom est précisé en argv2,
+        y envoie les photo dans le dossier dont le path est argv1, 
+        puis supprime les photos du dossier de l'ordinateur.
+        """
 
         print("Début d'envoi")
         CLIENT_SECRET_FILE = '/home/pi/cablebot/classes/classes_v2/client_secret_cablecam.json'
