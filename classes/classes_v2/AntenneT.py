@@ -10,7 +10,7 @@ import socket
 import testT as te
 import time
 import math
-
+import keyboard
 
 class AntenneT:
     def __init__(self,mot,port):
@@ -427,22 +427,47 @@ class Cablebot:
          return [dx, dy]
 
     def travel(self,position, target, duration):
-         speeds = self.compute_speeds_from_positions(position, target, duration)
-         delta_t = 0.5 # seconds
-         delta_x = self.compute_travel(position, target, duration, delta_t)
-         while duration > 0:
-             self.pilote(speeds, delta_t)
-             self.sleep(delta_t)
-             duration = duration - delta_t
-             if duration > 0:
-                 next_position = self.estimate_new_position(position, delta_x)
-                 distances = self.compute_unwind(position, next_position)
-                 turns = self.compute_turns(distances)
-                 speeds = self.compute_speeds(turns, delta_t)
-                 position = next_position
-                 print(f'--\nPosition {position}\nDistances{distances}\nTurns {turns}\nSpeeds {speeds}')
-             else:
-                 self.stop()
+        speeds = self.compute_speeds_from_positions(position, target, duration)
+        print("speeds initiales: ",speeds)
+        Mod=[]
+        for i in range (4):
+            if speeds[i]<0:
+                mod='v'
+            else:
+                mod='t'
+            Mod.append(mod)
+        print("Mod initial: ",Mod)
+        self.switch(Mod)
+        delta_t = 0.5 # seconds
+        delta_x = self.compute_travel(position, target, duration, delta_t)
+        j=0
+        while duration > 0:
+            if keyboard.is_pressed('space'):
+                self.speed([0,0,0,0])
+                break
+            self.pilote(speeds, delta_t)
+            self.sleep(delta_t)
+            duration = duration - delta_t
+            if duration > 0:
+                next_position = self.estimate_new_position(position, delta_x)
+                distances = self.compute_unwind(position, next_position)
+                turns = self.compute_turns(distances)
+                speeds = self.compute_speeds(turns, delta_t)
+                print("speeds ",j," : ",speeds)
+                Mod=[]
+                for i in range (4):
+                    if speeds[i]<0:
+                        mod='v'
+                    else:
+                        mod='t'
+                    Mod.append(mod)
+                print("Mod ",i,"")
+                self.switch(Mod)
+                position = next_position
+                print(f'--\nPosition {position}\nDistances{distances}\nTurns {turns}\nSpeeds {speeds}')
+            else:
+                self.stop()
+                j+=1
     """
     fonction temporaire pour tester la 2D
     """

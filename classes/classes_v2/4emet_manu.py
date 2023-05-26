@@ -59,6 +59,9 @@ try:
     
     #Tension des câbles
     print("On tend les câbles")
+    Tor=[-0.1,-0.1,-0.1,-0.1]
+    cable.set_torques(Tor)
+    time.sleep(2)
     for i in range(4):
         Mod=['v','v','v','v']
         Mod[i]='t'
@@ -88,7 +91,7 @@ try:
         #Temps de trajet
         T=int(input("Quelle durée? \n"))
     
-        cable.travel.travel(S,G,T)
+        cable.travel(S,G,T)
         a=int(input("Point suivant? \n 1-Oui \n 0-Non"))
     
     cable.end()

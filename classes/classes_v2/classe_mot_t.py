@@ -244,10 +244,11 @@ class OdriveMot:
                 print("Consigne trop rapide")
                 return -1
             #self.state=False
+            print("\n")
             print("vroum vroum ça tourne")
             self.odrv.axis0.controller.input_vel = float(val)
-            time.sleep(T)
-            self.odrv.axis0.controller.input_vel = float(0)
+            #time.sleep(T)
+            #self.odrv.axis0.controller.input_vel = float(0)
             #self.state=True
             return 0
         elif self.mode=="t":
