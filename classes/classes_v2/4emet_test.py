@@ -12,10 +12,10 @@ import time
 print("Programme de test des classes du cable bot, pensez à lancer les simulations de moteur en premier! \n ordre: Nord, Ouest, Est, Sud")
 input("Continuer?")
 
-#192.168.1.166
+#192.168.1.166 ip de leonard
 #hoste1 = input("quelle est l'adresse ip de la première antenne? \n")
-#hostenord = '192.168.1.130'
-hostenord = 'localhost'
+hostenord = '192.168.1.130'
+#hostenord = 'localhost'
 portnord = 15555
 
 #192.168.1.141
@@ -24,13 +24,14 @@ hosteouest = '192.168.1.141'
 #hosteouest = 'localhost'
 portouest = 15556
 
-#hosteest = '192.168.1.102'
-hosteest = 'localhost'
-portest = 15557
-
 hostesud = '192.168.1.150'
 #hostesud = 'localhost'
-portsud = 15558
+portsud = 15557
+
+hosteest = '192.168.1.102'
+#hosteest = 'localhost'
+portest = 15558
+
 
 hostcam='192.168.1.184'
 portcam = 15559
@@ -39,8 +40,8 @@ try:
     #Création des éméteurs
     emet1=ant.EmmeteurT(hostenord,portnord,0)
     emet2=ant.EmmeteurT(hosteouest,portouest,0)
-    emet3=ant.EmmeteurT(hostesud,portsud,0)
     emet4=ant.EmmeteurT(hosteest,portest,0)
+    emet3=ant.EmmeteurT(hostesud,portsud,0)
     EMET=[emet1,emet2,emet3,emet4]
     
     #Création de la caméra 
@@ -121,7 +122,7 @@ try:
     parc=int(input("Parcours?\n 0-Non \n 1-Oui"))
     if parc==1:
         cable.quotidien()
-    cable.endrun()       
+    #cable.endrun()       
     cable.end()
 except BaseException as e:
     time.sleep(2)

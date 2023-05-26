@@ -120,42 +120,47 @@ def calcul_pos_mot(L, lon, lar, Tour): #à adapter au test en cours en fonction 
     Tour=[t1,t2,t3,t4]
     return Cons, Tour
 
-def pos_ligne():
-    Cons=[(0,0),(2,0)] #,(2,0),(1,0),(3,0),(2,0),(1,0),(2,0),(3,0),(2,0)
+def pos_plan():
+    Cons=[(0,0),(1,1),(1,0),(2,2),(0,0),(0,2),(1,1),(0,0)]
     return Cons
 
-def calcul_pos_mot_ligne(Cons):
+def calcul_pos_mot_plan(Cons):
     
     L=[]
     for i in Cons:
         x=i[0]
         y=i[1]
         l1=mp.sqrt(x**2+y**2)
-        l2=mp.sqrt((4-x)**2+y**2)
-        l=[l1,l2]
+        l2=mp.sqrt((3-x)**2+y**2)
+        l3=mp.sqrt((3-x)**2+(3-y)**2)
+        l4=mp.sqrt(x**2+(3-y)**2)
+        l=[l1,l2,l3,l4]
         L.append(l)
     print("L= ",L)
     return L
 
 def calc_tour_ligne(L,T,conv):
     t1=T[0]
-    print('t1: ',t1)
     t2=T[1]
-    print('t2: ',t2)
-    
+    t3=T[2]
+    t4=T[3]
     Mot=[]
     for i in L:
         m1=(i[0]/conv)-t1
         m2=(i[1]/conv)-t2
+        m3=(i[2]/conv)-t3
+        m4=(i[3]/conv)-t4
         t1=m1+t1
         t2=m2+t2
-        m=[m1,m2]
+        t3=m3+t3
+        t4=m4+t4
+        m=[m1,m2,m3,m4]
         Mot.append(m)
     #print("Mot: ",Mot)
     return Mot
 
 def calc_t(C):
-    vmax=2; #vitesse max en tour.sec-1
+    vmax=3; #vitesse max en tour.sec-1
     T=C/vmax;
     return abs(T)
 

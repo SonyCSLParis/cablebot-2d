@@ -122,7 +122,7 @@ class OdriveMot:
         self.cmax=cmax
         self.mode='v'
         self.tmax=tmax
-        self.tor=-0.1
+        self.tor=-0.15
         #self.state=True
     
     def set_config(self):
@@ -249,9 +249,11 @@ class OdriveMot:
             #self.state=True
             return 0
         elif self.mode=="t":
+            print("couple \n")
             pass
             #self.state=True
             return 0
+        
         
     def end(self):
         self.odrv.axis0.requested_state=od.AXIS_STATE_IDLE
