@@ -89,8 +89,7 @@ try:
         TOR=[-0.1,-0.1,-0.1,-0.1]
         cable.set_torques(TOR)
         while True:
-            T=0.5
-            v=-3
+            v=-1
             if keyboard.is_pressed('space'):
                 print("Fin de pilotage")
                 break

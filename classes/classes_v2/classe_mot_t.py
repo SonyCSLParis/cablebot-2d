@@ -214,12 +214,12 @@ class OdriveMot:
             print("mode inchangé")
             return 0
         elif mod=="v" or mod=="V":  
-            self.odrv.axis0.controller.input_torque = 0.0
             self.odrv.axis0.controller.config.control_mode = od.CONTROL_MODE_VELOCITY_CONTROL
             self.mode=mod
             print("mode passé en vitesse")
             return 0
-        elif mod=="t" or mod=="T":    
+        elif mod=="t" or mod=="T":  
+            self.odrv.axis0.controller.input_vel = float(0)
             self.odrv.axis0.controller.config.control_mode = 1
             self.mode=mod
             print("mode passé en couple")
