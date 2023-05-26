@@ -98,33 +98,37 @@ try:
                 cable.speed(V)
                 break
             if keyboard.is_pressed('up'):
+                cable.speed([0,0,0,0])
                 print('vers le haut')
                 Mod=['t','v','v','t']
                 cable.switch(Mod)
                 V=[v,v,v,v]
                 cable.speed(V)
-                time.sleep(T)
+                time.sleep(0.5)
             if keyboard.is_pressed('right'):
+                cable.speed([0,0,0,0])
                 print('vers la droite')
                 Mod=['v','v','t','t']
                 cable.switch(Mod)
                 V=[v,v,v,v]
                 cable.speed(V)
-                time.sleep(T)
+                time.sleep(0.5)
             if keyboard.is_pressed('left'):
+                cable.speed([0,0,0,0])
                 print('vers la gauche')
                 Mod=['t','t','v','v']
                 cable.switch(Mod)
                 V=[v,v,v,v]
                 cable.speed(V)
-                time.sleep(T)
+                time.sleep(0.5)
             if keyboard.is_pressed('down'):
+                cable.speed([0,0,0,0])
                 print('vers le bas')
                 Mod=['v','t','t','v']
                 cable.switch(Mod)
                 V=[v,v,v,v]
                 cable.speed(V)
-                time.sleep(T)
+                time.sleep(0.5)
 
     print("Mode automatique du carré\n Vérifiez que vous êtes bien en 0,0")
     input("pause, cliquez quand prêt")
