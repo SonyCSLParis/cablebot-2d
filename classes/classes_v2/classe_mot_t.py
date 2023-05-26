@@ -174,6 +174,7 @@ class OdriveMot:
             #initialisation mode de contrôle
             print("passage en mode velocity")
             ax.controller.config.control_mode = od.CONTROL_MODE_VELOCITY_CONTROL
+            self.odrv.axis0.controller.input_vel = float(0)
             
             print("Initialisation du moteur terminée.")
             #self.state=True

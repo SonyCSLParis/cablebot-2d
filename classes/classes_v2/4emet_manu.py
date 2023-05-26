@@ -56,10 +56,12 @@ try:
     
     #démarage du robot
     cable.start()
-    
+    cable.speed([0,0,0,0])
+    input("ready?")
     #TENDRE LES CABLES
     Mod=['v','v','v','v']
     cable.switch(Mod)
+    cable.speed([0,0,0,0])
     tend=1
     while tend==1:   
         V=[-1,-1,-1,-1]
