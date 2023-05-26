@@ -10,7 +10,7 @@ import socket
 import testT as te
 import time
 import math
-import keyboard
+#import keyboard
 
 class AntenneT:
     def __init__(self,mot,port):
@@ -442,9 +442,9 @@ class Cablebot:
         delta_x = self.compute_travel(position, target, duration, delta_t)
         j=0
         while duration > 0:
-            if keyboard.is_pressed('space'):
-                self.speed([0,0,0,0])
-                break
+            #if keyboard.is_pressed('space'):
+                #self.speed([0,0,0,0])
+               # break
             self.pilote(speeds, delta_t)
             self.sleep(delta_t)
             duration = duration - delta_t
