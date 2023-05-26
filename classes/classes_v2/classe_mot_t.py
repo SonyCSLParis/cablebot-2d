@@ -311,6 +311,22 @@ class OdriveMot:
            print("New torque :",val)
            self.tor=val
         
+        elif (mode=="V"):#cas Vitesse
+            if self.mode=='v':
+                print("vitesse MàJ")
+                i=4
+                test=mess[i]
+                val=[]
+                while (test!="'"):
+                    #print(test)
+                    i=i+1
+                    val.append(test)
+                    test=mess[i]
+                val=float("".join(val))
+                self.odrv.axis0.controller.input_vel = float(val)
+            else:
+                print('en couple pas de changement de vitesse')
+            
         else:#cas end
             self.end()
             return False

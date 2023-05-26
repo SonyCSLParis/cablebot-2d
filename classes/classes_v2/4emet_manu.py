@@ -86,6 +86,8 @@ try:
     
     manu=int(input("Passer en mode manuel? \n 1-oui \n"))
     if manu==1:
+        TOR=[-0.1,-0.1,-0.1,-0.1]
+        cable.set_torques(TOR)
         while True:
             T=0.5
             v=-3
@@ -131,6 +133,7 @@ try:
     V=[v,v,v,v]
     cable.switch(Mod)
     cable.pilote(V,T)
+    time.sleep(T)
     
     #Etape 2
     print("Etape 2")
@@ -140,6 +143,7 @@ try:
     V=[v,v,v,v]
     cable.switch(Mod)
     cable.pilote(V,T)
+    time.sleep(T)
     
     #Etape 3:*
     print("Etape 3")
@@ -149,7 +153,7 @@ try:
     V=[v,v,v,v]
     cable.switch(Mod)
     cable.pilote(V,T)
-    
+    time.sleep(T)
     
     #Etape 4
     print("Etape 4")
@@ -159,6 +163,7 @@ try:
     V=[v,v,v,v]
     cable.switch(Mod)
     cable.pilote(V,T)
+    time.sleep(T)
     
     #Etape 5
     print("Etape 5")
@@ -168,7 +173,7 @@ try:
     V=[v,v,v,v]
     cable.switch(Mod)
     cable.pilote(V,T)
-    
+    time.sleep(T)
     
     cable.end()
     

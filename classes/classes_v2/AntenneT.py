@@ -85,6 +85,11 @@ class EmmeteurT:
         self.tour+=turn
         return
     
+    def speed(self,v):
+        mes="V "+str(v)
+        self.socket.sendall(mes.encode())
+        return
+    
     def switch(self, mode):
         mes="S "+mode
         self.socket.sendall(mes.encode())
@@ -353,7 +358,12 @@ class Cablebot:
             self.set_tour()
     
     
-    
+    def speed(self,V):
+        for i in range(len(self.Emet)):
+            val=V[i]
+            self.Emet[i].speed(val)
+        time.sleep(1)
+        
     def pilote(self, V, T):
         for i in range(len(self.Emet)):
             val=V[i]
@@ -362,63 +372,63 @@ class Cablebot:
         
         return 0
 
-"""
-fonction temporaire pour tester la 2D
-"""
-def plan_test(self):
-    Cons=te.pos_plan()
-    L=te.calcul_pos_mot_plan(Cons)
+    """
+    fonction temporaire pour tester la 2D
+    """
+    def plan_test(self):
+        Cons=te.pos_plan()
+        L=te.calcul_pos_mot_plan(Cons)
     
-    #Définir la position de départ
-    x=float(input("Quel x de départ? \n"))
-    y=float(input("Quel y de départ? \n"))
-    ORIGINE=te.calcul_pos_mot_plan([(x,y)])
+        #Définir la position de départ
+        x=float(input("Quel x de départ? \n"))
+        y=float(input("Quel y de départ? \n"))
+        ORIGINE=te.calcul_pos_mot_plan([(x,y)])
     
-    #Definir le tour initial de chaque moteur 
-    self.reset_mot(ORIGINE)
+        #Definir le tour initial de chaque moteur 
+        self.reset_mot(ORIGINE)
     
-    #début du test
-    t1=self.Emet[0].get_turn()
-    t2=self.Emet[1].get_turn()
-    #T=[5,5]#temporaire à remplacer par le bon homing
-    Mot=te.calc_tour_plan(L,[t1,t2],self.conv)
-    for i in range (len(Mot)):
-        Mod=[]
-        print("Consigne ",i,"en cours: ",Mot[i],"\n")
-        for j in range(2):
+        #début du test
+        t1=self.Emet[0].get_turn()
+        t2=self.Emet[1].get_turn()
+        #T=[5,5]#temporaire à remplacer par le bon homing
+        Mot=te.calc_tour_plan(L,[t1,t2],self.conv)
+        for i in range (len(Mot)):
+            Mod=[]
+            print("Consigne ",i,"en cours: ",Mot[i],"\n")
+            for j in range(2):
             
-            if (Mot[i][j]>=0):#Passage en torque
-                mode='t'
-                Mot[i][j]=-0.1
-            else:
-                mode='v'
-            print(j,": mode ",mode)
-            Mod.append(mode)
-        self.switch(Mod)
-        time.sleep(1)
+                if (Mot[i][j]>=0):#Passage en torque
+                    mode='t'
+                    Mot[i][j]=-0.1
+                else:
+                    mode='v'
+                print(j,": mode ",mode)
+                Mod.append(mode)
+            self.switch(Mod)
+            time.sleep(1)
         
-        t1=te.calc_t(Mot[i][0])
-        t2=te.calc_t(Mot[i][1])
-        T=t1
-        if t2>t1:
-            T=t2
+            t1=te.calc_t(Mot[i][0])
+            t2=te.calc_t(Mot[i][1])
+            T=t1
+            if t2>t1:
+                T=t2
         
-        val1=Mot[i][0]
-        if val1 != -0.1:
-            val1=te.calc_vit(T, val1)
+            val1=Mot[i][0]
+            if val1 != -0.1:
+                val1=te.calc_vit(T, val1)
         
-        val2=Mot[i][1]
-        if val2 != -0.1:
-            val2=te.calc_vit(T, val2)
-        print("val1: ",val1, " et val2: ",val2,"\n")
-        print("T=",T)
-        self.Emet[0].pilote(val1,T)
-        self.Emet[1].pilote(val2,T)
-        time.sleep(T)
-        self.takepic()
-    self.Cam.finparc()
+            val2=Mot[i][1]
+            if val2 != -0.1:
+                val2=te.calc_vit(T, val2)
+            print("val1: ",val1, " et val2: ",val2,"\n")
+            print("T=",T)
+            self.Emet[0].pilote(val1,T)
+            self.Emet[1].pilote(val2,T)
+            time.sleep(T)
+            self.takepic()
+            self.Cam.finparc()
         
-    return 0
+        return 0
 
 
 
