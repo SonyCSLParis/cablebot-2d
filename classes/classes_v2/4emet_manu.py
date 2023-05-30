@@ -47,8 +47,8 @@ try:
     EMET=[emet1,emet2,emet3,emet4]
     
     #Création de la caméra 
-    #cam = ant.EmmetCam(hostcam, portcam)
-    cam = None
+    cam = ant.EmmetCam(hostcam, portcam)
+    #cam = None
     #Création de la cable bot
     cable=ant.Cablebot(cam,EMET, 3, 3, 1)
     
@@ -66,7 +66,7 @@ try:
         Mod=['v','v','v','v']
         Mod[i]='t'
         cable.switch(Mod)
-        time.sleep(5)
+        time.sleep(2)
     
     input("next?")
     
@@ -92,6 +92,9 @@ try:
         T=int(input("Quelle durée? \n"))
     
         cable.travel(S,G,T)
+        pic=int(input("Prendre une photo? \n 1-Oui \n"))
+        if pic==1:
+            cable.takepic()
         a=int(input("Point suivant? \n 1-Oui \n 0-Non"))
     
     input("Dessin dans le plan")

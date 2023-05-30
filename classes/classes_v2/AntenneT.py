@@ -133,7 +133,7 @@ class Cablebot:
         self.kOuest = [3, 0]
         self.kEst = [0, 3]
         self.kSud = [3, 3]
-        self.kDistancePerTurn = 0.075
+        self.kDistancePerTurn = 0.1
     
     def start(self):
         if self.Cam != None:
@@ -243,7 +243,7 @@ class Cablebot:
                 self.Emet[k].pilote(VAL[k],T)
             time.sleep(T)
             
-            #self.takepic()
+            self.takepic()
         
         #self.endrun()
         return 0
@@ -349,9 +349,9 @@ class Cablebot:
         for i in self.Emet:
             i.switch('v')
         time.sleep(1)
-        for i in self.Emet:
-            i.switch('t')
-        time.sleep(1)
+        #for i in self.Emet:
+            #i.switch('v')
+        #time.sleep(1)
         print("prise de photo")
         print("\n")
         if self.Cam != None:
