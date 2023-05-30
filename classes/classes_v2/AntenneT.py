@@ -436,11 +436,13 @@ class Cablebot:
         x=target[0]
         y=target[1]
         S_dead=0 # start dead zone
-        E_dead=1 #end dead zone
+        E_dead=0.8 #end dead zone
         if S_dead <= x <= E_dead or S_dead <= y <= E_dead:
             tor=-0.05
-            TOR=[tor,tor,tor,tor]
-            self.set_torques(TOR)
+        else:
+            tor=-0.1
+        TOR=[tor,tor,tor,tor]
+        self.set_torques(TOR)
         for i in range (4):
             if speeds[i]<0:
                 mod='v'
