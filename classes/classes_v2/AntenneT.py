@@ -10,6 +10,9 @@ import socket
 import testT as te
 import time
 import math
+from PIL import Image
+import requests
+from io import BytesIO
 #import keyboard
 
 class AntenneT:
@@ -492,6 +495,7 @@ class Cablebot:
             pt_goal=Cons[i]
             self.travel(pt_start,pt_goal,T)
             self.takepic()
+            recup_image()
         return 0
 
 
@@ -501,6 +505,7 @@ class EmmetCam:
         self.h=host
         self.p=port
         self.socket=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	self.compteur=0
         
     def connect(self):
         self.socket.connect((self.h, self.p))
@@ -511,12 +516,21 @@ class EmmetCam:
         mes='2'
         self.socket.sendall(mes.encode())
         time.sleep(10)
+        self.compteur+=1
         return
     
     def finparc(self):
         mes='1'
         print('Fin de parcours')
+	path = 'Users/angab/OneDrive/Documents/ROB4/PI/photos/'
+      
+        now = datetime.now()
+        print("now: ",now)
+        current_time = str(now.strftime("%H:%M:%S"))
+        print("current_time", current_time)
+        self.uploadFile(path, current_time)
         self.socket.sendall(mes.encode())
+        
         time.sleep(5)
         return
     
@@ -525,5 +539,81 @@ class EmmetCam:
         print("Caméra déconnectée")
         return
         
+    def recup_image(self):
+		url = "https://192.168.1.184"
+
+		response = requests.get(url)
+		img = Image.open(BytesIO(response.content))
+		chemin_destination = "Users/angab/OneDrive/Documents/ROB4/PI/photos/"
+		nom_fichier = str(self.compteur)
+		img.save(chemin_destination + nom_fichier)
+
+		print("L'image a été enregistrée avec succès.")
+		
+    def upload_file(self, path, name):
+    	        #//!!!\\
+        #EN ARGV(ARGUMENT QUAND ON EXECUTE LE PROGRAMME)
+        #1: PATH VERS LE DOSSIER DE L'ORDI CONTENANT LES PHOTOS
+        #2: NOM DU DOSSIER A CREER DANS GOOGLE DRIVE QUI CONTIENDRA LES PHOTOS
+
+        # le Programme Crée un dossier dans google drive dont le nom est précisé en argv2,
+        # y envoie les photo dans le dossier dont le path est argv1, 
+        # puis supprime les photos du dossier de l'ordinateur.
+
+        print("Début d'envoi")
+        CLIENT_SECRET_FILE = 'Users/angab/OneDrive/Documents/ROB4/PI/code/cablebot-2d/classes/classes_v2/client_secret_cablecam.json'#'/home/pi/cablebot/classes/classes_v2/client_secret_cablecam.json'
+        API_NAME = 'drive'
+        API_VERSION = 'v3'
+        SCOPES = ['https://www.googleapis.com/auth/drive']
+
+        service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+
+        ##folder_id = ['1j-ux1P75c6CYFBj0zi2YptP63YcQTA3l'] au cas ou on voudrait toujours envoyer au même dossier
+
+        file_names = os.listdir(path) #nom du fichier à upload, peut etre une liste
+        #k=0 
+        mime_types = []
+        for i in file_names:
+            mime_types.append('image/png') #donner le mimetype pour chaque fichier dans le dossier (ici il n'y a que des png !!!!!)
+            print("nametype de",i)
+        file_metadata = {
+                'name': name,
+                'mimeType' : 'application/vnd.google-apps.folder',
+                
+            }
+
+        folder_id = [service.files().create(body = file_metadata, fields='id').execute()['id']] #Creation du dossier dans google drive 
+                                                                                                #et récupération du folder ID pour 
+        print(folder_id)                                                                        #ensuite envoyer les photos dans ce dossier
+        for file_name, mime_type in zip(file_names, mime_types):
+            print("file name")
+            print(file_name)
+            print("\n")
+            file_metadata = {
+                'name' : file_name,
+                'parents' : folder_id
+            }
+            file_name_directory = path + '/' + file_name
+
+            media = MediaFileUpload(file_name_directory ,mimetype = mime_type)
+
+            service.files().create(
+                body = file_metadata,
+                media_body = media,
+                fields = 'id'
+            ).execute() #envoi des photos
+
+
         
+        try:
+            # Supprimer les fichiers du dossiers
+            for i in file_names:
+                os.remove(path +'/'+i)
+                print(f'Le fichier {i} a été supprimé avec succès.')
+        except OSError as e:
+            print(f'Erreur lors de la suppression du fichier {file_names}: {e}')
+        
+        print("fin d'envoi")
+        return
+			
         

@@ -43,17 +43,7 @@ class AntenneCam:
                 mes=str(mes)
                 if mes != "b''":
                     
-                    valeur = mes[2]
 
-                    if (valeur == '1'):
-                        path = '/home/pi/photopicam/'
-                        #today = date.today() version finale avec la date, version test avec heure
-                        now = datetime.now()
-                        print("now: ",now)
-                        current_time = str(now.strftime("%H:%M:%S"))
-                        print("current_time", current_time)
-                        self.uploadFile(path, current_time)
-                    else:
                         self.prendrePhoto(count)
                 else:
                     a=False
