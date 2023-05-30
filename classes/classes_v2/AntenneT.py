@@ -517,6 +517,7 @@ class EmmetCam:
         self.socket.sendall(mes.encode())
         time.sleep(10)
         self.compteur+=1
+        self.recup_image(self.compteur)
         return
     
     def finparc(self):
@@ -539,12 +540,12 @@ class EmmetCam:
         print("Caméra déconnectée")
         return
         
-    def recup_image(self):
+    def recup_image(self, count):
 		url = "https://192.168.1.184"
-
+		name = str(count) + ".png"
 		response = requests.get(url)
 		img = Image.open(BytesIO(response.content))
-		chemin_destination = "Users/angab/OneDrive/Documents/ROB4/PI/photos/"
+		chemin_destination = "Users/angab/OneDrive/Documents/ROB4/PI/photos/" + name
 		nom_fichier = str(self.compteur)
 		img.save(chemin_destination + nom_fichier)
 
