@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "cablecamapi-373910",
+  "private_key_id": "ed3b87b12e99277ac0c3fe88907352f6d07decf5",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC3D2LlojLk5tXK\nx7XmnfOXEWXvE4JqxFdbP96FjIc0qvu+2rO1ROyPtRiNbAQYoIUAQZ+6IbltsYKC\n/+77t5O3Z2gX+FYPMhMhmQ1ZSEZBy19X63mTMeTZyDsI/drkntI1aLsRS7uMiJNK\nz3om/gRWDOsK1QNf2cjq0PlTgmxzvp58wauChu6+iQYycAgD3vSLXM2HcfbpInDD\nS5G6TtNuCLlO1VmeZb3AQHpNQEnDPsi5xIAMs0BOQ4kMYgSOEzTJADKpFMPQhbCL\nfQO6fxCRZu04Vuoit1MLAidnnihrckEODKQGKo+gZVgpstvNNyk4iUrtTCxL5sPB\nhfnrRWThAgMBAAECggEABo/fYm5oRyLMLp7ukxP956AoyINpRSUBIaT+N8jUDuwD\nJrIFx51vIm6iMO2ajvxwEBSKInyzfi5jCImemjjYK3aiOVu+UACiRW3MV/M6i4C8\nC/WFr+RVuQXPsfCRoGjeDaqRrBrMIAtERmX+EbhA1QnVAhglLRIsPNidW2Q9OX/f\n/aDaKKP+y1xpAsgFzuLOQVlwqdizwvV4q0FUOLpcRHrsBYy/BPZNAJ/i8i/pRc9J\nx0qy3WA81G5j1JgapJa78wHYufqtAwe3e+NeeoE3rRN1KcKcOwrns/AvnzeOpkaX\nDcsWxgqRrNoxpkYk1AJm3DKlJgFIYwdxL3CsweHrcQKBgQDd8oWfTRDxQ0OIApcm\nuViXr5Bb9Gx1l/HGtRMIVVAthP9yTgtSs8FPwWk6hK3Q7V6iIezxZUUmP+jaW5uD\nnYpnHoiTySYZQZSG5BR0JFmb0BxPWCGeGFAVUES4/qLH2SnUCLP7htSw+h/CgKH2\njTmrADGImxEkK/yUWu1LR1Cf+QKBgQDTJXsVVf/Kf7CSIoyQOgfVAmhTP8hHaKXg\nN3dxVT1Oj2oLGXEgXadLROTc4mL3DeFJC+YIh6dl6KBXPjoRmtCccG9sHP5w1fdY\nZBuPaNj3TCkOCaRP63DUwMXQxFWln2pArrLn9XMoyRovzaX05die347jS7ohghbJ\nEAjDuFd2KQKBgG7R0FxZK5N7pXV87aHdO9oJREhVw+33XzZ7ZTRs/Kqt1KprQ4YY\n0PYUuYkJhIxkaTMFQ3zItv1BPfABe6X8/IU+nq1D620C7LlpmrjfCYseH3SSqb55\nn0r1GEtSgU7OJO+FJPD7QqnXShJhDf3ASEIUx6bQ3n80I1qkCAXlZuFpAoGBAIDx\nRKcU665oKBY2Dw0MwzerzrX4H4CsQZAZj1Ggsl3Fawb4NIOFbeKjYfgaMEGbMlb/\ncy0GWo37b9+XWrLhjj/a0dB+LEwP/or2J3Z+mvD6i5/M95DuwOrMBoGlRIBuR97U\nUOEinX7swJcsyQozSwRKleHsnvBTl0KWDiQn8RFxAoGBANFaszreICuxJETlBK84\nqSsAnI1bgZWSm51TzrAm0dDEcd43NQf6cp2dwwk4YeF813+r6I1SiKAh9vhHY0Rc\nKTS24vLcoRqXhksKAhnXh9PYEfHrDcPqEVNVC+8j4ZH4Db1kKSLaxL8MGoaOIh5q\nj7uIjfNO3uIiMdbepy8EKGcb\n-----END PRIVATE KEY-----\n",
+  "client_email": "cablecam@cablecamapi-373910.iam.gserviceaccount.com",
+  "client_id": "111113744920755124293",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cablecam%40cablecamapi-373910.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

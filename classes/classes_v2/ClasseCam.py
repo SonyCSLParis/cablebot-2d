@@ -94,7 +94,7 @@ class AntenneCam:
         """
 
         print("Début d'envoi")
-        CLIENT_SECRET_FILE = '/home/pi/cablebot/classes/classes_v2/client_secret_cablecam.json'
+        CLIENT_SECRET_FILE = '/home/pi/cablebot/classes/classes_v2/cablecamapi.json'#'/home/pi/cablebot/classes/classes_v2/client_secret_cablecam.json'
         API_NAME = 'drive'
         API_VERSION = 'v3'
         SCOPES = ['https://www.googleapis.com/auth/drive']
