@@ -94,6 +94,10 @@ try:
         cable.travel(S,G,T)
         a=int(input("Point suivant? \n 1-Oui \n 0-Non"))
     
+    input("Dessin dans le plan")
+    cable.plan_test()
+    
+    
     cable.end()
    
     
