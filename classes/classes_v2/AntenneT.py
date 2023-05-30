@@ -344,7 +344,7 @@ class Cablebot:
     
     def takepic(self):
         for i in self.Emet:
-            i.switch('t')
+            i.switch('v')
         time.sleep(1)
         #for i in self.Emet:
             #i.switch('v')
