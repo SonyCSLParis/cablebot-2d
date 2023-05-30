@@ -165,6 +165,7 @@ class Cablebot:
         l=len(self.Emet)
         for i in range(l):
             self.Emet[i].set_tor(TOR[i])
+        time.sleep(1)
         return
     
     def set_tour(self):
@@ -207,7 +208,7 @@ class Cablebot:
             print("Mod: ",Mod,"\n")
             #MàJ des modes de chaque moteur
             self.switch(Mod)
-            time.sleep(1)
+            #time.sleep(1)
             
             Time=[]
             for k in Cons:
@@ -338,19 +339,20 @@ class Cablebot:
                 self.Emet[i].switch(modv)
             else:
                 pass
+        time.sleep(1)
         return 0
     
     def takepic(self):
         for i in self.Emet:
-            i.switch('t')
-            time.sleep(1)
-        for i in self.Emet:
             i.switch('v')
-            time.sleep(1)
+        time.sleep(1)
+        for i in self.Emet:
+            i.switch('t')
         time.sleep(1)
         print("prise de photo")
         print("\n")
-        self.Cam.takepic()
+        if self.Cam != None:
+            self.Cam.takepic()
         return 
         
     def end(self):
@@ -376,7 +378,7 @@ class Cablebot:
         for i in range(len(self.Emet)):
             val=V[i]
             self.Emet[i].pilote(val,T)
-        time.sleep(1)
+        #time.sleep(0.5)
         
         return 0
     
@@ -430,6 +432,16 @@ class Cablebot:
         speeds = self.compute_speeds_from_positions(position, target, duration)
         print("speeds initiales: ",speeds)
         Mod=[]
+        x=target[0]
+        y=target[1]
+        S_dead=0 # start dead zone
+        E_dead=0.8 #end dead zone
+        if S_dead <= x <= E_dead or S_dead <= y <= E_dead:
+            tor=-0.05
+        else:
+            tor=-0.1
+        TOR=[tor,tor,tor,tor]
+        self.set_torques(TOR)
         for i in range (4):
             if speeds[i]<0:
                 mod='v'
@@ -438,7 +450,8 @@ class Cablebot:
             Mod.append(mod)
         print("Mod initial: ",Mod)
         self.switch(Mod)
-        delta_t = 0.5 # seconds
+        #time.sleep(1)
+        delta_t = 2 # seconds
         delta_x = self.compute_travel(position, target, duration, delta_t)
         j=0
         while duration > 0:
@@ -446,7 +459,7 @@ class Cablebot:
                 #self.speed([0,0,0,0])
                # break
             self.pilote(speeds, delta_t)
-            self.sleep(delta_t)
+            self.sleep(1)
             duration = duration - delta_t
             if duration > 0:
                 next_position = self.estimate_new_position(position, delta_x)
@@ -473,57 +486,12 @@ class Cablebot:
     """
     def plan_test(self):
         Cons=te.pos_plan()
-        L=te.calcul_pos_mot_plan(Cons)
-    
-        #Définir la position de départ
-        x=float(input("Quel x de départ? \n"))
-        y=float(input("Quel y de départ? \n"))
-        ORIGINE=te.calcul_pos_mot_plan([(x,y)])
-    
-        #Definir le tour initial de chaque moteur 
-        self.reset_mot(ORIGINE)
-    
-        #début du test
-        t1=self.Emet[0].get_turn()
-        t2=self.Emet[1].get_turn()
-        #T=[5,5]#temporaire à remplacer par le bon homing
-        Mot=te.calc_tour_plan(L,[t1,t2],self.conv)
-        for i in range (len(Mot)):
-            Mod=[]
-            print("Consigne ",i,"en cours: ",Mot[i],"\n")
-            for j in range(2):
-            
-                if (Mot[i][j]>=0):#Passage en torque
-                    mode='t'
-                    Mot[i][j]=-0.1
-                else:
-                    mode='v'
-                print(j,": mode ",mode)
-                Mod.append(mode)
-            self.switch(Mod)
-            time.sleep(1)
-        
-            t1=te.calc_t(Mot[i][0])
-            t2=te.calc_t(Mot[i][1])
-            T=t1
-            if t2>t1:
-                T=t2
-        
-            val1=Mot[i][0]
-            if val1 != -0.1:
-                val1=te.calc_vit(T, val1)
-        
-            val2=Mot[i][1]
-            if val2 != -0.1:
-                val2=te.calc_vit(T, val2)
-            print("val1: ",val1, " et val2: ",val2,"\n")
-            print("T=",T)
-            self.Emet[0].pilote(val1,T)
-            self.Emet[1].pilote(val2,T)
-            time.sleep(T)
+        T=10
+        for i in range(1,len(Cons)):
+            pt_start=Cons[i-1]
+            pt_goal=Cons[i]
+            self.travel(pt_start,pt_goal,T)
             self.takepic()
-            self.Cam.finparc()
-        
         return 0
 
 

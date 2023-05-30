@@ -78,12 +78,12 @@ try:
     a=1
     while a==1:
         #Position de départ
-        xs=int(input("Quel x de départ? \n"))
-        ys=int(input("Quel y de départ? \n"))
+        xs=float(input("Quel x de départ? \n"))
+        ys=float(input("Quel y de départ? \n"))
     
         #Position d'arrivée
-        xg=int(input("Quel x d'arrivé? \n"))
-        yg=int(input("Quel y d'arrivé? \n"))
+        xg=float(input("Quel x d'arrivé? \n"))
+        yg=float(input("Quel y d'arrivé? \n"))
     
         S=[xs,ys]
         G=[xg,yg]
@@ -94,6 +94,12 @@ try:
         cable.travel(S,G,T)
         a=int(input("Point suivant? \n 1-Oui \n 0-Non"))
     
+    input("Dessin dans le plan")
+    d=1
+    while d==1:
+        cable.plan_test()
+        d=int(input("Encore? \n 1-oui"))
+    input("Fin de parcours")
     cable.end()
    
     
