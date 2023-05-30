@@ -352,7 +352,8 @@ class Cablebot:
         time.sleep(1)
         print("prise de photo")
         print("\n")
-        self.Cam.takepic()
+        if self.Cam != None:
+            self.Cam.takepic()
         return 
         
     def end(self):
@@ -432,6 +433,14 @@ class Cablebot:
         speeds = self.compute_speeds_from_positions(position, target, duration)
         print("speeds initiales: ",speeds)
         Mod=[]
+        x=target[0]
+        y=target[1]
+        S_dead=0 # start dead zone
+        E_dead=1 #end dead zone
+        if S_dead <= x <= E_dead or S_dead <= y <= E_dead:
+            tor=-0.05
+            TOR=[tor,tor,tor,tor]
+            self.set_torques(TOR)
         for i in range (4):
             if speeds[i]<0:
                 mod='v'
@@ -481,6 +490,7 @@ class Cablebot:
             pt_start=Cons[i-1]
             pt_goal=Cons[i]
             self.travel(pt_start,pt_goal,T)
+            self.takepic()
         return 0
 
 

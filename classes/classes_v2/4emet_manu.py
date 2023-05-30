@@ -95,9 +95,11 @@ try:
         a=int(input("Point suivant? \n 1-Oui \n 0-Non"))
     
     input("Dessin dans le plan")
-    cable.plan_test()
-    
-    
+    d=1
+    while d==1:
+        cable.plan_test()
+        d=int(input("Encore? \n 1-oui"))
+    input("Fin de parcours")
     cable.end()
    
     
