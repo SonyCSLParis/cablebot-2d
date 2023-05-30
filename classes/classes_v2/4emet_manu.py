@@ -78,12 +78,12 @@ try:
     a=1
     while a==1:
         #Position de départ
-        xs=int(input("Quel x de départ? \n"))
-        ys=int(input("Quel y de départ? \n"))
+        xs=float(input("Quel x de départ? \n"))
+        ys=float(input("Quel y de départ? \n"))
     
         #Position d'arrivée
-        xg=int(input("Quel x d'arrivé? \n"))
-        yg=int(input("Quel y d'arrivé? \n"))
+        xg=float(input("Quel x d'arrivé? \n"))
+        yg=float(input("Quel y d'arrivé? \n"))
     
         S=[xs,ys]
         G=[xg,yg]
