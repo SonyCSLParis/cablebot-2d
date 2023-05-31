@@ -71,7 +71,7 @@ class EmmeteurT:
         self.p=port
         self.socket=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.tour=turn
-        print("Attention, vérifiés bien qu'un couple positif enroule le câble")
+        print("Attention, vérifiez bien qu'un couple positif enroule le câble")
         
     def connect(self):
         self.socket.connect((self.h, self.p))

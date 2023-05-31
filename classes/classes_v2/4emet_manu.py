@@ -15,7 +15,7 @@ input("Continuer?")
 
 #192.168.1.166 ip de leonard
 #hoste1 = input("quelle est l'adresse ip de la première antenne? \n")
-hostenord = '192.168.1.130'
+hostenord = '192.168.1.128'
 #hostenord = 'localhost'
 portnord = 15555
 
