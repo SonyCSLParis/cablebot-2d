@@ -363,6 +363,7 @@ class Cablebot:
         return 
         
     def end(self):
+        print("SHUTDOWN")
         if self.Cam != None:
             self.Cam.end()
         for i in self.Emet:
@@ -517,15 +518,15 @@ class EmmetCam:
         return        
     
     def takepic(self):
-        mes='2'
-        self.socket.sendall(mes.encode())
+        mes_pic='pic'
+        self.socket.sendall(mes_pic.encode())
         time.sleep(10)
         self.compteur+=1
         self.recup_image(self.compteur)
         return
     
     def finparc(self):
-        mes='1'
+        #mes='1'
         print("Fin de parcours") 
         path = "Users/angab/OneDrive/Documents/ROB4/PI/photos/"
         now = datetime.now()
@@ -533,14 +534,15 @@ class EmmetCam:
         current_time = str(now.strftime("%H:%M:%S"))
         print("current_time", current_time)
         self.uploadFile(path, current_time)
-        self.socket.sendall(mes.encode())
+        #self.socket.sendall(mes.encode())
         
         time.sleep(5)
         return
     
     def end(self):
-        mes='E'
-        self.socket.sendall(mes.encode())
+        mes_end='E'
+        print("Fermeture camera")
+        self.socket.sendall(mes_end.encode())
         self.socket.close()
         print("Caméra déconnectée")
         return
