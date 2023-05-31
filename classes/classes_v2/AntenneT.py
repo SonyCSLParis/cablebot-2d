@@ -75,7 +75,7 @@ class EmmeteurT:
         
     def connect(self):
         self.socket.connect((self.h, self.p))
-        print ("Connection on {}".format(self.p))
+        print ("Connection on {}".format(self.h))
         return
     
     def end(self):
@@ -514,7 +514,7 @@ class EmmetCam:
         
     def connect(self):
         self.socket.connect((self.h, self.p))
-        print ("Connection on {}".format(self.p))
+        print ("Connection on {}".format(self.h))
         return        
     
     def takepic(self):
