@@ -77,25 +77,28 @@ try:
     
     a=1
     while a==1:
-        #Position de départ
-        xs=float(input("Quel x de départ? \n"))
-        ys=float(input("Quel y de départ? \n"))
+        dep=int(input("Deplacement? \n 1-oui "))
+        while dep==1:
+            #Position de départ
+            xs=float(input("Quel x de départ? \n"))
+            ys=float(input("Quel y de départ? \n"))
     
-        #Position d'arrivée
-        xg=float(input("Quel x d'arrivé? \n"))
-        yg=float(input("Quel y d'arrivé? \n"))
+            #Position d'arrivée
+            xg=float(input("Quel x d'arrivé? \n"))
+            yg=float(input("Quel y d'arrivé? \n"))
     
-        S=[xs,ys]
-        G=[xg,yg]
+            S=[xs,ys]
+            G=[xg,yg]
     
-        #Temps de trajet
-        T=int(input("Quelle durée? \n"))
+            #Temps de trajet
+            T=int(input("Quelle durée? \n"))
     
-        cable.travel(S,G,T)
+            cable.travel(S,G,T)
+            dep=int(input("Point suivant? \n 1-Oui \n 0-Non"))
         pic=int(input("Prendre une photo? \n 1-Oui \n"))
         if pic==1:
             cable.takepic()
-        a=int(input("Point suivant? \n 1-Oui \n 0-Non"))
+        a=int(input("Bouger à nouveau? \n 1-oui"))
     
     input("Dessin dans le plan")
     d=1
