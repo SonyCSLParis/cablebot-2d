@@ -16,6 +16,7 @@ import math
 from PIL import Image
 import requests
 from io import BytesIO
+import os
 #import keyboard
 
 class AntenneT:
@@ -507,8 +508,8 @@ class EmmetCam:
     def __init__(self, host, port):
         self.h=host
         self.p=port
-        self.socket=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	    self.compteur=0
+        self.socket=socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+        self.compteur=0
         
     def connect(self):
         self.socket.connect((self.h, self.p))
@@ -525,8 +526,8 @@ class EmmetCam:
     
     def finparc(self):
         mes='1'
-        print("Fin de parcours")
-	    path = "Users/angab/OneDrive/Documents/ROB4/PI/photos/"
+        print("Fin de parcours") 
+        path = "Users/angab/OneDrive/Documents/ROB4/PI/photos/"
         now = datetime.now()
         print("now: ",now)
         current_time = str(now.strftime("%H:%M:%S"))
@@ -542,15 +543,15 @@ class EmmetCam:
         print("Caméra déconnectée")
         return
         
-    def recup_image(self, count):
-		url = "https://192.168.1.184"
-		name = str(count) + ".png"
-		response = requests.get(url)
-		img = Image.open(BytesIO(response.content))
-		chemin_destination = "Users/angab/OneDrive/Documents/ROB4/PI/photos/" + name
-		nom_fichier = str(self.compteur)
-		img.save(chemin_destination + nom_fichier)
-		print("L'image a été enregistrée avec succès.")
+    def recup_image(self, count): 
+        url = "https://192.168.1.184" 
+        name = str(count) + ".png" 
+        response = requests.get(url) 
+        img = Image.open(BytesIO(response.content)) 
+        chemin_destination = "Users/angab/OneDrive/Documents/ROB4/PI/photos/" + name 
+        nom_fichier = str(self.compteur) 
+        img.save(chemin_destination + nom_fichier) 
+        print("L'image a été enregistrée avec succès.")
         return
 		
     def upload_file(self, path, name):
