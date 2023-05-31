@@ -6,7 +6,7 @@ Created on Fri Apr 14 11:07:38 2023
 """
 
 import classe_mot_t as mo
-import AntenneT as ant
+import AntenneM as ant
 
 if __name__=="__main__":
     #moteur=mo.FakeMotorT(10,5,0.5)
