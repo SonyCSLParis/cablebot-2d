@@ -13,10 +13,10 @@ import socket
 import testT as te
 import time
 import math
+import os
 from PIL import Image
 import requests
 from io import BytesIO
-import os
 #import keyboard
 
 class AntenneT:
@@ -527,7 +527,7 @@ class EmmetCam:
     def finparc(self):
         mes='1'
         print("Fin de parcours") 
-        path = "home/leonard/Documents/Projet_indus/classes/photo"
+        path = "Users/angab/OneDrive/Documents/ROB4/PI/photos/"
         now = datetime.now()
         print("now: ",now)
         current_time = str(now.strftime("%H:%M:%S"))
@@ -550,7 +550,7 @@ class EmmetCam:
         name = str(count) + ".png" 
         response = requests.get(url) 
         img = Image.open(BytesIO(response.content)) 
-        chemin_destination = "home/leonard/Documents/Projet_indus/classes/photo" + name 
+        chemin_destination = "Users/angab/OneDrive/Documents/ROB4/PI/photos/" + name 
         nom_fichier = str(self.compteur) 
         img.save(chemin_destination + nom_fichier) 
         print("L'image a été enregistrée avec succès.")
@@ -572,15 +572,14 @@ class EmmetCam:
         # puis supprime les photos du dossier de l'ordinateur.
 
         print("Début d'envoi")
-        CLIENT_SECRET_FILE = 'home/leonard/Documents/Projet_indus/classes/cablebot-2d/classes/classes_v2/client_secret_cablecam.json'#'/home/pi/cablebot/classes/classes_v2/client_secret_cablecam.json'
+        CLIENT_SECRET_FILE = 'Users/angab/OneDrive/Documents/ROB4/PI/code/cablebot-2d/classes/classes_v2/client_secret_cablecam.json'#'/home/pi/cablebot/classes/classes_v2/client_secret_cablecam.json'
         API_NAME = 'drive'
         API_VERSION = 'v3'
         SCOPES = ['https://www.googleapis.com/auth/drive']
 
         service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
 
-        ##folder_id = ['1j-ux1P75c6CYFBj0zi2YptP63YcQTA3l'] au cas ou on voudrait toujours envoyer au même dossier
-
+        ##folder_id = ['1j-ux1P75c6CYFBj0zi2YptP63YcQTA3l'] au cas ou on voudrait toujours envoyer au même dossier 
         file_names = os.listdir(path) #nom du fichier à upload, peut etre une liste
         #k=0 
         mime_types = []
