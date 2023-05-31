@@ -6,7 +6,12 @@ from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
 from google.auth.transport.requests import Request
 
 
-"""def Create_Service(client_secret_file, api_name, api_version, *scopes):
+def Create_Service(client_secret_file, api_name, api_version, *scopes):
+    """!
+    Fontion permettant d'établir la relation entre Google Drive et notre programme.
+    Ce programme est disponible sur internet et n'a quasiment pas été modifié par nos soins.
+    https://learndataanalysis.org/google-drive-api-in-python-getting-started-lesson-1/
+    """
     print(client_secret_file, api_name, api_version, scopes, sep='-')
     CLIENT_SECRET_FILE = client_secret_file
     API_SERVICE_NAME = api_name
@@ -40,30 +45,6 @@ from google.auth.transport.requests import Request
     except Exception as e:
         print('Unable to connect.')
         print(e)
-        return None"""
-  
-import datetime
-import pickle
-from googleapiclient.discovery import build
-from google.oauth2 import service_account
-
-def Create_Service(service_account_file, api_name, api_version, *scopes):
-    SCOPES = [scope for scope in scopes[0]]
-    cred = service_account.Credentials.from_service_account_file(
-        service_account_file, scopes=SCOPES)
-
-    try:
-        service = build(api_name, api_version, credentials=cred)
-        print(api_name, 'service created successfully')
-        return service
-    except Exception as e:
-        print('Unable to connect.')
-        print(e)
         return None
+  
 
-# Reste du code inchangé
-
-
-def convert_to_RFC_datetime(year=1900, month=1, day=1, hour=0, minute=0):
-    dt = datetime.datetime(year, month, day, hour, minute, 0).isoformat() + 'Z'
-    return dt

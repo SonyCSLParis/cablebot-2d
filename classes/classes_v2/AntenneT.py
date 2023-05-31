@@ -5,7 +5,10 @@ Created on Fri Mar 17 14:38:31 2023
 @author: angab
 """
 
-
+from googleapiclient.http import MediaFileUpload
+from Google import Create_Service
+from datetime import date
+from datetime import datetime
 import socket
 import testT as te
 import time
@@ -495,7 +498,7 @@ class Cablebot:
             pt_goal=Cons[i]
             self.travel(pt_start,pt_goal,T)
             self.takepic()
-            recup_image()
+            self.recup_image()
         return 0
 
 
@@ -505,7 +508,7 @@ class EmmetCam:
         self.h=host
         self.p=port
         self.socket=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	self.compteur=0
+	    self.compteur=0
         
     def connect(self):
         self.socket.connect((self.h, self.p))
@@ -522,9 +525,8 @@ class EmmetCam:
     
     def finparc(self):
         mes='1'
-        print('Fin de parcours')
-	path = 'Users/angab/OneDrive/Documents/ROB4/PI/photos/'
-      
+        print("Fin de parcours")
+	    path = "Users/angab/OneDrive/Documents/ROB4/PI/photos/"
         now = datetime.now()
         print("now: ",now)
         current_time = str(now.strftime("%H:%M:%S"))
@@ -548,10 +550,15 @@ class EmmetCam:
 		chemin_destination = "Users/angab/OneDrive/Documents/ROB4/PI/photos/" + name
 		nom_fichier = str(self.compteur)
 		img.save(chemin_destination + nom_fichier)
-
 		print("L'image a été enregistrée avec succès.")
+        return
 		
     def upload_file(self, path, name):
+        """!
+        Cette fonction permet de créer un dossier dans Google Drive avec le nom indiqué en parametre et d'envoyer des photos enregistrés localement depuis le path indiqué vers le dossier créé. Supprime en suite les photos du dossier local. 
+        @param path chemin du dossier local contenant les photos 
+        @param name nom du dossier à créer dans Google Drive
+        """
     	        #//!!!\\
         #EN ARGV(ARGUMENT QUAND ON EXECUTE LE PROGRAMME)
         #1: PATH VERS LE DOSSIER DE L'ORDI CONTENANT LES PHOTOS

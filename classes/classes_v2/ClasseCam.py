@@ -42,8 +42,6 @@ class AntenneCam:
                 mes = self.client.recv(255)
                 mes=str(mes)
                 if mes != "b''":
-                    
-
                         self.prendrePhoto(count)
                 else:
                     a=False
