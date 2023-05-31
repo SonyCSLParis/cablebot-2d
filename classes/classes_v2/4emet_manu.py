@@ -23,20 +23,20 @@ portnord = 15555
 #hoste2 = input("quelle est l'adresse ip de la deuxième antenne? \n")
 hosteouest = '192.168.1.141'
 #hosteouest = 'localhost'
-portouest = 15556
+portouest = 15555
 
 hosteest = '192.168.1.102'
 #hosteest = 'localhost'
-portest = 15557
+portest = 15555
 
 hostesud = '192.168.1.150'
 #hostesud = 'localhost'
-portsud = 15558
+portsud = 15555
 
 
 
 hostcam='192.168.1.184'
-portcam = 15559
+portcam = 15555
 
 try:
     #Création des éméteurs

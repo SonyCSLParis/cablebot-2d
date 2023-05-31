@@ -34,16 +34,17 @@ class AntenneCam:
         
     def run(self):
         print ("{} connected".format( self.address ))
-        a=True
+        test=True
         count = 0
-        while a==True:
+        while test==True:
                 count = count +1
                 mes = self.client.recv(255)
                 mes=str(mes)
                 if mes != "b'E'":
                         self.prendrePhoto(count)
                 else:
-                    a=False
+                    test=False
+                print("test: ",test)
         print ("Close")
         self.client.close()
         self.socket.close()
