@@ -40,10 +40,10 @@ portcam = 15555
 
 try:
     #Création des éméteurs
-    emet1=ant.EmmeteurT(hostenord,portnord,0)
-    emet2=ant.EmmeteurT(hosteouest,portouest,0)
-    emet3=ant.EmmeteurT(hosteest,portest,0)
-    emet4=ant.EmmeteurT(hostesud,portsud,0)
+    emet3=ant.EmmeteurT(hostenord,portnord,0)
+    emet1=ant.EmmeteurT(hosteouest,portouest,0)
+    emet4=ant.EmmeteurT(hosteest,portest,0)
+    emet2=ant.EmmeteurT(hostesud,portsud,0)
     EMET=[emet1,emet2,emet3,emet4]
     
     #Création de la caméra 
@@ -62,12 +62,22 @@ try:
     Tor=[-0.1,-0.1,-0.1,-0.1]
     cable.set_torques(Tor)
     time.sleep(2)
-    for i in range(4):
-        Mod=['v','v','v','v']
-        Mod[i]='t'
-        cable.switch(Mod)
-        time.sleep(2)
+    Mod=['t','v','v','v']
+    cable.switch(Mod)
+    time.sleep(2)
+
+    Mod=['v','v','t','v']
+    cable.switch(Mod)
+    time.sleep(2)
+
+    Mod=['v','t','v','v']
+    cable.switch(Mod)
+    time.sleep(2)
     
+    Mod=['v','v','v','t']
+    cable.switch(Mod)
+    time.sleep(2)
+
     input("next?")
     
     #Test des couples

@@ -366,8 +366,10 @@ class Cablebot:
         print("SHUTDOWN")
         if self.Cam != None:
             self.Cam.end()
-        for i in self.Emet:
-            i.end()
+        self.Emet[3].end()
+        self.Emet[1].end()
+        self.Emet[0].end()
+        self.Emet[2].end()
     
     def reset_mot(self,L):
         for i in range(len(self.Emet)):
@@ -519,7 +521,7 @@ class EmmetCam:
     def takepic(self):
         mes_pic='pic'
         self.socket.sendall(mes_pic.encode())
-        time.sleep(3)
+        time.sleep(5)
         self.compteur+=1
         self.recup_image(self.compteur)
         return
