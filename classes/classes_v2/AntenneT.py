@@ -528,7 +528,7 @@ class EmmetCam:
     def finparc(self):
         #mes='1'
         print("Fin de parcours") 
-        path = "Users/angab/OneDrive/Documents/ROB4/PI/photos/"
+        path = "photos/"
         now = datetime.now()
         print("now: ",now)
         current_time = str(now.strftime("%H:%M:%S"))
@@ -548,15 +548,18 @@ class EmmetCam:
         return
         
     def recup_image(self, count): 
-        url = "https://192.168.1.184" 
+
+        url = "http://192.168.1.184/photo_picamera.png" 
         name = str(count) + ".png" 
         response = requests.get(url) 
+        print(response.content)
         img = Image.open(BytesIO(response.content)) 
-        chemin_destination = "Users/angab/OneDrive/Documents/ROB4/PI/photos/" + name 
-        nom_fichier = str(self.compteur) 
-        img.save(chemin_destination + nom_fichier) 
+        print("hey")
+        chemin_destination = "/home/leonard/Documents/Projet_indus/classes/photo/" + name  
+        img.save(chemin_destination) 
         print("L'image a été enregistrée avec succès.")
         return
+
 		
     def upload_file(self, path, name):
         """!
@@ -574,7 +577,7 @@ class EmmetCam:
         # puis supprime les photos du dossier de l'ordinateur.
 
         print("Début d'envoi")
-        CLIENT_SECRET_FILE = 'Users/angab/OneDrive/Documents/ROB4/PI/code/cablebot-2d/classes/classes_v2/client_secret_cablecam.json'#'/home/pi/cablebot/classes/classes_v2/client_secret_cablecam.json'
+        CLIENT_SECRET_FILE = '/home/leonard/Documents/Projet_indus/classes/cablebot-2d/classes/classes_v2/client_secret_cablecam.json'#'/home/pi/cablebot/classes/classes_v2/client_secret_cablecam.json'
         API_NAME = 'drive'
         API_VERSION = 'v3'
         SCOPES = ['https://www.googleapis.com/auth/drive']
