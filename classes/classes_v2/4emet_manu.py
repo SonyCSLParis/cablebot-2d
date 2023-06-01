@@ -100,12 +100,13 @@ try:
             cable.takepic()
         a=int(input("Bouger à nouveau? \n 1-oui"))
     
-    input("Dessin dans le plan")
-    d=1
+    d=int(input("Dessin dans le plan \n 1-oui \n"))
     while d==1:
         cable.plan_test()
         d=int(input("Encore? \n 1-oui"))
     input("Fin de parcours")
+    cable.endrun()
+    time.sleep(5)
     cable.end()
    
     

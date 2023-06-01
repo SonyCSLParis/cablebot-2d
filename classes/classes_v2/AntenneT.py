@@ -353,9 +353,9 @@ class Cablebot:
         for i in self.Emet:
             i.switch('v')
         time.sleep(1)
-        #for i in self.Emet:
-            #i.switch('v')
-        #time.sleep(1)
+        for i in self.Emet:
+            i.switch('v')
+        time.sleep(1)
         print("prise de photo")
         print("\n")
         if self.Cam != None:
@@ -397,11 +397,11 @@ class Cablebot:
          dy = a[1] - b[1]
          return math.sqrt(dx * dx + dy * dy)
 
-    def unwind(self,reference, position, target):
-         distance_start = self.distance(reference, position)
-         distance_end = self.distance(reference, target)
-         return distance_end - distance_start
-
+    def unwind(self,reference,position,target):
+        distance_start=self.distance(reference, position)
+        distance_end=self.distance(reference, target)
+        return distance_end-distance_start
+    
     def compute_unwind(self,position, target):
          nord = self.unwind(self.kNord, position, target)
          ouest = self.unwind(self.kOuest, position, target)
@@ -500,7 +500,6 @@ class Cablebot:
             pt_goal=Cons[i]
             self.travel(pt_start,pt_goal,T)
             self.takepic()
-            self.recup_image()
         return 0
 
 
@@ -520,7 +519,7 @@ class EmmetCam:
     def takepic(self):
         mes_pic='pic'
         self.socket.sendall(mes_pic.encode())
-        time.sleep(10)
+        time.sleep(3)
         self.compteur+=1
         self.recup_image(self.compteur)
         return
@@ -528,12 +527,12 @@ class EmmetCam:
     def finparc(self):
         #mes='1'
         print("Fin de parcours") 
-        path = "photos/"
+        path = "/home/leonard/Documents/Projet_indus/classes/photo/"
         now = datetime.now()
         print("now: ",now)
         current_time = str(now.strftime("%H:%M:%S"))
         print("current_time", current_time)
-        self.uploadFile(path, current_time)
+        self.upload_file(path, current_time)
         #self.socket.sendall(mes.encode())
         
         time.sleep(5)
@@ -552,7 +551,6 @@ class EmmetCam:
         url = "http://192.168.1.184/photo_picamera.png" 
         name = str(count) + ".png" 
         response = requests.get(url) 
-        print(response.content)
         img = Image.open(BytesIO(response.content)) 
         print("hey")
         chemin_destination = "/home/leonard/Documents/Projet_indus/classes/photo/" + name  
