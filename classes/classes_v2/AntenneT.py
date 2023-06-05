@@ -500,7 +500,7 @@ class Cablebot:
             pt_goal=Cons[i]
             self.travel(pt_start,pt_goal,T)
             self.takepic()
-            self.recup_image()
+            self.Cam.recup_image()
         return 0
 
 
