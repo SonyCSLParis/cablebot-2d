@@ -71,7 +71,7 @@ class EmmeteurT:
         self.p=port
         self.socket=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.tour=turn
-        print("Attention, vérifiez bien qu'un couple positif enroule le câble")
+        print("Attention, vérifiez bien qu'un couple negatif enroule le câble")
         
     def connect(self):
         self.socket.connect((self.h, self.p))
@@ -133,11 +133,11 @@ class Cablebot:
         self.conv=0.2
         
         #DATA
-        self.kNord = [0, 0]
-        self.kOuest = [3, 0]
-        self.kEst = [0, 3]
-        self.kSud = [3, 3]
-        self.kDistancePerTurn = 0.1
+        self.kOuest = [0, 0]
+        self.kSud = [3, 0]
+        self.kNord = [0, 3]
+        self.kEst = [3, 3]
+        self.kDistancePerTurn = 0.06
     
     def start(self):
         if self.Cam != None:
@@ -353,9 +353,9 @@ class Cablebot:
         for i in self.Emet:
             i.switch('v')
         time.sleep(1)
-        for i in self.Emet:
-            i.switch('v')
-        time.sleep(1)
+        #for i in self.Emet:
+            #i.switch('v')
+        #time.sleep(1)
         print("prise de photo")
         print("\n")
         if self.Cam != None:
@@ -366,10 +366,8 @@ class Cablebot:
         print("SHUTDOWN")
         if self.Cam != None:
             self.Cam.end()
-        self.Emet[3].end()
-        self.Emet[1].end()
-        self.Emet[0].end()
-        self.Emet[2].end()
+        for i in self.Emet:
+            i.end()
     
     def reset_mot(self,L):
         for i in range(len(self.Emet)):
@@ -399,17 +397,17 @@ class Cablebot:
          dy = a[1] - b[1]
          return math.sqrt(dx * dx + dy * dy)
 
-    def unwind(self,reference,position,target):
-        distance_start=self.distance(reference, position)
-        distance_end=self.distance(reference, target)
-        return distance_end-distance_start
-    
+    def unwind(self,reference, position, target):
+         distance_start = self.distance(reference, position)
+         distance_end = self.distance(reference, target)
+         return distance_end - distance_start
+
     def compute_unwind(self,position, target):
          nord = self.unwind(self.kNord, position, target)
          ouest = self.unwind(self.kOuest, position, target)
          est = self.unwind(self.kEst, position, target)
          sud = self.unwind(self.kSud, position, target)
-         return [nord, ouest, est, sud]
+         return [ouest, sud, nord, est]
 
     def compute_turns(self,distances):
          return [distance / self.kDistancePerTurn for distance in distances]
@@ -442,16 +440,16 @@ class Cablebot:
         speeds = self.compute_speeds_from_positions(position, target, duration)
         print("speeds initiales: ",speeds)
         Mod=[]
-        x=target[0]
-        y=target[1]
-        S_dead=0 # start dead zone
-        E_dead=0.8 #end dead zone
-        if S_dead <= x <= E_dead or S_dead <= y <= E_dead:
-            tor=-0.05
-        else:
-            tor=-0.1
-        TOR=[tor,tor,tor,tor]
-        self.set_torques(TOR)
+        #x=target[0]
+        #y=target[1]
+        #S_dead=0 # start dead zone
+        #E_dead=0.8 #end dead zone
+        #if S_dead <= x <= E_dead or S_dead <= y <= E_dead:
+            #tor=-0.05
+        #else:
+            #tor=-0.1
+        #TOR=[tor,tor,tor,tor]
+        #self.set_torques(TOR)
         for i in range (4):
             if speeds[i]<0:
                 mod='v'
@@ -502,6 +500,7 @@ class Cablebot:
             pt_goal=Cons[i]
             self.travel(pt_start,pt_goal,T)
             self.takepic()
+            self.recup_image()
         return 0
 
 

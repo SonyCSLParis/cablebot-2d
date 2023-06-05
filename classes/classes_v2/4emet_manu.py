@@ -14,13 +14,11 @@ print("Programme de test des classes du cable bot, pensez à lancer les simulati
 input("Continuer?")
 
 #192.168.1.166 ip de leonard
-#hoste1 = input("quelle est l'adresse ip de la première antenne? \n")
 hostenord = '192.168.1.128'
 #hostenord = 'localhost'
 portnord = 15555
 
 #192.168.1.141
-#hoste2 = input("quelle est l'adresse ip de la deuxième antenne? \n")
 hosteouest = '192.168.1.141'
 #hosteouest = 'localhost'
 portouest = 15555
@@ -40,15 +38,15 @@ portcam = 15555
 
 try:
     #Création des éméteurs
-    emet3=ant.EmmeteurT(hostenord,portnord,0)
     emet1=ant.EmmeteurT(hosteouest,portouest,0)
-    emet4=ant.EmmeteurT(hosteest,portest,0)
     emet2=ant.EmmeteurT(hostesud,portsud,0)
+    emet3=ant.EmmeteurT(hostenord,portnord,0)
+    emet4=ant.EmmeteurT(hosteest,portest,0)
     EMET=[emet1,emet2,emet3,emet4]
     
     #Création de la caméra 
-    cam = ant.EmmetCam(hostcam, portcam)
-    #cam = None
+    #cam = ant.EmmetCam(hostcam, portcam)
+    cam = None
     #Création de la cable bot
     cable=ant.Cablebot(cam,EMET, 3, 3, 1)
     
@@ -62,22 +60,12 @@ try:
     Tor=[-0.1,-0.1,-0.1,-0.1]
     cable.set_torques(Tor)
     time.sleep(2)
-    Mod=['t','v','v','v']
-    cable.switch(Mod)
-    time.sleep(2)
-
-    Mod=['v','v','t','v']
-    cable.switch(Mod)
-    time.sleep(2)
-
-    Mod=['v','t','v','v']
-    cable.switch(Mod)
-    time.sleep(2)
+    for i in range(4):
+        Mod=['v','v','v','v']
+        Mod[i]='t'
+        cable.switch(Mod)
+        time.sleep(2)
     
-    Mod=['v','v','v','t']
-    cable.switch(Mod)
-    time.sleep(2)
-
     input("next?")
     
     #Test des couples
@@ -104,19 +92,22 @@ try:
             T=int(input("Quelle durée? \n"))
     
             cable.travel(S,G,T)
+            print("fin de parcours")
+            input("Deplacement à la main")
+            mod=['t','t','t','t']
+            cable.switch(mod)
             dep=int(input("Point suivant? \n 1-Oui \n 0-Non"))
         pic=int(input("Prendre une photo? \n 1-Oui \n"))
         if pic==1:
             cable.takepic()
         a=int(input("Bouger à nouveau? \n 1-oui"))
     
-    d=int(input("Dessin dans le plan \n 1-oui \n"))
+    input("Dessin dans le plan")
+    d=1
     while d==1:
         cable.plan_test()
         d=int(input("Encore? \n 1-oui"))
     input("Fin de parcours")
-    cable.endrun()
-    time.sleep(5)
     cable.end()
    
     
